@@ -9,12 +9,9 @@ export  class Register extends Component {
         axios({
             method: 'post',
             url: 'http://localhost:8000/register',
-            headers: {
-                'crossDomain': true,  //For cors errors 
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
             data: {
-              userName: this.props.userName
+              email: this.props.email,
+              password: this.props.password
             }
         }).then(res => {
             console.log(res);

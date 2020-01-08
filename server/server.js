@@ -11,7 +11,7 @@ const port = process.env.PORT || 8000;
 app.use(cors());
 app.use(express.json());
 
-const uri = process.env.ATLAS_URI;
+const uri ="mongodb+srv://sample:sample@sample-4j1du.mongodb.net/test?retryWrites=true&w=majority" ;
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true ,useUnifiedTopology: true}
 );
 
