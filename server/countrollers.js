@@ -6,20 +6,33 @@ const users = (req, res) => {
     }
     ).catch((error) => {
         res.send(error)
-    }
-    )
+    })
 }
 
 const login = (req, res) => {
     User.findOne({ email: req.body.email })
         .then((user) => {
-                res.json({ user: user })
-    }).catch((error) => {
+
+            if (user) {
+                if (user.password === req.body.password) {
+                    return { user: user }
+                }
+                return {error:"password mismatch"}
+            }
+            return { error: "no user found" }
+            
+        }).then((response) => {
+          res.json(response)
+        }
+        ).catch((error) => {
+        // console.log(error);
         res.send(error)
     }
     )
 }
     
+
+
 const register = (req, res) => {
     User.create({ email: req.body.email, password: req.body.password })
         .then((users) => {

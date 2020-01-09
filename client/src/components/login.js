@@ -1,32 +1,45 @@
-import React, { Component } from 'react';
+import  React,{ Component } from 'react';
 import axios from 'axios';
+import {Route, Redirect } from 'react-router-dom';
+import Dashboard from './dashboard';
 
 export default class login extends Component {
+
+  state = {
+    isLoggedin : false
+  }
   
 onSubmit = event => {
      event.preventDefault();
-  const email = this.refs.email.value;
-       const password = this.refs.password.value;
-    console.log(email,password);
-     
-  
+        const email = this.refs.email.value;
+        const password = this.refs.password.value;
+        axios.post('http://localhost:8000/login',{email,password})
+          .then(res => {
+            if (res.data.user) {                
+                this.setState({
+                  isLoggedin: true
+                });
+              }
+            if (res.data.error || res.error) {
+                alert(res.data.error,res.error)
+              }
+          })
+          .catch (error => {
+          alert(error.response);
+          });
 }
-
-
-
-//   onSubmit = () => {
-//     axios.post('http://localhost:8000/login')
-//        .then(res => {
-//         console.log(res.data);
-//         })
-//         .catch (error => {
-//         console.log(error);
-// });
-    
-  // }
   
   render() {
+    if (this.state.isLoggedin) {
+            console.log("logged in");
+      return <Redirect to='/dashboard'
+        // component={Dashboard}
+      />      
+
+      
+    }
     return (
+
       <div className="row mt-5">
   <div className="col-md-6 m-auto">
     <div className="card card-body">

@@ -2,38 +2,23 @@ import React, { Component } from 'react';
 import axios from 'axios';
 // import { connect } from 'react-redux';
 
+
 export default class Register extends Component {
-
-
-
 
 handleSubmit = event => {
      event.preventDefault();
-  const email = this.refs.email.value;
-       const password = this.refs.password.value;
-    console.log(email,password);
-     
-
+      const email = this.refs.email.value;
+      const password = this.refs.password.value;
+  axios.post('http://localhost:8000/register', { email, password })
+    .then(res => {
+      console.log(res.data);
+    })
+    .catch(error => {
+      // console.log(error);
+            return( "User already exits");
+    })
   };
-
-
-
-//  handleSubmit = event => {
-//         event.preventDefault();
-//         axios({
-//             method: 'post',
-//             url: 'http://localhost:8000/register',
-//             data: {
-//               email: this.props.email,
-//               password: this.props.password
-//             }
-//         }).then(res => {
-//             console.log(res);
-//             console.log(res.data);
-//         }).catch(error => {
-//      console.log(error);
-// });
-// }   
+  
   render() {
     return (
       <div className="row mt-5">
@@ -47,10 +32,8 @@ handleSubmit = event => {
                   type="email"
                   id="email"
                   ref="email"
-                  name="email"
                   className="form-control"
                   placeholder="Enter Email"
-                  // value={this.props.email}
                 />
               </div>
               <div className="form-group">
@@ -59,10 +42,8 @@ handleSubmit = event => {
                   type="password"
                   id="password"
                   ref="password"
-                  name="password"
                   className="form-control"
                   placeholder="Create Password"
-                  // value={this.props.password}
                 />
               </div>
               <button type="submit" className="btn btn-primary btn-block">
