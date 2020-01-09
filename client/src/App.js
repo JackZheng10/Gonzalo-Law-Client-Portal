@@ -5,43 +5,45 @@ import Login from './components/login';
 import Register from './components/register';
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route , Redirect} from "react-router-dom";
+import { Route , Redirect, Switch} from "react-router-dom";
 import Dashboard from './components/dashboard';
-export default class App extends Component {
-  render() {
-    
+
+
 const fakeAuth = {
   isAuthenticated: false,
-  authenticate(cb) {
+  authenticate(user) {
     this.isAuthenticated = true
-    setTimeout(cb, 100)
+    setTimeout(user, 100)
   },
-  signout(cb) {
+  signout(user) {
     this.isAuthenticated = false
-    setTimeout(cb, 100)
+    setTimeout(user, 100)
   }
 }
 
-    const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    fakeAuth.isAuthenticated === true
-      ? <Component {...props} />
-      : <Redirect to='/login' />
+export default class App extends Component {
+  render() {
+        
+    const PrivateRoute = ({ component: Component }) => (
+  <Route  render={(props) => (
+    fakeAuth.isAuthenticated === true ? <Component {...props} /> : <Redirect to='/login' />
   )} />
 )
     return (
 
-<Router>
-      <div className="container">
-        <Header/>
-      <br/>
-      <Route path="/" exact component={Welcome} />
-      <Route path="/register" component={Register} />
+      <React.Fragment>
+        
+          <Header/>
+        <br />
+        <Switch>
+          <Route path="/" exact component={Welcome} />
+          <Route path="/register" component={Register} />
           <Route path="/login" component={Login} /> 
-                  <PrivateRoute path='/dashboard' component={Dashboard} />
-         <br/>
-      </div>
-    </Router>
+          <PrivateRoute path='/dashboard' component={Dashboard} />
+          <Route path='/dashboard' component={Dashboard} />        
+      </Switch>
+
+      </React.Fragment>
 
      );
   }

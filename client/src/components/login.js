@@ -1,7 +1,7 @@
 import  React,{ Component } from 'react';
 import axios from 'axios';
-import {Route, Redirect } from 'react-router-dom';
-import Dashboard from './dashboard';
+import { Redirect } from 'react-router-dom';
+// import Dashboard from './dashboard';
 
 export default class login extends Component {
 
@@ -31,12 +31,8 @@ onSubmit = event => {
   
   render() {
     if (this.state.isLoggedin) {
-            console.log("logged in");
-      return <Redirect to='/dashboard'
-        // component={Dashboard}
-      />      
-
-      
+            alert("logged in");
+      return <Redirect to='/dashboard'/>      
     }
     return (
 
@@ -51,6 +47,7 @@ onSubmit = event => {
             typeof="email"
                   id="email"
                   ref="email"
+                  required
             // name="email"
             className="form-control"
             placeholder="Enter Email"
@@ -62,6 +59,7 @@ onSubmit = event => {
             typeof="password"
                   id="password"
                   ref="password"
+                  required
             // name="password"
             className="form-control"
             placeholder="Enter Password"

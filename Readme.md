@@ -1,4 +1,3 @@
+# MERN Login-Register Application
 
-MERN Login-Register Application
-
-For Demo Visit :  https://mern-login.now.sh/
+For Demo Visit : https://mern-login.now.sh/

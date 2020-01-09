@@ -6,16 +6,16 @@ import axios from 'axios';
 export default class Register extends Component {
 
 handleSubmit = event => {
-     event.preventDefault();
+  event.preventDefault();
+  
       const email = this.refs.email.value;
       const password = this.refs.password.value;
   axios.post('http://localhost:8000/register', { email, password })
     .then(res => {
-      console.log(res.data);
+      return(res.data)
     })
     .catch(error => {
-      // console.log(error);
-            return( "User already exits");
+            return(error.response);
     })
   };
   

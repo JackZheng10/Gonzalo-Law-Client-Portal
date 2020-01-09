@@ -12,7 +12,6 @@ const users = (req, res) => {
 const login = (req, res) => {
     User.findOne({ email: req.body.email })
         .then((user) => {
-
             if (user) {
                 if (user.password === req.body.password) {
                     return { user: user }
@@ -25,21 +24,29 @@ const login = (req, res) => {
           res.json(response)
         }
         ).catch((error) => {
-        // console.log(error);
         res.send(error)
     }
     )
 }
     
 
-
 const register = (req, res) => {
-    User.create({ email: req.body.email, password: req.body.password })
-        .then((users) => {
-            res.json(users)
+    User.findOne({ email: req.body.email })
+        .then((user) => {
+            if (user) {
+                return { error: "user already exists" };
+            }
+            else {
+                User.create({ email: req.body.email, password: req.body.password })
+                    .then((users) => {
+                        res.json(users)
+                    }).catch((error) => {
+                        return { error };
+                    });
+            }
         }).catch((error) => {
-            res.send(error)
-        })
+                        res.send(error)
+                    });
 }
-
+    
 module.exports = { users, login ,register }
