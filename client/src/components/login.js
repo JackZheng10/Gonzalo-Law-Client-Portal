@@ -73,7 +73,7 @@ onSubmit = event => {
               <div className="form-group">
           <label >Password</label>
           <input
-            typeof="password"
+            type="password"
                   id="password"
                   ref="password"
                   required
