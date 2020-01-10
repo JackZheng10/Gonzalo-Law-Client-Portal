@@ -37,7 +37,9 @@ const register = (req, res) => {
                 return { error: "user already exists" };
             }
             else {
-                User.create({ email: req.body.email, password: req.body.password })
+                User.create({
+                    email: req.body.email, password: req.body.password, name: req.body.name
+                })
                     .then((users) => {
                         res.json(users)
                     }).catch((error) => {
