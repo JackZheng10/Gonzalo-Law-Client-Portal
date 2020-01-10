@@ -1,7 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-let routes = require('./routes')
+let routes = require('./routes');
+
+require('dotenv').config();
+
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -9,7 +12,7 @@ const port = process.env.PORT || 8000;
 app.use(cors());
 app.use(express.json());
 
-const uri ="mongodb+srv://sample:sample@sample-4j1du.mongodb.net/test?retryWrites=true&w=majority" ;
+const uri = process.env.ATLAS_URI ;
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true ,useUnifiedTopology: true}
 );
 
