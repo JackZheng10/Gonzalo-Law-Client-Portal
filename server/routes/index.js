@@ -1,7 +1,7 @@
 const express = require('express');
 const routes = express.Router();
-const { users } = require('./countrollers');
-const { login, register } = require('./countrollers');
+const { users } = require('../controllers');
+const { login, register } = require('../controllers');
 
 
 routes.get("/", users);
