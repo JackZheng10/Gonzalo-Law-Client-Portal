@@ -13,7 +13,7 @@ export default function Footer() {
           {/* <br /> */}
           <a style={{textDecorationLine:"none" , color:"#fff" , justifyContent: "center"}}
               className="navbar nav-item "
-              href="https://github.com/satyasandeep007/todo-app-react">
+              href="https://github.com/satyasandeep007/react-redux-login">
                    View Code
               </a>
               </p>
