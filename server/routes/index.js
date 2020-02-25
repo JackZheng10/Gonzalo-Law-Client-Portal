@@ -1,8 +1,7 @@
-const express = require('express');
+const express = require("express");
 const routes = express.Router();
-const { users } = require('../controllers');
-const { login, register } = require('../controllers');
-
+const { users } = require("../controllers");
+const { login, register } = require("../controllers");
 
 routes.get("/", users);
 routes.post("/login", login);
