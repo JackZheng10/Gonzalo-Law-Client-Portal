@@ -50,6 +50,7 @@ export default class Register extends Component {
                   type="email"
                   id="email"
                   ref="email"
+                  required
                   className="form-control"
                   placeholder="Enter email"
                 />
@@ -60,6 +61,7 @@ export default class Register extends Component {
                   type="name"
                   id="name"
                   ref="name"
+                  required
                   className="form-control"
                   placeholder="Enter name"
                 />
@@ -70,6 +72,7 @@ export default class Register extends Component {
                   type="password"
                   id="password"
                   ref="password"
+                  required
                   className="form-control"
                   placeholder="Create password"
                 />
