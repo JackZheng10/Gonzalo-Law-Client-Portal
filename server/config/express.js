@@ -4,7 +4,7 @@ const path = require("path"),
   mongoose = require("mongoose"),
   routes = require("../routes");
 
-require("dotenv").config();
+//require("dotenv").config();
 
 module.exports.init = () => {
   if (process.env.DB_URI) {
