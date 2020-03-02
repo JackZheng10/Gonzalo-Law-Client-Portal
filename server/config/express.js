@@ -7,7 +7,7 @@ const path = require("path"),
 //require("dotenv").config();
 
 module.exports.init = () => {
-  mongoose.connect(process.env.DB_URI || require("./config").db.uri, {
+  mongoose.connect(process.env.DB_URI || require("./config.js").db.uri, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
