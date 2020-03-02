@@ -15,8 +15,11 @@ export default class login extends Component {
     event.preventDefault();
     const email = this.refs.email.value;
     const password = this.refs.password.value;
+
+    let port = process.env.PORT || 8000;
+
     axios
-      .post("http://localhost:8000/login", { email, password })
+      .post(`http://localhost:${port}/login`, { email, password })
       .then(res => {
         if (res.data.user) {
           this.setState({

@@ -15,8 +15,10 @@ export default class Register extends Component {
     const password = this.refs.password.value;
     const name = this.refs.name.value;
 
+    let port = process.env.PORT || 8000;
+
     axios
-      .post("http://localhost:8000/register", { email, password, name })
+      .post(`http://localhost:${port}/register`, { email, password, name })
       .then(res => {
         if (res.data.email) {
           this.setState({
