@@ -15,13 +15,13 @@ export default class App extends Component {
       <React.Fragment>
         <Header />
         <Switch>
-          <Route exact path="/Welcome" component={Welcome} />
+          <Route exact path="/welcome" component={Welcome} />
+          <Route exact path="/">
+            <Redirect to="/welcome" />
+          </Route>
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/dashboard" component={Dashboard} />
-          <Route exact path="/">
-            <Redirect to="/Welcome" />
-          </Route>
         </Switch>
         <br />
       </React.Fragment>
