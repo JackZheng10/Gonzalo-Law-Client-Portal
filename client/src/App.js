@@ -15,7 +15,7 @@ export default class App extends Component {
       <React.Fragment>
         <Header />
         <Switch>
-          <Route path="/" exact component={Welcome} />
+          <Route exact path="/" component={Welcome} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/dashboard" component={Dashboard} />
