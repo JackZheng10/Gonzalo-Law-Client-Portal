@@ -7,19 +7,11 @@ const path = require("path"),
 //require("dotenv").config();
 
 module.exports.init = () => {
-  if (process.env.DB_URI) {
-    mongoose.connect(process.env.DB_URI, {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useUnifiedTopology: true
-    });
-  } else {
-    mongoose.connect(require("./config").db.uri, {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useUnifiedTopology: true
-    });
-  }
+  mongoose.connect(process.env.DB_URI || require("./config").db.uri, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+  });
 
   const app = express();
 
