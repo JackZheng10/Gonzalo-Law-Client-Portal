@@ -1,0 +1,34 @@
+{
+  "name": "client_portal_heroku_deployment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "install-all": "concurrently \"npm install\" \"cd client && npm install\"",
+    "client": "cd client && npm start",
+    "server": "nodemon server/server.js",
+    "dev": "concurrently \"nodemon server/server.js\" \"cd client && npm run start\"",
+    "build": "cd client && npm build",
+    "start": "node server/server.js",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "concurrently": "^3.6.0",
+    "md5": "^2.2.1",
+    "mongoose": "^5.8.3",
+    "mongoose-unique-validator": "^2.0.3",
+    "morgan": "^1.9.1",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2",
+    "nodemon": "^1.18.10",
+    "body-parser": "^1.19.0",
+    "mocha": "^6.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

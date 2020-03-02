@@ -1,0 +1,14 @@
+.welcomeHeader {
+  margin: 10px;
+  color: teal;
+  display: flex;
+  justify-content: center;
+}
+
+.registerBTN {
+  background-color: #ee8c3a !important;
+}
+
+.loginBTN {
+  background-color: #2b2147 !important;
+}
