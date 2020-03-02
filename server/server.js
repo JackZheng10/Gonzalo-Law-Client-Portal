@@ -1,8 +1,8 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const path = require("path");
-let routes = require("./routes");
+const path = require("path"),
+  express = require("express"),
+  cors = require("cors"),
+  mongoose = require("mongoose"),
+  routes = require("./routes");
 
 require("dotenv").config();
 
