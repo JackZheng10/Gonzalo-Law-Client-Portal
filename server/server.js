@@ -24,6 +24,8 @@ connection.once("open", () => {
 });
 connection.on("error", e => console.log("error"));
 
+app.use("/", routes);
+
 if (process.env.NODE_ENV === "production") {
   // Serve any static files
   app.use(express.static(path.join(__dirname, "../../client/build")));
@@ -33,8 +35,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
   });
 }
-
-app.use("/", routes);
 
 app.listen(port, () => {
   console.log(`Server is running on port : ${port}`);
