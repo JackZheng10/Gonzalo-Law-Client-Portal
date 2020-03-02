@@ -12,11 +12,19 @@ const port = process.env.PORT || 8000;
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.DB_URI || require("./config/config.js").db.uri, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true
-});
+if (process.env.DB_URI) {
+  mongoose.connect(process.env.DB_URI, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+  });
+} else {
+  mongoose.connect(require("./config/config.js").db.uri, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+  });
+}
 
 const connection = mongoose.connection;
 connection.once("open", () => {
