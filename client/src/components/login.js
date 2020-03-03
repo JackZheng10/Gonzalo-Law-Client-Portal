@@ -16,10 +16,12 @@ export default class login extends Component {
     const email = this.refs.email.value;
     const password = this.refs.password.value;
 
-    let baseURL = process.env.REACT_APP_URL || "http://localhost:8000";
+    //heroku: baseURL = "/api/";
+    //local: baseURL = "http://localhost:8000/api/";
+    let baseURL = "/api/";
 
     axios
-      .post(baseURL + "/login", { email, password })
+      .post(baseURL + "login", { email, password })
       .then(res => {
         if (res.data.user) {
           this.setState({
@@ -36,6 +38,7 @@ export default class login extends Component {
       });
   };
 
+  /*
   componentWillMount() {
     axios.get("http://localhost:8000/").then(res => {
       if (this.state.isLoggedin) {
@@ -45,7 +48,7 @@ export default class login extends Component {
         this.setState({ persons });
       }
     });
-  }
+  }*/
 
   render() {
     if (this.state.isLoggedin) {

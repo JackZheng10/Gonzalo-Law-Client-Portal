@@ -15,10 +15,12 @@ export default class Register extends Component {
     const password = this.refs.password.value;
     const name = this.refs.name.value;
 
-    let baseURL = process.env.REACT_APP_URL || "http://localhost:8000";
+    //heroku: baseURL = "/api/";
+    //local: baseURL = "http://localhost:8000/api/";
+    let baseURL = "/api/";
 
     axios
-      .post(baseURL + "/register", { email, password, name })
+      .post(baseURL + "register", { email, password, name })
       .then(res => {
         if (res.data.email) {
           this.setState({
