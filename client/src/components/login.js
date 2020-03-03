@@ -16,10 +16,10 @@ export default class login extends Component {
     const email = this.refs.email.value;
     const password = this.refs.password.value;
 
-    let baseURL = process.env.URL || "http://localhost:8000/";
+    let baseURL = process.env.URL || "http://localhost:8000";
 
     axios
-      .post(baseURL + "login", { email, password })
+      .post(baseURL + "/login", { email, password })
       .then(res => {
         if (res.data.user) {
           this.setState({
