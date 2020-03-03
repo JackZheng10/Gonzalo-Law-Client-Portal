@@ -30,6 +30,7 @@ export default class dashboard extends Component {
               <strong>{this.state.user}</strong>
             </h1>
             <br />
+            <a className="btn" href="/projects"> Projects</a>
             <br />
             <a className="btn btn-danger btn-block" href="/login">
               Logout{" "}

@@ -18,7 +18,7 @@ export default class login extends Component {
 
     //heroku: baseURL = "/api/";
     //local: baseURL = "http://localhost:8000/api/";
-    let baseURL = "/api/";
+    let baseURL = "http://localhost:8000/api/";
 
     axios
       .post(baseURL + "login", { email, password })
