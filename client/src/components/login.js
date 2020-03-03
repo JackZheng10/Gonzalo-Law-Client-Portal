@@ -15,8 +15,13 @@ export default class login extends Component {
     event.preventDefault();
     const email = this.refs.email.value;
     const password = this.refs.password.value;
+    let baseURL;
 
-    let baseURL = process.env.URL || "http://localhost:8000";
+    if (process.env.URL) {
+      baseURL = process.env.URL;
+    } else {
+      baseURL = "http://localhost:8000";
+    }
 
     axios
       .post(baseURL + "/login", { email, password })
