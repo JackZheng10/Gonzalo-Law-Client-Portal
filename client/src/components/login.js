@@ -5,9 +5,9 @@ import { Redirect } from "react-router-dom";
 export default class login extends Component {
   state = {
     isLoggedin: false,
-    user: "",
+    adminLoggedin: false,
+    userEmail: "",
     persons: [],
-    email: "",
     name: ""
   };
 
@@ -26,7 +26,8 @@ export default class login extends Component {
         if (res.data.user) {
           this.setState({
             isLoggedin: true,
-            user: email
+            userEmail: email
+            //add an update to adminLoggedin, setting it to res.data.isAdmin
           });
         }
         if (res.data.error || res.error) {
@@ -52,9 +53,17 @@ export default class login extends Component {
 
   render() {
     if (this.state.isLoggedin) {
-      console.log(this.state.user);
+      console.log(this.state.userEmail);
       alert("Successfully logged in.");
-      localStorage.setItem("user", this.state.user);
+      localStorage.setItem("userEmail", this.state.userEmail);
+
+      /*
+      if (this.state.adminLoggedin){
+        return <Redirect to="/admin" />;
+      } else {
+        return <Redirect to="/dashboard" />;
+      }
+      */
       return <Redirect to="/dashboard" />;
     }
 
