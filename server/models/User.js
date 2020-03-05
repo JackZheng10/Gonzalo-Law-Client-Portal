@@ -1,6 +1,23 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
+const ProjectSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      unique: false,
+      required: true
+    },
+    type: {
+      type: String,
+      unique: false,
+      required: false
+    }
+  }
+);
+
+const Project = mongoose.model("Project", ProjectSchema);
+
 const UserSchema = new mongoose.Schema(
   {
     email: {
@@ -16,6 +33,16 @@ const UserSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+      unique: false
+    },
+    isAdmin: {
+      type: Boolean,
+      required: true,
+      unique: false
+    },
+    projects: {
+      type: [ProjectSchema],
+      required: false,
       unique: false
     }
   },
@@ -41,4 +68,4 @@ UserSchema.plugin(uniqueValidator, {
 
 const User = mongoose.model("User", UserSchema);
 
-module.exports = User;
+module.exports = User, Project;
