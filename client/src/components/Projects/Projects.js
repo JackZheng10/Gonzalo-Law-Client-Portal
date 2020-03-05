@@ -1,39 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Project from "./Project.js";
+import NewProject from "./NewProject.js"
 
-const Projects = ()=>{
+const Projects = (props)=>{
 
-  const data = [
-    {
-      name: "example 1",
-      type: "type 1"
-    },
-    {
-      name: "example 2",
-      type: "type 2"
-    },
-    {
-      name: "example 3",
-      type: "type 3"
-    },
-    {
-      name: "example 4",
-      type: "type 4"
-    },
+  const [modalIsOpen, setModal] = useState(false);
+  const {data} = props.location.state;
+  const updateModal = (state : bool)=>{
+    setModal(state);
 
-  ];
+  }
+  const
+  addData = (newData: Object)=>{
+    data.push(newData);
+  }
 
   const cards = [];
-  for(let i = 0; i<data.length; i++){
-    cards.push(<Project
-                name = {data[i].name}
-                type = {data[i].type}/>)
+
+  if(data){
+    for(let i = 0; i<data.length; i++){
+      cards.push(<Project
+                  name = {data[i].name}
+                  type = {data[i].type}/>)
+    }
   }
+
+
 
   return(
 
     <div>
-      <button> New Project </button>
+      <button onClick={() => setModal(true)}> New Project </button>
+      <NewProject
+      isOpen = {modalIsOpen}
+      setOpen ={updateModal}
+      addData = {addData}
+      />
       <br />
       {cards}
     </div>
