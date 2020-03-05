@@ -57,7 +57,7 @@ export default class login extends Component {
       alert("Successfully logged in.");
       localStorage.setItem("userEmail", this.state.userEmail);
 
-      /*
+      /* //for redirect to admin dashboard when admin logs in 
       if (this.state.adminLoggedin){
         return <Redirect to="/admin" />;
       } else {
