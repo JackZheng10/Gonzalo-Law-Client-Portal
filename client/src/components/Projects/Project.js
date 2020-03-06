@@ -1,13 +1,13 @@
 import React from 'react';
 import "./Project.css";
 
-const Project = (prop) => {
+const Project = (props) => {
 
   return (
     <div className="box">
 
-        <h3>{prop.name}</h3>
-        <p>{prop.type}</p>
+        <h3>{props.name}</h3>
+        <p>{props.type}</p>
     </div>
   )
 };
