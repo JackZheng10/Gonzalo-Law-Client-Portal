@@ -16,6 +16,7 @@ const login = (req, res) => {
       if (user) {
         if (user.password === req.body.password) {
           return { user: user }; //also return isAdmin as another property of the return object, to be used with line 29 of login
+          //isAdmin = new property of user schema
         }
         return { error: "Password is incorrect. Please try again." };
       }

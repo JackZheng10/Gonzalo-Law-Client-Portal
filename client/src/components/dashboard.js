@@ -3,11 +3,11 @@ import React, { Component } from "react";
 
 export default class dashboard extends Component {
   state = {
-    user: "",
+    userEmail: "",
     name: "",
-    persons: ["email", "name", "password"],
-
+    persons: ["email", "name", "password"]
   };
+
   componentDidMount() {
     const userEmail = localStorage.getItem("userEmail");
 
@@ -34,7 +34,8 @@ export default class dashboard extends Component {
             </h1>
             <br />
             <a className="btn btn-danger btn-block" href="/projects">
-              {" "}Projects
+              {" "}
+              Projects
             </a>
             <br />
             <a className="btn btn-danger btn-block" href="/login">
