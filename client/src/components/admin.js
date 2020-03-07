@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Search from "./search.js";
+import { Redirect } from "react-router-dom";
 // import axios from 'axios';
 
 const escapeRegExp = string => {
@@ -25,7 +26,8 @@ export default class admin extends Component {
       }
     ],
     selectedClient: "",
-    searchTerm: ""
+    searchTerm: "",
+    hasSelected: false
   };
 
   handleSearch = term => {
@@ -47,8 +49,10 @@ export default class admin extends Component {
   handleSelected(email) {
     console.log("Selected: " + email);
     this.setState({ selectedClient: email });
+    this.setState({ hasSelected: true });
   }
 
+  /*
   clientList = this.state.dummyClients.map(client => {
     return (
       <div class="item">
@@ -60,13 +64,14 @@ export default class admin extends Component {
           onClick={() => this.handleSelected(client.email)}
         >
           <div class="header">{client.name}</div>
-          Email: {client.email}
+          {client.email}
         </div>
       </div>
     );
-  }); //will have to be put in a scrolly view thing
+  }); */
 
   clientListRender() {
+    //will have to be put in a scrolly view thing*
     return (
       <div class="ui celled list">
         {this.state.dummyClients
@@ -97,7 +102,7 @@ export default class admin extends Component {
                   onClick={() => this.handleSelected(item.email)}
                 >
                   <div class="header">{item.name}</div>
-                  Email: {item.email}
+                  {item.email}
                 </div>
               </div>
             );
@@ -107,6 +112,17 @@ export default class admin extends Component {
   }
 
   render() {
+    if (this.state.hasSelected) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/projects",
+            state: { selectedClient: this.state.selectedClient }
+          }}
+        />
+      );
+    }
+
     return (
       <div>
         <div className="col-md-6 m-auto">
@@ -117,7 +133,7 @@ export default class admin extends Component {
               Welcome
               <strong> Admin</strong>
             </h1>
-            <h1>Client list:</h1>
+            <h1>Client List</h1>
             <Search handleSearch={this.handleSearch} />
             {this.clientListRender()}
             <a className="btn btn-danger btn-block" href="/login">

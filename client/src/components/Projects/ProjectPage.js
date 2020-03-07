@@ -1,10 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import ProjectList from "./ProjectList.js";
-import NewProject from "./NewProject.js"
+import NewProject from "./NewProject.js";
 
-
-const ProjectPage = ()=> {
-
+const ProjectPage = props => {
   const [data, setData] = useState([
     {
       name: "example 1",
@@ -24,23 +22,20 @@ const ProjectPage = ()=> {
     }
   ]);
 
-  const addData = (newData: Object)=>{
-
+  const addData = (newData: Object) => {
     //always use concat when mutating an array in react, you will run into a world of pain otherwise
     setData(data.concat(newData));
-  }
+  };
 
+  //still need conditon to only show add project button if you are an admin
 
-  return(
+  return (
     <div>
-    <NewProject
-      addData = {addData}
-    />
-    <ProjectList
-      data = {data}
-    />
+      <NewProject addData={addData} />
+      <h1>Projects for: {props.location.state.selectedClient}</h1>
+      <ProjectList data={data} />
     </div>
-  )
-}
+  );
+};
 
 export default ProjectPage;

@@ -9,10 +9,13 @@ export default class dashboard extends Component {
   };
 
   componentDidMount() {
-    const userEmail = localStorage.getItem("userEmail");
+    const userEmail = sessionStorage.getItem("userEmail");
+    //todo later: remove from session storage on logout (FOR ALL DASHBOARDS/HOMES)
+    //todo later: if visiting a pg without needed thing, display something else
+    //ex: dashboard without session storage of user that came from logging in
 
     //currently not used, since not set in login component
-    const name = localStorage.getItem("name");
+    const name = sessionStorage.getItem("name");
 
     this.setState({
       userEmail: userEmail,
