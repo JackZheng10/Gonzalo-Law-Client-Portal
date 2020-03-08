@@ -10,7 +10,8 @@ module.exports.init = () => {
   mongoose.connect(process.env.DB_URI || require("./config.js").db.uri, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   });
 
   const app = express();

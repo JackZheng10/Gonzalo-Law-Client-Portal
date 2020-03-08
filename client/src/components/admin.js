@@ -39,6 +39,19 @@ export default class admin extends Component {
     //make request to server to retrieve all clients
     //update the state of all clients
     //end name will not be dummy clients
+
+    /*  
+    let baseURL = "http://localhost:8000/api/";
+
+    axios
+      .post(baseURL + "addProject", {email: "sam@gmail.com", project: {name: "Proj4", type: "none"}})
+      .then(res => {
+      })
+      .catch(error => {
+
+      });
+      */
+     //Above code used to test addProject, left in for reference, feel free to delete if not required.
   }
 
   componentDidUpdate() {

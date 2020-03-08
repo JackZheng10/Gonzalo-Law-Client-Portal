@@ -37,7 +37,8 @@ const UserSchema = new mongoose.Schema(
     },
     isAdmin: {
       type: Boolean,
-      required: true,
+      required: false,
+      default: 'false',
       unique: false
     },
     projects: {
