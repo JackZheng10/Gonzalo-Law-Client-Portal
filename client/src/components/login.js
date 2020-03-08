@@ -26,8 +26,8 @@ export default class login extends Component {
         if (res.data.user) {
           this.setState({
             isLoggedin: true,
-            userEmail: email
-            //add an update to adminLoggedin, setting it to res.data.isAdmin
+            userEmail: email,
+            adminLoggedin: res.data.user.isAdmin
           });
         }
         if (res.data.error || res.error) {
@@ -57,14 +57,14 @@ export default class login extends Component {
       alert("Successfully logged in.");
       sessionStorage.setItem("userEmail", this.state.userEmail);
 
-      /* //for redirect to admin dashboard when admin logs in 
-      if (this.state.adminLoggedin){
+      //for redirect to admin dashboard when admin logs in
+      if (this.state.adminLoggedin) {
         return <Redirect to="/admin" />;
       } else {
         return <Redirect to="/dashboard" />;
       }
-      */
-      return <Redirect to="/dashboard" />;
+
+      //return <Redirect to="/dashboard" />;
     }
 
     return (

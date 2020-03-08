@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Search from "./search.js";
 import { Redirect } from "react-router-dom";
 // import axios from 'axios';
@@ -10,24 +11,10 @@ const escapeRegExp = string => {
 
 export default class admin extends Component {
   state = {
-    dummyClients: [
-      //will be different structure depending on final user schema/needs
-      {
-        name: "client 1",
-        email: "client1@gmail.com"
-      },
-      {
-        name: "client 2",
-        email: "client2@gmail.com"
-      },
-      {
-        name: "client 3",
-        email: "client3@gmail.com"
-      }
-    ],
     selectedClient: "",
     searchTerm: "",
-    hasSelected: false
+    hasSelected: false,
+    clients: []
   };
 
   handleSearch = term => {
@@ -36,11 +23,20 @@ export default class admin extends Component {
   };
 
   componentDidMount() {
-    //make request to server to retrieve all clients
-    //update the state of all clients
-    //end name will not be dummy clients
+    let baseURL = "http://localhost:8000/api/";
 
-    /*  
+    axios
+      .get(baseURL + "getClients")
+      .then(res => {
+        console.log("response array of clients: " + JSON.stringify(res.data));
+        let clients = JSON.parse(JSON.stringify(res.data));
+        this.setState({ clients: clients });
+      })
+      .catch(error => {
+        alert(error);
+      });
+
+    /* TESTING ADD PROJECT
     let baseURL = "http://localhost:8000/api/";
 
     axios
@@ -51,7 +47,7 @@ export default class admin extends Component {
 
       });
       */
-     //Above code used to test addProject, left in for reference, feel free to delete if not required.
+    //Above code used to test addProject, left in for reference, feel free to delete if not required.
   }
 
   componentDidUpdate() {
@@ -65,29 +61,11 @@ export default class admin extends Component {
     this.setState({ hasSelected: true });
   }
 
-  /*
-  clientList = this.state.dummyClients.map(client => {
-    return (
-      <div class="item">
-        <i class="big user icon"></i>
-        <div
-          class="content"
-          style={{ cursor: "pointer" }}
-          key={client.email}
-          onClick={() => this.handleSelected(client.email)}
-        >
-          <div class="header">{client.name}</div>
-          {client.email}
-        </div>
-      </div>
-    );
-  }); */
-
   clientListRender() {
     //todo: will have to be put in a scrolly view thing*
     return (
       <div class="ui celled list">
-        {this.state.dummyClients
+        {this.state.clients
           .filter(item => {
             if (this.state.searchTerm.trim() !== "") {
               const regexp = new RegExp(
