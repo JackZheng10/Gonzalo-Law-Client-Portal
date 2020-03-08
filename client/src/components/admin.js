@@ -71,7 +71,7 @@ export default class admin extends Component {
   }); */
 
   clientListRender() {
-    //will have to be put in a scrolly view thing*
+    //todo: will have to be put in a scrolly view thing*
     return (
       <div class="ui celled list">
         {this.state.dummyClients
