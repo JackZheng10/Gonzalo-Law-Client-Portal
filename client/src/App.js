@@ -10,13 +10,12 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Dashboard from "./components/dashboard";
 import ProjectPage from "./components/Projects/ProjectPage";
 import Admin from "./components/admin";
-import Calendar from "./components/calendar"
+import Calendar from "./components/calendar";
 
 export default class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <Header />
         <Switch>
           <Route exact path="/welcome" component={Welcome} />
           <Route exact path="/">

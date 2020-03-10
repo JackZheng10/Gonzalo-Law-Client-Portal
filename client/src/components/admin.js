@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Search from "./search.js";
+import Header from "./header.js";
 import { Redirect } from "react-router-dom";
 // import axios from 'axios';
 
@@ -23,7 +24,9 @@ export default class admin extends Component {
   };
 
   componentDidMount() {
-    let baseURL = "http://localhost:8000/api/";
+    //heroku: baseURL = "/api/";
+    //local: baseURL = "http://localhost:8000/api/";
+    let baseURL = "/api/";
 
     axios
       .get(baseURL + "getClients")
@@ -116,6 +119,7 @@ export default class admin extends Component {
 
     return (
       <div>
+        <Header />
         <div className="col-md-6 m-auto">
           <div className="card card-body">
             <h1 className="text-center mb-3"> Dashboard</h1>

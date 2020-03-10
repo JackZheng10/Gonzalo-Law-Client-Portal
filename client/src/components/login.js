@@ -19,7 +19,7 @@ export default class login extends Component {
 
     //heroku: baseURL = "/api/";
     //local: baseURL = "http://localhost:8000/api/";
-    let baseURL = "http://localhost:8000/api/";
+    let baseURL = "/api/";
 
     axios
       .post(baseURL + "login", { email, password })
@@ -70,47 +70,47 @@ export default class login extends Component {
 
     return (
       <div>
-        <Header/>
-      <div className="row mt-5">
-        <div className="col-md-6 m-auto">
-          <div className="card card-body">
-            <h1 className="text-center mb-3">Login</h1>
-            <form onSubmit={this.onSubmit}>
-              <div className="form-group">
-                <label>Email</label>
-                <input
-                  typeof="email"
-                  id="email"
-                  ref="email"
-                  required
-                  className="form-control"
-                  placeholder="Enter email"
-                />
-              </div>
-              <div className="form-group">
-                <label>Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  ref="password"
-                  required
-                  className="form-control"
-                  placeholder="Enter password"
-                />
-              </div>
-              <button
-                typeof="submit"
-                className="btn btn-primary btn-block loginBTN"
-              >
-                Login
-              </button>
-            </form>
-            <p className="lead mt-4">
-              Don't have an account? <a href="/register">Register</a>
-            </p>
+        <Header />
+        <div className="row mt-5">
+          <div className="col-md-6 m-auto">
+            <div className="card card-body">
+              <h1 className="text-center mb-3">Login</h1>
+              <form onSubmit={this.onSubmit}>
+                <div className="form-group">
+                  <label>Email</label>
+                  <input
+                    typeof="email"
+                    id="email"
+                    ref="email"
+                    required
+                    className="form-control"
+                    placeholder="Enter email"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    ref="password"
+                    required
+                    className="form-control"
+                    placeholder="Enter password"
+                  />
+                </div>
+                <button
+                  typeof="submit"
+                  className="btn btn-primary btn-block loginBTN"
+                >
+                  Login
+                </button>
+              </form>
+              <p className="lead mt-4">
+                Don't have an account? <a href="/register">Register</a>
+              </p>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     );
   }

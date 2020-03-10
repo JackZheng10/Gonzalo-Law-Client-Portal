@@ -18,7 +18,7 @@ export default class Register extends Component {
 
     //heroku: baseURL = "/api/";
     //local: baseURL = "http://localhost:8000/api/";
-    let baseURL = "http://localhost:8000/api/";
+    let baseURL = "/api/";
 
     axios
       .post(baseURL + "register", { email, password, name })
@@ -45,58 +45,58 @@ export default class Register extends Component {
 
     return (
       <div>
-        <Header/>
-      <div className="row mt-5">
-        <div className="col-md-6 m-auto">
-          <div className="card card-body">
-            <h1 className="text-center mb-3">Register</h1>
-            <form onSubmit={this.handleSubmit}>
-              <div className="form-group">
-                <label>Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  ref="email"
-                  required
-                  className="form-control"
-                  placeholder="Enter email"
-                />
-              </div>
-              <div className="form-group">
-                <label>Name</label>
-                <input
-                  type="name"
-                  id="name"
-                  ref="name"
-                  required
-                  className="form-control"
-                  placeholder="Enter name"
-                />
-              </div>
-              <div className="form-group">
-                <label>Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  ref="password"
-                  required
-                  className="form-control"
-                  placeholder="Create password"
-                />
-              </div>
-              <button
-                type="submit"
-                className="btn btn-primary btn-block registerBTN"
-              >
-                Register
-              </button>
-            </form>
-            <p className="lead mt-4">
-              Already have an account? <a href="/login">Login</a>
-            </p>
+        <Header />
+        <div className="row mt-5">
+          <div className="col-md-6 m-auto">
+            <div className="card card-body">
+              <h1 className="text-center mb-3">Register</h1>
+              <form onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    ref="email"
+                    required
+                    className="form-control"
+                    placeholder="Enter email"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Name</label>
+                  <input
+                    type="name"
+                    id="name"
+                    ref="name"
+                    required
+                    className="form-control"
+                    placeholder="Enter name"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    ref="password"
+                    required
+                    className="form-control"
+                    placeholder="Create password"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="btn btn-primary btn-block registerBTN"
+                >
+                  Register
+                </button>
+              </form>
+              <p className="lead mt-4">
+                Already have an account? <a href="/login">Login</a>
+              </p>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     );
   }

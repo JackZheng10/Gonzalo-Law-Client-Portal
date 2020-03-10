@@ -26,17 +26,12 @@
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.10",
-<<<<<<< HEAD
-    "body-parser": "^1.19.0",
-    "mocha": "^6.2.1",
     "array.prototype.flat": "^1.2.3",
     "autoprefixer": "^9.7.4",
     "moment": "^2.24.0",
-    "react-big-calendar": "^0.20.4"
-=======
+    "react-big-calendar": "^0.20.4",
     "should": "^13.2.3",
     "supertest": "^4.0.2"
->>>>>>> 8b91b5de62f6fc35f6dbf108ce30b9e9a7d20156
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
