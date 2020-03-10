@@ -1,61 +1,87 @@
-import React, { useState, Component } from "react";
+import React, { useState, useEffect, Component } from "react";
 import ProjectList from "./ProjectList.js";
 import NewProject from "./NewProject.js";
+import axios from "axios";
 
-export default class projectpage extends Component {
-  state = {
-    data: [
-      {
-        name: "example 1",
-        type: "type 1"
-      },
-      {
-        name: "example 2",
-        type: "type 2"
-      },
-      {
-        name: "example 3",
-        type: "type 3"
-      },
-      {
-        name: "example 4",
-        type: "type 4"
-      }
-    ],
-    adminView: false
-  };
+let baseURL = "http://localhost:8000/api/";
+var temp = [
+  {
+    name: "example 1",
+    type: "type 1"
+  },
+  {
+    name: "example 2",
+    type: "type 2"
+  },
+  {
+    name: "example 3",
+    type: "type 3"
+  },
+  {
+    name: "example 4",
+    type: "type 4"
+  }
+];
 
-  addData = (newData: Object) => {
+const ProjectPage = (props)=> {
+
+    const [data, setdata] = useState(sessionStorage.getItem('projects') | []);
+
+    useEffect(() => {
+
+      axios({
+          method: 'get',
+          url: baseURL + "getUserProjects",
+          data: {
+              email: props.location.state ? props.location.state.selectedClient : sessionStorage.getItem("userEmail")
+              }
+          }
+      ).then((resp)=>{
+        console.log(resp.data);
+        sessionStorage.setItem('projects', resp.data);
+      });
+
+    });
+
+    const [adminView, setadminView]= useState(false);
+
+
+  const addData = (newData: Object) => {
     //always use concat when mutating an array in react, you will run into a world of pain otherwise
-    this.setState({ data: this.state.data.concat(newData) });
+     setdata(data.concat(newData));
   };
-
-  //still need conditon to only show add project button if you are an admin
 
   //need to render differently since now it grabs the email passed in from admin dashboard-
   //but thats not available if a normal user selects to view their projects
 
-  render() {
-    if (this.props.location.state) {
+
+    if (props.location.state) {
       return (
         <div>
-          <NewProject addData={this.addData} />
-          <h1>
-            Projects for (admin view):{" "}
-            {this.props.location.state.selectedClient}
-          </h1>
-          <ProjectList data={this.state.data} />
+          <NewProject addData={addData} />
+          <h3>
+            {props.location.state.selectedClient}
+          </h3>
+          <a className="btn btn-danger btn-block" href="/login">
+            Logout{" "}
+          </a>
+          <ProjectList data={data} />
         </div>
       );
     } else {
       return (
         <div>
-          <h1>
-            Projects for (user view): {sessionStorage.getItem("userEmail")}
-          </h1>
-          <ProjectList data={this.state.data} />
+          <h3>
+            {sessionStorage.getItem("userEmail")}
+          </h3>
+          <a className="btn btn-danger btn-block" href="/login">
+            Logout{" "}
+          </a>
+          <ProjectList data={data} />
         </div>
       );
     }
-  }
+
 }
+
+export default ProjectPage;

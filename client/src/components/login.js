@@ -61,7 +61,7 @@ export default class login extends Component {
       if (this.state.adminLoggedin) {
         return <Redirect to="/admin" />;
       } else {
-        return <Redirect to="/dashboard" />;
+        return <Redirect to="/projects" />;
       }
 
       //return <Redirect to="/dashboard" />;
