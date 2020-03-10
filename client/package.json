@@ -17,7 +17,11 @@
     "redux": "^4.0.5",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2",
-    "yarn": "^1.22.0"
+    "yarn": "^1.22.0",
+    "array.prototype.flat": "^1.2.3",
+    "autoprefixer": "^9.7.4",
+    "moment": "^2.24.0",
+    "react-big-calendar": "^0.20.4"
   },
   "scripts": {
     "start": "react-scripts start",

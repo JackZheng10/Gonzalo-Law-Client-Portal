@@ -10,6 +10,8 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Dashboard from "./components/dashboard";
 import ProjectPage from "./components/Projects/ProjectPage";
 import Admin from "./components/admin";
+import Calendar from "./components/calendar"
+
 export default class App extends Component {
   render() {
     return (
@@ -24,6 +26,7 @@ export default class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/projects" component={ProjectPage} />
+          <Route path="/calendar" component={Calendar} />
           <Route
             path="/admin"
             component={Admin} /*for testing/designing only */
