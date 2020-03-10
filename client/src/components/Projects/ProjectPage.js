@@ -25,30 +25,47 @@ var temp = [
 
 const ProjectPage = (props)=> {
 
-    const [data, setdata] = useState(sessionStorage.getItem('projects') | []);
+    const [data, setdata] = useState([]);
 
     useEffect(() => {
 
-      axios({
-          method: 'get',
-          url: baseURL + "getUserProjects",
-          data: {
-              email: props.location.state ? props.location.state.selectedClient : sessionStorage.getItem("userEmail")
-              }
-          }
-      ).then((resp)=>{
-        console.log(resp.data);
-        sessionStorage.setItem('projects', resp.data);
-      });
+        const getProjects = async ()=>{
+          try{
+            var res = await axios.get(baseURL + "getUserProjects", {
+                    params: {
+                      email: props.location.state ? props.location.state.selectedClient : sessionStorage.getItem("userEmail")
+                      }
+                    });
+          setdata(res.data);
+        }
+        catch(error){
+          console.log(error);
+        };
+      };
 
-    });
+      getProjects();
+    }, []);
 
     const [adminView, setadminView]= useState(false);
 
 
   const addData = (newData: Object) => {
     //always use concat when mutating an array in react, you will run into a world of pain otherwise
-     setdata(data.concat(newData));
+     //setdata(data.concat(newData));
+     axios({
+         method: 'post',
+         url: baseURL + "addProject",
+         data: {
+             email: props.location.state ? props.location.state.selectedClient : sessionStorage.getItem("userEmail"),
+             project: newData
+             }
+         }
+       ).then((res)=>{
+         setdata(res.data);
+       })
+       .catch((error)=>{
+         console.log(error);
+       });
   };
 
   //need to render differently since now it grabs the email passed in from admin dashboard-
@@ -62,7 +79,7 @@ const ProjectPage = (props)=> {
           <h3>
             {props.location.state.selectedClient}
           </h3>
-          <a className="btn btn-danger btn-block" href="/login">
+          <a className="ui red button" href="/login">
             Logout{" "}
           </a>
           <ProjectList data={data} />
