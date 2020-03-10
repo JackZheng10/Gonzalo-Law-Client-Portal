@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import NavBar from "./navBar";
 // import axios from 'axios';
 
 export default class dashboard extends Component {
@@ -26,6 +27,7 @@ export default class dashboard extends Component {
   render() {
     return (
       <div>
+        <NavBar/>
         <div className="col-md-6 m-auto">
           <div className="card card-body">
             <h1 className="text-center mb-3"> Dashboard</h1>

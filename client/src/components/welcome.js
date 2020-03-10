@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./styles.css";
+import Header from "./header";
 
 export default class welcome extends Component {
   /* make payment button
@@ -21,6 +22,8 @@ export default class welcome extends Component {
   */
   render() {
     return (
+      <div>
+        <Header/>
       <div className="row mt-5">
         <div className="col-md-6 m-auto">
           <div className="card card-body text-center">
@@ -36,6 +39,7 @@ export default class welcome extends Component {
             </a>
           </div>
         </div>
+      </div>
       </div>
     );
   }
