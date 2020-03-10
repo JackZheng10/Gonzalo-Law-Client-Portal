@@ -2,6 +2,7 @@ import React, { useState, useEffect, Component } from "react";
 import ProjectList from "./ProjectList.js";
 import NewProject from "./NewProject.js";
 import axios from "axios";
+import NavBar from "../navBar";
 
 let baseURL = "http://localhost:8000/api/";
 var temp = [
@@ -88,13 +89,14 @@ const ProjectPage = (props)=> {
     } else {
       return (
         <div>
+          <NavBar/>
           <h3>
             {sessionStorage.getItem("userEmail")}
           </h3>
-          <a className="btn btn-danger btn-block" href="/login">
-            Logout{" "}
-          </a>
+          <div className="box-section">
+            <h1>  Current Projects:</h1>
           <ProjectList data={data} />
+          </div>
         </div>
       );
     }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import Header from "./header";
 
 export default class login extends Component {
   state = {
@@ -68,6 +69,8 @@ export default class login extends Component {
     }
 
     return (
+      <div>
+        <Header/>
       <div className="row mt-5">
         <div className="col-md-6 m-auto">
           <div className="card card-body">
@@ -107,6 +110,7 @@ export default class login extends Component {
             </p>
           </div>
         </div>
+      </div>
       </div>
     );
   }
