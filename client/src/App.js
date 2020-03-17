@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import Header from "./components/header";
-//import Footer from "./components/footer";
+import { Route, Switch, Redirect } from "react-router-dom";
+
 import Welcome from "./components/welcome";
 import Login from "./components/login";
 import Register from "./components/register";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Route, Switch, Redirect } from "react-router-dom";
 import Dashboard from "./components/dashboard";
-import ProjectPage from "./components/Projects/ProjectPage";
+import Projects from "./components/Projects/Projects";
+import ProjectPage from "./components/ProjectPage/ProjectPage";
 import Admin from "./components/admin";
 import Calendar from "./components/calendar";
 
@@ -24,12 +25,11 @@ export default class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/dashboard" component={Dashboard} />
-          <Route path="/projects" component={ProjectPage} />
+          <Route exact path="/projects" component={Projects} />
           <Route path="/calendar" component={Calendar} />
-          <Route
-            path="/admin"
-            component={Admin} /*for testing/designing only */
+          <Route path="/admin" component={Admin} /*for testing/designing only */
           />
+          <Route path="/projects/:uid" component={ProjectPage} />
         </Switch>
         <br />
       </React.Fragment>

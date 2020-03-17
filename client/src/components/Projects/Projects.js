@@ -3,31 +3,9 @@ import ProjectList from "./ProjectList.js";
 import NewProject from "./NewProject.js";
 import axios from "axios";
 import NavBar from "../navBar";
+import baseURL from "../../baseURL";
 
-//heroku: baseURL = "/api/";
-//local: baseURL = "http://localhost:8000/api/";
-
-let baseURL = "/api/";
-var temp = [
-  {
-    name: "example 1",
-    type: "type 1"
-  },
-  {
-    name: "example 2",
-    type: "type 2"
-  },
-  {
-    name: "example 3",
-    type: "type 3"
-  },
-  {
-    name: "example 4",
-    type: "type 4"
-  }
-];
-
-const ProjectPage = props => {
+const Projects = props => {
   const [data, setdata] = useState([]);
 
   useEffect(() => {
@@ -101,4 +79,4 @@ const ProjectPage = props => {
   }
 };
 
-export default ProjectPage;
+export default Projects;

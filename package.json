@@ -13,7 +13,6 @@
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
-    "@material-ui/core": "^4.9.5",
     "body-parser": "^1.19.0",
     "concurrently": "^3.6.0",
     "cors": "^2.8.4",

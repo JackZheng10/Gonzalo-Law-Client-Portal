@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Project from "./Project.js";
+import ProjectBox from "./ProjectBox.js";
 
 const ProjectList = (props)=>{
 
@@ -8,9 +8,9 @@ const ProjectList = (props)=>{
 
 
   for(let i = 0; i<props.data.length; i++){
-    cards.push(<Project
-                name = {props.data[i].name}
-                type = {props.data[i].type}/>)
+    cards.push(<ProjectBox
+                project = {props.data[i]}
+                />)
   }
 
 

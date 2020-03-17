@@ -4,7 +4,7 @@ import axios from "axios";
 import Search from "./search.js";
 import Header from "./header.js";
 import { Redirect } from "react-router-dom";
-// import axios from 'axios';
+import baseURL from "../baseURL.js";
 
 const escapeRegExp = string => {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -24,9 +24,7 @@ export default class admin extends Component {
   };
 
   componentDidMount() {
-    //heroku: baseURL = "/api/";
-    //local: baseURL = "http://localhost:8000/api/";
-    let baseURL = "/api/";
+
 
     axios
       .get(baseURL + "getClients")
@@ -39,18 +37,7 @@ export default class admin extends Component {
         alert(error);
       });
 
-    /* TESTING ADD PROJECT
-    let baseURL = "http://localhost:8000/api/";
 
-    axios
-      .post(baseURL + "addProject", {email: "sam@gmail.com", project: {name: "Proj4", type: "none"}})
-      .then(res => {
-      })
-      .catch(error => {
-
-      });
-      */
-    //Above code used to test addProject, left in for reference, feel free to delete if not required.
   }
 
   componentDidUpdate() {

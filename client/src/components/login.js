@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import Header from "./header";
+import baseURL from "../baseURL";
 
 export default class login extends Component {
   state = {
@@ -16,10 +17,6 @@ export default class login extends Component {
     event.preventDefault();
     const email = this.refs.email.value;
     const password = this.refs.password.value;
-
-    //heroku: baseURL = "/api/";
-    //local: baseURL = "http://localhost:8000/api/";
-    let baseURL = "/api/";
 
     axios
       .post(baseURL + "login", { email, password })
