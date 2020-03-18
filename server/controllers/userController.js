@@ -21,7 +21,7 @@ const getUserProjects = (req, res) => {
         res.json(user.projects);
       }
     else{
-      res.error("No such user exists");
+      res.status(400).send("No such user exists");
     }
   }))
     .catch(error => {
@@ -31,7 +31,7 @@ const getUserProjects = (req, res) => {
 
 const addProject = (req, res) => {
   const filter = { email: req.body.email };
-  const proj = { name: req.body.project.name, type: req.body.project.type };
+  const proj = { name: req.body.project.name, type: req.body.project.type, phases: 0 };
   // { "$push": { "projects": proj } }
   User.findOneAndUpdate(filter,  { $push: { projects: proj } }, {new: true})
     .then(user => {
