@@ -57,11 +57,10 @@ const Projects = props => {
     return (
       <div>
         <NavBar />
-        <NewProject addData={addData} />
-        <h3>{props.location.state.selectedClient}</h3>
-        <a className="ui red button" href="/login">
-          Logout{" "}
-        </a>
+        <div>
+          <NewProject addData={addData} />
+          <h3>{props.location.state.selectedClient}</h3>
+        </div>
         <ProjectList data={data} />
       </div>
     );
