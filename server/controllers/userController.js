@@ -31,7 +31,8 @@ const getUserProjects = (req, res) => {
 
 const addProject = (req, res) => {
   const filter = { email: req.body.email };
-  const proj = { name: req.body.project.name, type: req.body.project.type, phases: 0 };
+  const proj = { name: req.body.project.name,
+                 type: req.body.project.type};
   // { "$push": { "projects": proj } }
   User.findOneAndUpdate(filter,  { $push: { projects: proj } }, {new: true})
     .then(user => {

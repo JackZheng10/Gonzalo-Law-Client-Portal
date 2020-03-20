@@ -43,7 +43,7 @@ const NewProject= (props)=>{
 
     <Header content='New Project' />
     <Modal.Content>
-      <Form error="false">
+      <Form error={false}>
         <Form.Input
           label='Name'
           name="name"

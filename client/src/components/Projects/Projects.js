@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import ProjectList from "./ProjectList.js";
 import NewProject from "./NewProject.js";
 import axios from "axios";
@@ -43,6 +43,7 @@ const Projects = props => {
       }
     })
       .then(res => {
+        console.log(res.data);
         setdata(res.data);
       })
       .catch(error => {
