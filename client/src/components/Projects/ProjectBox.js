@@ -12,8 +12,8 @@ const redirect = () =>{
 }
   if(goToProject){
     return(
-      <Redirect to={{
-        pathname: "./projects/"+props.project._id,
+      <Redirect push to={{
+        pathname: props.project._id,
         state: { project: props.project }
       }}  />
     )

@@ -57,8 +57,10 @@ export default class login extends Component {
 
       //for redirect to admin dashboard when admin logs in
       if (this.state.adminLoggedin) {
+        sessionStorage.setItem("isAdmin", true);
         return <Redirect to="/admin" />;
       } else {
+        sessionStorage.setItem("isAdmin", false);
         return <Redirect to="/projects" />;
       }
 

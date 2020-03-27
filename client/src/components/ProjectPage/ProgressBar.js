@@ -2,16 +2,14 @@ import React, { useState, useEffect } from "react";
 import CDPhases from "../../enums/CDPhases.js";
 import DNPhases from "../../enums/DNPhases.js";
 import IPPhases from "../../enums/IPPhases.js";
-import { Progress, Button } from 'semantic-ui-react'
+import { Progress, Button } from 'semantic-ui-react';
+import axios from "axios";
+import baseURL from "../../baseURL";
 
 const ProgressBar = (props)=>{
 
-  const [phase, setPhase] = useState(props.project.phase);
-
-  const [type, setType] = useState(props.project.type);
-
   const maxPhase = ()=>{
-    switch(type){
+    switch(props.type){
 
       case 'Intellectual Property':
         return IPPhases.size;
@@ -26,7 +24,7 @@ const ProgressBar = (props)=>{
   }
 
   const phases = ()=> {
-    switch(type){
+    switch(props.type){
 
       case 'Intellectual Property':
         return IPPhases;
@@ -39,24 +37,36 @@ const ProgressBar = (props)=>{
     }
   }
 
-  const [currPhases, setCurrPhases] = useState(phases());
-
   const increment = ()=>{
+    let phase = props.phase + 1;
+    if(props.phase >= maxPhase())
+      phase = 0;
 
-    if(phase >= maxPhase())
-      setPhase(0);
-    else
-      setPhase(phase+1);
+    axios({
+      method: "post",
+      url: baseURL + "updatePhase",
+      data: {
+        email: sessionStorage.getItem("userEmail"),
+        uid: props.uid,
+        phase: phase
+      }
+    })
+      .then(res => {
+        props.setProject(res.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
-  }
   return(
     <div>
     <Progress
+        value ={props.phase || 0}
         total={maxPhase()}
-        value ={phase}
         progress='ratio'
     />
-    <p>{"Current Phase: "+phases()[phase]} </p>
+    <p>{"Current Phase: "+phases()[props.phase]} </p>
     <Button onClick={increment}>Increment</Button>
     </div>
   )
