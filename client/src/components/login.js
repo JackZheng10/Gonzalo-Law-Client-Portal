@@ -52,7 +52,6 @@ export default class login extends Component {
   render() {
     if (this.state.isLoggedin) {
       console.log(this.state.userEmail);
-      alert("Successfully logged in.");
       sessionStorage.setItem("userEmail", this.state.userEmail);
 
       //for redirect to admin dashboard when admin logs in
