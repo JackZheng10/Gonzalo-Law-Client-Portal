@@ -46,7 +46,7 @@ const Projects = props => {
 
 
   const adminView = () =>{
-    if (sessionStorage.getItem("isAdmin") === true) {
+    if (sessionStorage.getItem("isAdmin") === 'true') {
       return <NewProject addData={addData} />;
 
     }
