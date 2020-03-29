@@ -4,11 +4,24 @@ import NewProject from "./NewProject.js";
 import axios from "axios";
 import NavBar from "../navBar";
 import baseURL from "../../baseURL";
+import checkToken from "../checkToken.js";
+import { Redirect } from "react-router-dom";
 
 const Projects = props => {
   const [data, setdata] = useState([]);
+  const [redirect, setredirect] = useState(true);
 
   useEffect(() => {
+    /*
+    axios.defaults.headers.common["token"] = localStorage.getItem("token")
+      ? localStorage.getItem("token")
+      : null;
+
+    checkToken().then(response => {
+      setredirect(!response);
+      alert(!response);
+    });*/
+
     const getProjects = async () => {
       try {
         var res = await axios.get(baseURL + "getUserProjects", {
@@ -52,6 +65,12 @@ const Projects = props => {
 
   //TODO: handle direct from calendar back to project page, since it'll treat admin as a user
   //TODO: handle calendar page for admin vs user
+
+  /*
+  if (redirect) {
+    alert("what:" + redirect);
+    return <Redirect to="/login" />;
+  }*/
 
   if (props.location.state) {
     return (

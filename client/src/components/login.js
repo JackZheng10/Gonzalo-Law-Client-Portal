@@ -3,6 +3,8 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 import Header from "./header";
 import baseURL from "../baseURL";
+import jwtDecode from "jwt-decode";
+import checkToken from "./checkToken.js";
 
 export default class login extends Component {
   state = {
@@ -10,8 +12,16 @@ export default class login extends Component {
     adminLoggedin: false,
     userEmail: "",
     persons: [],
-    name: ""
+    name: "",
+    userData: {},
+    redirect: false
   };
+
+  componentDidMount() {
+    checkToken().then(response => {
+      this.setState({ redirect: response });
+    });
+  }
 
   onSubmit = event => {
     event.preventDefault();
@@ -20,12 +30,18 @@ export default class login extends Component {
 
     axios
       .post(baseURL + "login", { email, password })
-      .then(res => {
-        if (res.data.user) {
+      .then(async res => {
+        if (res.data.success) {
+          const token = res.data.token;
+          localStorage.setItem("token", token);
+          //axios.defaults.headers.common["token"] = token;
+          const data = jwtDecode(token);
+          //alert(JSON.stringify(data));
+          //await checkToken();
+
           this.setState({
             isLoggedin: true,
-            userEmail: email,
-            adminLoggedin: res.data.user.isAdmin
+            userData: data
           });
         }
         if (res.data.error || res.error) {
@@ -37,26 +53,16 @@ export default class login extends Component {
       });
   };
 
-  /*
-  componentWillMount() {
-    axios.get("http://localhost:8000/").then(res => {
-      if (this.state.isLoggedin) {
-        console.log(res.data);
-        let persons = res.data;
-        console.log(persons);
-        this.setState({ persons });
-      }
-    });
-  }*/
-
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/projects" />;
+    }
+
     if (this.state.isLoggedin) {
-      console.log(this.state.userEmail);
       alert("Successfully logged in.");
-      sessionStorage.setItem("userEmail", this.state.userEmail);
 
       //for redirect to admin dashboard when admin logs in
-      if (this.state.adminLoggedin) {
+      if (this.state.userData.isAdmin) {
         return <Redirect to="/admin" />;
       } else {
         return <Redirect to="/projects" />;
