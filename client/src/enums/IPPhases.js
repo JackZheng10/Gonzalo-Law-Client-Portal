@@ -5,7 +5,8 @@ const IPPhases = {
   3: 'Initial Filing',
   4: 'USPTO Response Filing',
   5: 'Publication for Opposition',
-  6: 'Filing Accepted and Completed with the USPTO'
+  6: 'Filing Accepted and Completed with the USPTO',
+  size : 6
 };
 
 export default IPPhases;

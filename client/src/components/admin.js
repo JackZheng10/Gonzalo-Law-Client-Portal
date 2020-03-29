@@ -68,6 +68,7 @@ export default class admin extends Component {
     console.log("Selected: " + email);
     this.setState({ selectedClient: email });
     this.setState({ hasSelected: true });
+    sessionStorage.setItem("userEmail", email);
   }
 
   clientListRender() {
@@ -127,8 +128,7 @@ export default class admin extends Component {
         <Redirect
           to={{
             pathname: "/projects",
-            state: { selectedClient: this.state.selectedClient }
-          }}
+             }}
         />
       );
     }

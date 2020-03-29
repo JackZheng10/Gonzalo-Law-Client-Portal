@@ -8,7 +8,9 @@ const {
 const {
   getClients,
   getUserProjects,
-  addProject
+  addProject,
+  updatePhase,
+  getUserProject
 } = require("../controllers/userController");
 const verifyToken = require("../authHelpers").verifyToken;
 
@@ -21,6 +23,7 @@ routes.use(verifyToken);
 routes.get("/api/checkToken", verify);
 routes.get("/api/getClients", getClients);
 routes.get("/api/getUserProjects", getUserProjects);
+routes.get("/api/getUserProject", getUserProject);
 routes.post("/api/addProject", addProject);
-
+routes.post("/api/updatePhase", updatePhase);
 module.exports = routes;

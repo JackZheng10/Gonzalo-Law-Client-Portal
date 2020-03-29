@@ -9,11 +9,12 @@ const ProjectSchema = new mongoose.Schema({
   type: {
     type: String,
     unique: false,
-    required: false
+    required: true
   },
   phase: {
     type: Number,
-    required: true
+    required: true,
+    default: 0
   }
 });
 

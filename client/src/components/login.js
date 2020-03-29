@@ -65,6 +65,7 @@ export default class login extends Component {
       if (this.state.userData.isAdmin) {
         return <Redirect to="/admin" />;
       } else {
+        sessionStorage.setItem("isAdmin", false);
         return <Redirect to="/projects" />;
       }
 
