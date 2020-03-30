@@ -41,12 +41,14 @@ const ProgressBar = (props)=>{
     let phase = props.phase + 1;
     if(props.phase >= maxPhase())
       phase = 0;
-
+    axios.defaults.headers.common["token"] = localStorage.getItem("token")
+      ? localStorage.getItem("token")
+      : null;
     axios({
       method: "post",
       url: baseURL + "updatePhase",
       data: {
-        email: sessionStorage.getItem("userEmail"),
+        email: localStorage.getItem("userEmail"),
         uid: props.uid,
         phase: phase
       }
@@ -62,6 +64,7 @@ const ProgressBar = (props)=>{
   return(
     <div>
     <Progress
+        color='green'
         value ={props.phase || 0}
         total={maxPhase()}
         progress='ratio'

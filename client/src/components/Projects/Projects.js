@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import NavBar from "../navBar";
 import ProjectList from "./ProjectList.js";
 import NewProject from "./NewProject.js";
 import axios from "axios";
-import NavBar from "../navBar";
 import baseURL from "../../baseURL";
+import jwtDecode from "jwt-decode";
 import checkToken from "../checkToken.js";
 import { Redirect } from "react-router-dom";
 
@@ -24,9 +25,12 @@ const Projects = props => {
 
     const getProjects = async () => {
       try {
+        axios.defaults.headers.common["token"] = localStorage.getItem("token")
+          ? localStorage.getItem("token")
+          : null;
         var res = await axios.get(baseURL + "getUserProjects", {
           params: {
-            email: sessionStorage.getItem("userEmail")
+            email: localStorage.getItem("userEmail")
           }
         });
         setdata(res.data);
@@ -45,7 +49,7 @@ const Projects = props => {
       method: "post",
       url: baseURL + "addProject",
       data: {
-        email: sessionStorage.getItem("userEmail"),
+        email:localStorage.getItem("userEmail"),
         project: newData
       }
     })
@@ -58,14 +62,16 @@ const Projects = props => {
   };
 
   const adminView = () => {
-    if (sessionStorage.getItem("isAdmin") === "true") {
+    const data = jwtDecode(localStorage.getItem("token"));
+
+    if (data.isAdmin) {
       return <NewProject addData={addData} />;
     }
   };
 
   return (
     <div>
-      <NavBar />
+    <NavBar />
       <h3>{sessionStorage.getItem("userEmail")}</h3>
       {adminView()}
       <div className="box-section">

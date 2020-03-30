@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Search from "./search.js";
 import Header from "./header.js";
+import Search from "./search.js";
 import { Redirect } from "react-router-dom";
 import baseURL from "../baseURL.js";
 import checkToken from "./checkToken.js";
 import jwtDecode from "jwt-decode";
-import NavBar from "./navBar";
 
 const escapeRegExp = string => {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -29,10 +28,11 @@ export default class admin extends Component {
   };
 
   async componentDidMount() {
+    localStorage.removeItem("userEmail");
+
     axios.defaults.headers.common["token"] = localStorage.getItem("token")
       ? localStorage.getItem("token")
       : null;
-
     await checkToken().then(response => {
       this.setState({ redirect: !response });
     });
@@ -68,7 +68,7 @@ export default class admin extends Component {
     console.log("Selected: " + email);
     this.setState({ selectedClient: email });
     this.setState({ hasSelected: true });
-    sessionStorage.setItem("userEmail", email);
+    localStorage.setItem("userEmail", email);
   }
 
   clientListRender() {
@@ -135,7 +135,7 @@ export default class admin extends Component {
 
     return (
       <div>
-        <NavBar />
+      <Header />
         <div className="col-md-6 m-auto">
           <div className="card card-body">
             <h1 className="text-center mb-3"> Dashboard</h1>

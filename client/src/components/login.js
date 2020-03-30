@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
-import Header from "./header";
 import baseURL from "../baseURL";
+import Header from "./header";
 import jwtDecode from "jwt-decode";
 import checkToken from "./checkToken.js";
 
@@ -65,7 +65,8 @@ export default class login extends Component {
       if (this.state.userData.isAdmin) {
         return <Redirect to="/admin" />;
       } else {
-        sessionStorage.setItem("isAdmin", false);
+        localStorage.setItem("userEmail", this.state.userData.email);
+
         return <Redirect to="/projects" />;
       }
 
@@ -74,7 +75,7 @@ export default class login extends Component {
 
     return (
       <div>
-        <Header />
+      <Header />
         <div className="row mt-5">
           <div className="col-md-6 m-auto">
             <div className="card card-body">
