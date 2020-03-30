@@ -23,6 +23,42 @@ const ProjectPage = (props)=>{
     };
 
     getProject();
+
+    
+    /*****************FILE UPLOADS****************/
+
+    const filePath = '../../dummyFiles/working.jpg'
+    const fileS = filePath.split('/');
+    const indx = fileS.length - 1;
+    const filename = fileS[indx];
+    /*
+    axios
+    .get(baseURL + "upload", {
+      params: {
+        email: sessionStorage.getItem("userEmail"),
+        filename: filename,
+        path: filePath
+      }
+    })
+    .catch(error => {
+      alert(error);
+    });
+    */
+    /*******************VIEW FILES ************/
+    axios
+    .get(baseURL + "getFiles", {
+      params: {
+        email: sessionStorage.getItem("userEmail")
+      }
+    })
+
+    axios
+    .get(baseURL + "download", {
+      params: {
+        filename: 'dummy.pdf'
+      }
+    })
+
   }, []);
 
   return(
