@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
-import Header from "./header";
 import baseURL from "../baseURL";
+import Header from "./header";
+import jwtDecode from "jwt-decode";
+import checkToken from "./checkToken.js";
 
 export default class login extends Component {
   state = {
@@ -10,8 +12,16 @@ export default class login extends Component {
     adminLoggedin: false,
     userEmail: "",
     persons: [],
-    name: ""
+    name: "",
+    userData: {},
+    redirect: false
   };
+
+  componentDidMount() {
+    checkToken().then(response => {
+      this.setState({ redirect: response });
+    });
+  }
 
   onSubmit = event => {
     event.preventDefault();
@@ -20,12 +30,18 @@ export default class login extends Component {
 
     axios
       .post(baseURL + "login", { email, password })
-      .then(res => {
-        if (res.data.user) {
+      .then(async res => {
+        if (res.data.success) {
+          const token = res.data.token;
+          localStorage.setItem("token", token);
+          //axios.defaults.headers.common["token"] = token;
+          const data = jwtDecode(token);
+          //alert(JSON.stringify(data));
+          //await checkToken();
+
           this.setState({
             isLoggedin: true,
-            userEmail: email,
-            adminLoggedin: res.data.user.isAdmin
+            userData: data
           });
         }
         if (res.data.error || res.error) {
@@ -37,29 +53,20 @@ export default class login extends Component {
       });
   };
 
-  /*
-  componentWillMount() {
-    axios.get("http://localhost:8000/").then(res => {
-      if (this.state.isLoggedin) {
-        console.log(res.data);
-        let persons = res.data;
-        console.log(persons);
-        this.setState({ persons });
-      }
-    });
-  }*/
-
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/projects" />;
+    }
+
     if (this.state.isLoggedin) {
-      console.log(this.state.userEmail);
-      sessionStorage.setItem("userEmail", this.state.userEmail);
+      alert("Successfully logged in.");
 
       //for redirect to admin dashboard when admin logs in
-      if (this.state.adminLoggedin) {
-        sessionStorage.setItem("isAdmin", true);
+      if (this.state.userData.isAdmin) {
         return <Redirect to="/admin" />;
       } else {
-        sessionStorage.setItem("isAdmin", false);
+        localStorage.setItem("userEmail", this.state.userData.email);
+
         return <Redirect to="/projects" />;
       }
 
@@ -68,7 +75,7 @@ export default class login extends Component {
 
     return (
       <div>
-        <Header />
+      <Header />
         <div className="row mt-5">
           <div className="col-md-6 m-auto">
             <div className="card card-body">

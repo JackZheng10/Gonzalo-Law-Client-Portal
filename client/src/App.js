@@ -1,20 +1,18 @@
-import React, { Component } from "react";
-import Header from "./components/header";
+import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-
 import Welcome from "./components/welcome";
 import Login from "./components/login";
 import Register from "./components/register";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Dashboard from "./components/dashboard";
 import Projects from "./components/Projects/Projects";
 import ProjectPage from "./components/ProjectPage/ProjectPage";
 import Admin from "./components/admin";
 import Calendar from "./components/calendar";
 
-export default class App extends Component {
-  render() {
+const App = ()=> {
+
+
     return (
       <React.Fragment>
         <Switch>
@@ -24,7 +22,6 @@ export default class App extends Component {
           </Route>
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
-          <Route path="/dashboard" component={Dashboard} />
           <Route exact path="/projects" component={Projects} />
           <Route path="/calendar" component={Calendar} />
           <Route path="/admin" component={Admin} /*for testing/designing only */
@@ -35,4 +32,6 @@ export default class App extends Component {
       </React.Fragment>
     );
   }
-}
+
+
+export default App;

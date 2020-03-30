@@ -5,6 +5,8 @@ const path = require("path"),
   bodyParser = require("body-parser"),
   routes = require("../routes");
 
+morgan = require("morgan");
+
 //require("dotenv").config();
 
 module.exports.init = () => {
@@ -19,12 +21,12 @@ module.exports.init = () => {
 
   app.use(cors());
 
-  app.use(bodyParser.urlencoded({
-    extended: true
-  }));
+  // morgan used for logging HTTP requests to the console
+  app.use(morgan("dev"));
 
+  // bodyParser used for resolving the req and res body objects (urlEncoded and json formats)
+  app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
-
 
   const connection = mongoose.connection;
   connection.once("open", () => {

@@ -8,6 +8,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
+import axios from "axios";
+
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  axios.defaults.headers.common["token"] = null;
+  alert("Logged out successfully.");
+};
 
 const NavBar = () => {
   return (
@@ -25,22 +32,10 @@ const NavBar = () => {
           //this needs to be properly handled
           href="/welcome"
           className="button"
+          onClick={handleLogout}
         >
           Sign Out
         </a>
-        {/* <button className="button">
-      <a href="/projects">Projects</a>
-      </button>
-      <button className="button">
-      <a href="/calendar">Calendar</a>
-      </button>
-      <button className="button">
-      <a 
-      //this needs to be properly handled
-        href="/welcome">
-        sign out
-        </a>
-      </button> */}
       </Toolbar>
     </AppBar>
   );

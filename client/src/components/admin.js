@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Search from "./search.js";
 import Header from "./header.js";
+import Search from "./search.js";
 import { Redirect } from "react-router-dom";
 import baseURL from "../baseURL.js";
+import checkToken from "./checkToken.js";
+import jwtDecode from "jwt-decode";
 
 const escapeRegExp = string => {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -15,7 +17,9 @@ export default class admin extends Component {
     selectedClient: "",
     searchTerm: "",
     hasSelected: false,
-    clients: []
+    clients: [],
+    redirect: false,
+    error: false
   };
 
   handleSearch = term => {
@@ -23,21 +27,36 @@ export default class admin extends Component {
     this.setState({ searchTerm: term });
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    localStorage.removeItem("userEmail");
 
+    axios.defaults.headers.common["token"] = localStorage.getItem("token")
+      ? localStorage.getItem("token")
+      : null;
+    await checkToken().then(response => {
+      this.setState({ redirect: !response });
+    });
 
-    axios
-      .get(baseURL + "getClients")
-      .then(res => {
-        console.log("response array of clients: " + JSON.stringify(res.data));
-        let clients = JSON.parse(JSON.stringify(res.data));
-        this.setState({ clients: clients });
-      })
-      .catch(error => {
-        alert(error);
-      });
+    if (!this.state.redirect) {
+      const data = jwtDecode(localStorage.getItem("token"));
 
-
+      if (data.isAdmin) {
+        axios
+          .get(baseURL + "getClients")
+          .then(res => {
+            console.log(
+              "response array of clients: " + JSON.stringify(res.data)
+            );
+            let clients = JSON.parse(JSON.stringify(res.data));
+            this.setState({ clients: clients });
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      } else {
+        this.setState({ error: true });
+      }
+    }
   }
 
   componentDidUpdate() {
@@ -49,11 +68,12 @@ export default class admin extends Component {
     console.log("Selected: " + email);
     this.setState({ selectedClient: email });
     this.setState({ hasSelected: true });
-    sessionStorage.setItem("userEmail", email);
+    localStorage.setItem("userEmail", email);
   }
 
   clientListRender() {
     //todo: will have to be put in a scrolly view thing*
+
     return (
       <div class="ui celled list">
         {this.state.clients
@@ -94,7 +114,16 @@ export default class admin extends Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/login" />;
+    }
+
+    if (this.state.error) {
+      return <h1>You do not have permission to view this page.</h1>;
+    }
+
     if (this.state.hasSelected) {
+      //alert("what111");
       return (
         <Redirect
           to={{
@@ -106,7 +135,7 @@ export default class admin extends Component {
 
     return (
       <div>
-        <Header />
+      <Header />
         <div className="col-md-6 m-auto">
           <div className="card card-body">
             <h1 className="text-center mb-3"> Dashboard</h1>
@@ -118,9 +147,6 @@ export default class admin extends Component {
             <h1>Client List</h1>
             <Search handleSearch={this.handleSearch} />
             {this.clientListRender()}
-            <a className="btn btn-danger btn-block" href="/login">
-              Logout{" "}
-            </a>
           </div>
         </div>
       </div>
