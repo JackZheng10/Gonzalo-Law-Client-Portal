@@ -48,14 +48,16 @@
 }
 
 .auth-content {
-  left: 50%;
   width: 500px;
-  position: fixed;
-  
-  top: 50%;
-  transform: translate(-50%, -50%);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30vh;
 }
-
+.background {
+  background-image: url('./images/gainesville-downtown-street.jpg') !important;
+  background-size: cover !important;
+  height: 100vh;
+}
 .auth-card {
   background-color: #ffffff;
   box-shadow: 3px 3px 8px #888888;

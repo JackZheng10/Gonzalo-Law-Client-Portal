@@ -61,7 +61,7 @@ export default class login extends Component {
       .catch(error => {
         alert(error.response);
       });
-      
+
   };
 
   render() {
@@ -85,47 +85,46 @@ export default class login extends Component {
     }
 
     return (
-    
-      <div>
-        <Image src={image} fluid />
-      <Grid centered columns={3}>
-      <Grid.Column width = {10}>
-        <div className="auth-content">
-        <Segment>
-          <Image src={logo} centered/>
-        <Header as="h2" textAlign="center">Login</Header>
-      <Form className="form-group" onSubmit={this.onSubmit}>
-        <Form.Field>
-          <label>Email</label>
-          <input 
-          placeholder='Enter email'
-          type="email"
-          ref="email"
-          required
-          color="white"
-          />
-        </Form.Field>
-        <Form.Field>
-          <label>Password</label>
-          <input 
-          placeholder='Enter password'
-          type="password"
-          id="password"
-          ref="password"
-          required
-          />
-        </Form.Field>
-        <Button type='submit' color="orange" fluid >Login</Button>
-      </Form>
-      </Segment>
-      <Message>
-        Don't have an account? <a href="/register">Register</a>     
-      </Message>
+
+      <div className="background">
+          <Grid centered columns={3}>
+            <Grid.Column width = {10}>
+              <div className="auth-content">
+                <Segment>
+                  <Image src={logo} centered/>
+                  <Header as="h2" textAlign="center">Login</Header>
+                  <Form className="form-group" onSubmit={this.onSubmit}>
+                    <Form.Field>
+                      <label>Email</label>
+                      <input
+                      placeholder='Enter email'
+                      type="email"
+                      ref="email"
+                      required
+                      color="white"
+                      />
+                    </Form.Field>
+                    <Form.Field>
+                      <label>Password</label>
+                      <input
+                      placeholder='Enter password'
+                      type="password"
+                      id="password"
+                      ref="password"
+                      required
+                      />
+                    </Form.Field>
+                    <Button type='submit' color="orange" fluid >Login</Button>
+                  </Form>
+                </Segment>
+                <Message>
+                  Don't have an account? <a href="/register">Register</a>
+                </Message>
+              </div>
+            </Grid.Column>
+          </Grid>
       </div>
-      </Grid.Column>
-      </Grid>
-      </div>
-      
+
     );
   }
 }
