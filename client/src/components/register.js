@@ -68,9 +68,9 @@ export default class Register extends Component {
       return <Redirect to="/projects" />;
     } else {
       return (
-        <div>
-          <Image src={image} fluid />
-        
+        <div className="background">
+
+
         <Grid columns={3} centered>
           <Grid.Column width={10}>
           <div className="auth-content">
