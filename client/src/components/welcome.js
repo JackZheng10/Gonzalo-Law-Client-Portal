@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import "./styles.css";
-import Header from "./header";
+import LogoHeader from "./logoHeader";
 import { Route, Redirect } from "react-router-dom";
 import checkToken from "./checkToken.js";
+import { Segment, Grid, Header, Button, Image } from "semantic-ui-react";
+import image from "./images/gainesville-downtown-street.jpg";
+import logo from "./images/horizontalLogo1.png";
 
 export default class welcome extends Component {
   /* make payment button
@@ -40,27 +43,24 @@ export default class welcome extends Component {
     } else {
       return (
         <div>
-          <Header />
-          <div className="row mt-5">
-            <div className="col-md-6 m-auto">
-              <div className="card card-body text-center">
-                <p>Welcome! Please log in or register for an account.</p>
-                <a
-                  href="/register"
-                  className="btn btn-primary btn-block mb-2 registerBTN"
-                >
-                  Register{" "}
-                </a>
-                <a
-                  href="/login"
-                  className="btn btn-secondary btn-block loginBTN"
-                >
-                  Login
-                </a>
+          <Image src={image} fluid />
+          <Grid centered columns={3}>
+            <Grid.Column>
+              <div className="auth-content">
+                <Segment>
+                  <Image src={logo} centered />
+                  <Header as="h4" textAlign="center" color="#5c110b">Welcome! Please login or register for an account.</Header>
+                  <Button.Group centered fluid>
+                    <Button basic color="red" href="/login">Login</Button>
+                    <Button.Or />
+                    <Button basic color="orange" href="/register">Register</Button>
+                  </Button.Group>
+                </Segment>
               </div>
-            </div>
-          </div>
+            </Grid.Column>
+          </Grid>
         </div>
+        
       );
     }
   }

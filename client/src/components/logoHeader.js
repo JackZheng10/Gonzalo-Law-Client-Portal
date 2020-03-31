@@ -2,7 +2,7 @@ import React from "react";
 import logo from "./images/horizontalLogo1.png";
 import "./styles.css";
 
-const Header = () => {
+const LogoHeader = () => {
   return (
     <div>
       <div className="welcomeHeader">
@@ -15,4 +15,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default LogoHeader;
