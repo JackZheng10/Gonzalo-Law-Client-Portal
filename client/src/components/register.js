@@ -2,9 +2,20 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import "./styles.css";
-import Header from "./header";
 import baseURL from "../baseURL";
 import checkToken from "./checkToken.js";
+import logo from "./images/horizontalLogo1.png";
+import image from "./images/gainesville-downtown-street.jpg";
+
+import {
+  Grid,
+  Header,
+  Form,
+  Segment,
+  Message,
+  Button,
+  Image
+} from 'semantic-ui-react';
 
 export default class Register extends Component {
   state = {
@@ -57,59 +68,55 @@ export default class Register extends Component {
       return <Redirect to="/projects" />;
     } else {
       return (
-        <div>
-          <Header />
-          <div className="row mt-5">
-            <div className="col-md-6 m-auto">
-              <div className="card card-body">
-                <h1 className="text-center mb-3">Register</h1>
-                <form onSubmit={this.handleSubmit}>
-                  <div className="form-group">
-                    <label>Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      ref="email"
-                      required
-                      className="form-control"
-                      placeholder="Enter email"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Name</label>
-                    <input
-                      type="name"
-                      id="name"
-                      ref="name"
-                      required
-                      className="form-control"
-                      placeholder="Enter name"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Password</label>
-                    <input
-                      type="password"
-                      id="password"
-                      ref="password"
-                      required
-                      className="form-control"
-                      placeholder="Create password"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="btn btn-primary btn-block registerBTN"
-                  >
-                    Register
-                  </button>
-                </form>
-                <p className="lead mt-4">
-                  Already have an account? <a href="/login">Login</a>
-                </p>
-              </div>
+        <div className="background">
+
+
+        <Grid columns={3} centered>
+          <Grid.Column width={10}>
+          <div className="auth-content">
+            <Segment>
+              <Image src={logo} centered/>
+              <Header as="h2" textAlign="center">Register</Header>
+              <Form className="form-group" onSubmit={this.handleSubmit}>
+                <Form.Field>
+                  <label>Name</label>
+                  <input
+                    placeholder="Enter full name"
+                    id="name"
+                    ref="name"
+                    required
+                  />
+                </Form.Field>
+                <Form.Field>
+                  <label>Email</label>
+                  <input
+                    placeholder='Enter email'
+                    type="email"
+                    id="email"
+                    ref="email"
+                    required
+                  />
+                </Form.Field>
+                <Form.Field>
+                  <label>Create Password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    ref="password"
+                    required
+                    placeholder="Enter password"
+                  />
+                </Form.Field>
+
+                <Button type="submit" color="orange" fluid>Register</Button>
+              </Form>
+            </Segment>
+            <Message>
+              Already have an account? <a href="/login">Login</a>
+            </Message>
             </div>
-          </div>
+          </Grid.Column>
+        </Grid>
         </div>
       );
     }

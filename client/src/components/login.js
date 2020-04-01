@@ -2,9 +2,19 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import baseURL from "../baseURL";
-import Header from "./header";
 import jwtDecode from "jwt-decode";
 import checkToken from "./checkToken.js";
+import image from "./images/gainesville-downtown-street.jpg";
+import logo from "./images/horizontalLogo1.png";
+import {
+  Button,
+  Form,
+  Grid,
+  Header,
+  Message,
+  Segment,
+  Image
+} from 'semantic-ui-react';
 
 export default class login extends Component {
   state = {
@@ -51,6 +61,7 @@ export default class login extends Component {
       .catch(error => {
         alert(error.response);
       });
+
   };
 
   render() {
@@ -74,49 +85,46 @@ export default class login extends Component {
     }
 
     return (
-      <div>
-      <Header />
-        <div className="row mt-5">
-          <div className="col-md-6 m-auto">
-            <div className="card card-body">
-              <h1 className="text-center mb-3">Login</h1>
-              <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <label>Email</label>
-                  <input
-                    typeof="email"
-                    id="email"
-                    ref="email"
-                    required
-                    className="form-control"
-                    placeholder="Enter email"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Password</label>
-                  <input
-                    type="password"
-                    id="password"
-                    ref="password"
-                    required
-                    className="form-control"
-                    placeholder="Enter password"
-                  />
-                </div>
-                <button
-                  typeof="submit"
-                  className="btn btn-primary btn-block loginBTN"
-                >
-                  Login
-                </button>
-              </form>
-              <p className="lead mt-4">
-                Don't have an account? <a href="/register">Register</a>
-              </p>
-            </div>
-          </div>
-        </div>
+
+      <div className="background">
+          <Grid centered columns={3}>
+            <Grid.Column width = {10}>
+              <div className="auth-content">
+                <Segment>
+                  <Image src={logo} centered/>
+                  <Header as="h2" textAlign="center">Login</Header>
+                  <Form className="form-group" onSubmit={this.onSubmit}>
+                    <Form.Field>
+                      <label>Email</label>
+                      <input
+                      placeholder='Enter email'
+                      type="email"
+                      ref="email"
+                      required
+                      color="white"
+                      />
+                    </Form.Field>
+                    <Form.Field>
+                      <label>Password</label>
+                      <input
+                      placeholder='Enter password'
+                      type="password"
+                      id="password"
+                      ref="password"
+                      required
+                      />
+                    </Form.Field>
+                    <Button type='submit' color="orange" fluid >Login</Button>
+                  </Form>
+                </Segment>
+                <Message>
+                  Don't have an account? <a href="/register">Register</a>
+                </Message>
+              </div>
+            </Grid.Column>
+          </Grid>
       </div>
+
     );
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Header from "./header.js";
+import LogoHeader from "./logoHeader.js";
 import Search from "./search.js";
 import { Redirect } from "react-router-dom";
 import baseURL from "../baseURL.js";
@@ -135,7 +135,7 @@ export default class admin extends Component {
 
     return (
       <div>
-      <Header />
+      <LogoHeader />
         <div className="col-md-6 m-auto">
           <div className="card card-body">
             <h1 className="text-center mb-3"> Dashboard</h1>
