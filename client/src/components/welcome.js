@@ -42,8 +42,7 @@ export default class welcome extends Component {
       return <Redirect to="/projects" />;
     } else {
       return (
-        <div>
-          <Image src={image} fluid />
+        <div className="background">
           <Grid centered columns={3}>
             <Grid.Column>
               <div className="auth-content">
@@ -60,7 +59,7 @@ export default class welcome extends Component {
             </Grid.Column>
           </Grid>
         </div>
-        
+
       );
     }
   }
