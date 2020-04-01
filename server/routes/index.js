@@ -1,6 +1,6 @@
 const express = require("express");
 const routes = express.Router();
-const { uploadFile, getFiles} = require("../controllers/fileController");
+const { uploadFile, getFiles } = require("../controllers/fileController");
 const {
   login,
   register,
