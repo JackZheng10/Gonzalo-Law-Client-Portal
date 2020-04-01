@@ -115,28 +115,28 @@ export default class admin extends Component {
   }
 
   render() {
-    // if (this.state.redirect) {
-    //   return <Redirect to="/login" />;
-    // }
+    if (this.state.redirect) {
+      return <Redirect to="/login" />;
+    }
 
-    // if (this.state.error) {
-    //   return <h1>You do not have permission to view this page.</h1>;
-    // }
+    if (this.state.error) {
+      return <h1>You do not have permission to view this page.</h1>;
+    }
 
     if (this.state.hasSelected) {
       //alert("what111");
       return (
         <Redirect
           to={{
-            pathname: "/projects",
-             }}
+            pathname: "/projects"
+          }}
         />
       );
     }
 
     return (
       <div>
-      <NavBarAdmin/>
+        <NavBarAdmin />
         <div className="col-md-6 m-auto">
           <div className="card card-body">
             <h1 className="text-center mb-3"> Dashboard</h1>
