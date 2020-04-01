@@ -1,6 +1,6 @@
 const express = require("express");
 const routes = express.Router();
-const { uploadFile, getFiles, downloadFile } = require("../controllers/fileController");
+const { uploadFile, getFiles} = require("../controllers/fileController");
 const {
   login,
   register,
@@ -27,8 +27,8 @@ routes.get("/api/getUserProjects", getUserProjects);
 routes.get("/api/getUserProject", getUserProject);
 routes.post("/api/addProject", addProject);
 routes.post("/api/updatePhase", updatePhase);
-routes.get("/api/upload", uploadFile);
-routes.get("/api/download", downloadFile);
+routes.put("/api/upload", uploadFile);
+//routes.get("/api/download", downloadFile);
 routes.get("/api/getFiles", getFiles);
 
 module.exports = routes;

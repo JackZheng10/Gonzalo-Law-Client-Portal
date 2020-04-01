@@ -5,14 +5,21 @@ const {Storage} = require('@google-cloud/storage')
 //const projectId = 'polished-engine-272617'
 //const keyFilename = '../keys/keyFile'
 
-
-const bucketName = 'gonzl_1'
+const bucketName = 'gonzl-2'
 
 //create a client
 const storage = new Storage();
 
-async function uploadFile(req, res) {
+const uploadFile = async (req, res) => {
 
+  //console.log(req.file);
+  //console.log(req.email)
+  console.log("Reached uploadFile")
+  res.send("I have reached upload")
+
+  const filePath = "../../../../dummyFiles/dummy_original.pdf"
+  //require("../../../../dummyFiles/dummy_original.pdf")
+/*  
   // Uploads a local file to the bucket
   //console.log(req);
   const newName = req.query.email + '/' + req.query.filename;
@@ -25,39 +32,47 @@ async function uploadFile(req, res) {
       }
   };
   storage.bucket(bucketName).upload(req.query.path, options, function(err, file) { });
+*/
 
-/*
-  await storage.bucket(bucketName).upload(filePath, {
-    // Support for HTTP requests made with `Accept-Encoding: gzip`
+  storage.bucket(bucketName).upload(filePath, {
     gzip: true,
-    // By setting the option `destination`, you can change the name of the
-    // object you are uploading to a bucket.
     metadata: {
-      // Enable long-lived HTTP caching headers
-      // Use only if the contents of the file will never change
-      // (If the contents will change, use cacheControl: 'no-cache')
       cacheControl: 'public, max-age=31536000',
     },
-  });
-*/ 
-  console.log(`${req.query.filename} uploaded to ${bucketName}.`);
+  })
+  .catch (error => {console.log(error)});
+
+//  console.log(`${req.query.filename} uploaded to ${bucketName}.`);
 }
 
+/*
+ * Calls 
+ */
 async function getFiles(req, res) {
-  const pref = '/' + req.query.email;
+  const pref = req.query.email +'/' + req.query.pname;
   const options = {
     prefix: pref,
   };
 
-  const [files] = await storage.bucket(bucketName).getFiles(options)
-  res.json(JSON.stringify(files));
+  const files =  await storage.bucket(bucketName).getFiles(options);
+
+  var fileName = []
+  files.forEach(element => {
+    //console.log(element);
+    element.forEach(el => {
+      console.log(el.name);
+      fileName.push(el.name);
+    })
+  })
+
+res.send(fileName);
+
 };
 
-//Delete function below, using public endpoints instead
-async function downloadFile(req, res) {
-  const file = bucket(bucketName).file(req.query.filename);
-  file.download({});
+// async function downloadFile(req, res) {
+//   const file = bucket(bucketName).file(req.query.filename);
+//   file.download({});
 
-};
+// };
 
-module.exports = { uploadFile, getFiles, downloadFile};
+module.exports = { uploadFile, getFiles};
