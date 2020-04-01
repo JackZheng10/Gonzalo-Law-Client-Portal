@@ -25,7 +25,7 @@ class FileInput extends React.Component {
     //     headers: {
     //     }
     //   }
-      
+
     //   axios.put(URL, data, config);
 
     //       axios.defaults.headers.common["token"] = localStorage.getItem("token")
@@ -47,11 +47,11 @@ class FileInput extends React.Component {
     //     });
 
     }
-  
+
     render() {
       return (
         <form onSubmit={this.handleSubmit}>
-          <label className = "form">
+          <label className = "file-form">
             Upload file:
             <input type="file" ref={this.fileInput} />
           </label>
@@ -61,7 +61,7 @@ class FileInput extends React.Component {
       );
     }
   }
-  
+
   ReactDOM.render(
     <FileInput />,
     document.getElementById('root')

@@ -1,4 +1,4 @@
-.form {
+.file-form {
     position: absolute;
     right: 10px;
     top: 300px;
@@ -6,7 +6,7 @@
     border: 3px solid rgb(1, 3, 75);
     padding: 10px;
   }
-  
+
   .submit {
     position: absolute;
     right: 20px;
@@ -15,4 +15,3 @@
     width: 70x;
     padding: 10px;
   }
-
