@@ -34,6 +34,8 @@ module.exports.init = () => {
   });
   connection.on("error", e => console.log("error"));
 
+  app.use("/api", routes);
+
   if (process.env.NODE_ENV === "production") {
     // Serve any static files
     app.use(express.static(path.join(__dirname, "../../client/build")));
@@ -43,8 +45,6 @@ module.exports.init = () => {
       res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
     });
   }
-
-  app.use("/", routes);
 
   return app;
 };
