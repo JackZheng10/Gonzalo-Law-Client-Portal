@@ -41,6 +41,7 @@ const addProject = (req, res) => {
     .catch(error => {
       res.send(error);
     });
+    console.log("added project");
 };
 
 const getUserProject = (req, res) => {

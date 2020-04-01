@@ -15,6 +15,11 @@ const ProjectSchema = new mongoose.Schema({
     type: Number,
     required: true,
     default: 0
+  },
+  files: {
+    type: [String],
+    required: false,
+    unique: false
   }
 });
 
