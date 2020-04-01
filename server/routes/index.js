@@ -15,20 +15,20 @@ const {
 } = require("../controllers/userController");
 const verifyToken = require("../authHelpers").verifyToken;
 
-routes.post("register", register);
-routes.post("login", login);
+routes.post("/register", register);
+routes.post("/login", login);
 
 //use for all requests that hit this
 routes.use(verifyToken);
 
-routes.get("checkToken", verify);
-routes.get("getClients", getClients);
-routes.get("getUserProjects", getUserProjects);
-routes.get("getUserProject", getUserProject);
-routes.post("addProject", addProject);
-routes.post("updatePhase", updatePhase);
-routes.put("upload", uploadFile);
+routes.get("/checkToken", verify);
+routes.get("/getClients", getClients);
+routes.get("/getUserProjects", getUserProjects);
+routes.get("/getUserProject", getUserProject);
+routes.post("/addProject", addProject);
+routes.post("/updatePhase", updatePhase);
+routes.put("/upload", uploadFile);
 //routes.get("/api/download", downloadFile);
-routes.get("getFiles", getFiles);
+routes.get("/getFiles", getFiles);
 
 module.exports = routes;
