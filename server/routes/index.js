@@ -16,7 +16,9 @@ const {
 const verifyToken = require("../authHelpers").verifyToken;
 
 routes.post("/api/register", register);
-routes.post("/api/login", login);
+routes.post("/api/login", login, () => {
+  console.log("reached");
+});
 
 //use for all requests that hit this
 routes.use(verifyToken);
