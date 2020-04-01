@@ -5,17 +5,16 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { Menu, Segment } from "semantic-ui-react";
 
-
 export default class NavBarAdmin extends Component {
   //state = { activeItem: 'My Projects' }
   handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userEmail");
     axios.defaults.headers.common["token"] = null;
     alert("Logged out successfully.");
   };
 
   //handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-  
 
   render() {
     //const { activeItem } = this.state
@@ -25,20 +24,20 @@ export default class NavBarAdmin extends Component {
         <Menu pointing secondary>
           <img src={logo} className="logo" />
           <Menu.Item
-            name='Projects'
+            name="Projects"
             //active={activeItem === 'My Projects'}
             //onClick={this.handleItemClick}
             href="/admin"
           />
           <Menu.Item
-            name='Calendar'
+            name="Calendar"
             //active={activeItem === 'Calendar'}
             //onClick={this.handleItemClick}
             href="/calendar"
           />
-          <Menu.Menu position='right'>
+          <Menu.Menu position="right">
             <Menu.Item
-              name='logout'
+              name="logout"
               //active={activeItem === 'logout'}
               onClick={this.handleLogout}
               href="/welcome"
@@ -46,6 +45,6 @@ export default class NavBarAdmin extends Component {
           </Menu.Menu>
         </Menu>
       </div>
-    )
+    );
   }
 }
