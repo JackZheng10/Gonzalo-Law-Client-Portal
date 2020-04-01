@@ -7,6 +7,7 @@ import { Redirect } from "react-router-dom";
 import baseURL from "../baseURL.js";
 import checkToken from "./checkToken.js";
 import jwtDecode from "jwt-decode";
+import NavBarAdmin from "./navBarAdmin";
 
 const escapeRegExp = string => {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -114,13 +115,13 @@ export default class admin extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to="/login" />;
-    }
+    // if (this.state.redirect) {
+    //   return <Redirect to="/login" />;
+    // }
 
-    if (this.state.error) {
-      return <h1>You do not have permission to view this page.</h1>;
-    }
+    // if (this.state.error) {
+    //   return <h1>You do not have permission to view this page.</h1>;
+    // }
 
     if (this.state.hasSelected) {
       //alert("what111");
@@ -135,7 +136,7 @@ export default class admin extends Component {
 
     return (
       <div>
-      <LogoHeader />
+      <NavBarAdmin/>
         <div className="col-md-6 m-auto">
           <div className="card card-body">
             <h1 className="text-center mb-3"> Dashboard</h1>

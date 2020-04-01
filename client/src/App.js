@@ -4,7 +4,7 @@ import Welcome from "./components/welcome";
 import Login from "./components/login";
 import Register from "./components/register";
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import Projects from "./components/Projects/Projects";
 import ProjectPage from "./components/ProjectPage/ProjectPage";
 import Admin from "./components/admin";
