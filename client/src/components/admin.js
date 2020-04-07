@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import LogoHeader from "./logoHeader.js";
 import Search from "./search.js";
-import Header from "./header.js";
 import { Redirect } from "react-router-dom";
-// import axios from 'axios';
+import baseURL from "../baseURL.js";
+import checkToken from "./checkToken.js";
+import jwtDecode from "jwt-decode";
+import NavBarAdmin from "./navBarAdmin";
 
 const escapeRegExp = string => {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -15,7 +18,9 @@ export default class admin extends Component {
     selectedClient: "",
     searchTerm: "",
     hasSelected: false,
-    clients: []
+    clients: [],
+    redirect: false,
+    error: false
   };
 
   handleSearch = term => {
@@ -23,34 +28,36 @@ export default class admin extends Component {
     this.setState({ searchTerm: term });
   };
 
-  componentDidMount() {
-    //heroku: baseURL = "/api/";
-    //local: baseURL = "http://localhost:8000/api/";
-    let baseURL = "/api/";
+  async componentDidMount() {
+    localStorage.removeItem("userEmail");
 
-    axios
-      .get(baseURL + "getClients")
-      .then(res => {
-        console.log("response array of clients: " + JSON.stringify(res.data));
-        let clients = JSON.parse(JSON.stringify(res.data));
-        this.setState({ clients: clients });
-      })
-      .catch(error => {
-        alert(error);
-      });
+    axios.defaults.headers.common["token"] = localStorage.getItem("token")
+      ? localStorage.getItem("token")
+      : null;
+    await checkToken().then(response => {
+      this.setState({ redirect: !response });
+    });
 
-    /* TESTING ADD PROJECT
-    let baseURL = "http://localhost:8000/api/";
+    if (!this.state.redirect) {
+      const data = jwtDecode(localStorage.getItem("token"));
 
-    axios
-      .post(baseURL + "addProject", {email: "sam@gmail.com", project: {name: "Proj4", type: "none"}})
-      .then(res => {
-      })
-      .catch(error => {
-
-      });
-      */
-    //Above code used to test addProject, left in for reference, feel free to delete if not required.
+      if (data.isAdmin) {
+        axios
+          .get(baseURL + "getClients")
+          .then(res => {
+            console.log(
+              "response array of clients: " + JSON.stringify(res.data)
+            );
+            let clients = JSON.parse(JSON.stringify(res.data));
+            this.setState({ clients: clients });
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      } else {
+        this.setState({ error: true });
+      }
+    }
   }
 
   componentDidUpdate() {
@@ -62,10 +69,12 @@ export default class admin extends Component {
     console.log("Selected: " + email);
     this.setState({ selectedClient: email });
     this.setState({ hasSelected: true });
+    localStorage.setItem("userEmail", email);
   }
 
   clientListRender() {
     //todo: will have to be put in a scrolly view thing*
+
     return (
       <div class="ui celled list">
         {this.state.clients
@@ -106,12 +115,20 @@ export default class admin extends Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/login" />;
+    }
+
+    if (this.state.error) {
+      return <h1>You do not have permission to view this page.</h1>;
+    }
+
     if (this.state.hasSelected) {
+      //alert("what111");
       return (
         <Redirect
           to={{
-            pathname: "/projects",
-            state: { selectedClient: this.state.selectedClient }
+            pathname: "/projects"
           }}
         />
       );
@@ -119,7 +136,7 @@ export default class admin extends Component {
 
     return (
       <div>
-        <Header />
+        <NavBarAdmin />
         <div className="col-md-6 m-auto">
           <div className="card card-body">
             <h1 className="text-center mb-3"> Dashboard</h1>
@@ -131,9 +148,6 @@ export default class admin extends Component {
             <h1>Client List</h1>
             <Search handleSearch={this.handleSearch} />
             {this.clientListRender()}
-            <a className="btn btn-danger btn-block" href="/login">
-              Logout{" "}
-            </a>
           </div>
         </div>
       </div>

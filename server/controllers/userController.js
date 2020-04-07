@@ -21,7 +21,7 @@ const getUserProjects = (req, res) => {
         res.json(user.projects);
       }
     else{
-      res.error("No such user exists");
+      res.status(400).send("No such user exists");
     }
   }))
     .catch(error => {
@@ -31,7 +31,8 @@ const getUserProjects = (req, res) => {
 
 const addProject = (req, res) => {
   const filter = { email: req.body.email };
-  const proj = { name: req.body.project.name, type: req.body.project.type };
+  const proj = { name: req.body.project.name,
+                 type: req.body.project.type};
   // { "$push": { "projects": proj } }
   User.findOneAndUpdate(filter,  { $push: { projects: proj } }, {new: true})
     .then(user => {
@@ -40,6 +41,34 @@ const addProject = (req, res) => {
     .catch(error => {
       res.send(error);
     });
+    console.log("added project");
 };
 
-module.exports = { getClients, getUserProjects, addProject };
+const getUserProject = (req, res) => {
+  User.findOne({ email: req.query.email }, ((err, user) => {
+    if (user) {
+        res.json(user.projects.id(req.query.uid));
+      }
+    else{
+      res.status(400).send("No such project exists");
+    }
+  }))
+    .catch(error => {
+      res.send(error);
+    });
+}
+const updatePhase = async (req, res) => {
+  const filter = {"email": req.body.email, "projects._id": req.body.uid}
+  try{
+    const user = await User.findOneAndUpdate(filter, {"$set": {
+              "projects.$.phase": req.body.phase
+          }}, {new: true});
+
+    res.json(user.projects.id(req.body.uid));
+  }
+  catch(error){
+    res.send(error);
+  }
+};
+
+module.exports = { getClients, getUserProjects, getUserProject, addProject, updatePhase };

@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
 import projectType from "../../enums/projectType.js";
-import {Dropdown, Button, Header, Icon, Modal } from 'semantic-ui-react';
-
+import {Button, Header, Icon, Modal, Form } from 'semantic-ui-react';
 const NewProject= (props)=>{
 
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [open, setOpen] = useState(false);
 
-
   const handleChange = (e, data)=>{
+
       if(e.target.name==="name")
         setName(e.target.value);
       else if(data.name ==="type")
@@ -44,28 +43,28 @@ const NewProject= (props)=>{
 
     <Header content='New Project' />
     <Modal.Content>
-    <div className="required field ui input">
-      <label>Name</label>
-      <input type="text" placeholder="Enter a name" name="name" value={name} onChange={handleChange} required />
-    </div>
-    <div className="required field">
-      <label>Type</label>
-        <Dropdown
+      <Form error={false}>
+        <Form.Input
+          label='Name'
+          name="name"
+          placeholder="Enter a name"
+          onChange={handleChange}
+          value={name}
+          required/>
+        <Form.Select
+          label="Type"
           name="type"
           placeholder="Select a Project Type"
           onChange={handleChange}
           options={projectType}
-          required
-          label='Required Dropdown'
-          />
-
-    </div>
+          required/>
+        </Form>
     </Modal.Content>
     <Modal.Actions>
       <Button color='red' onClick={handleCancel}>
         <Icon name='remove' /> Cancel
       </Button>
-      <Button color='green' onClick={handleSubmit}>
+      <Button color='green' onClick={handleSubmit} disabled={!name || !type}>
         <Icon name='checkmark' /> Save
       </Button>
     </Modal.Actions>

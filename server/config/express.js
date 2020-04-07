@@ -2,7 +2,10 @@ const path = require("path"),
   express = require("express"),
   cors = require("cors"),
   mongoose = require("mongoose"),
+  bodyParser = require("body-parser"),
   routes = require("../routes");
+
+morgan = require("morgan");
 
 //require("dotenv").config();
 
@@ -17,7 +20,13 @@ module.exports.init = () => {
   const app = express();
 
   app.use(cors());
-  app.use(express.json());
+
+  // morgan used for logging HTTP requests to the console
+  app.use(morgan("dev"));
+
+  // bodyParser used for resolving the req and res body objects (urlEncoded and json formats)
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
 
   const connection = mongoose.connection;
   connection.once("open", () => {
@@ -25,7 +34,7 @@ module.exports.init = () => {
   });
   connection.on("error", e => console.log("error"));
 
-  app.use("/", routes);
+  app.use("/api", routes);
 
   if (process.env.NODE_ENV === "production") {
     // Serve any static files

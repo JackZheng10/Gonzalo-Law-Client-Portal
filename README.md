@@ -12,7 +12,7 @@ module.exports = {
 };
 ```
 
-2. Search the solution for "baseURL" and set the variable to the local version as specified in the comments of the code.<br/>
+2. To go baseURL.js in client/src and set the variable to the local version as specified in the comments of the code.<br/>
 
 3. Run `npm install` from the root and client directory. <br/>
 
