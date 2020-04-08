@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CDPhases from "../../enums/CDPhases.js";
 import DNPhases from "../../enums/DNPhases.js";
 import IPPhases from "../../enums/IPPhases.js";
-import { Progress, Button, Popup } from 'semantic-ui-react';
+import {Icon, Button, Popup } from 'semantic-ui-react';
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 import baseURL from "../../baseURL";
@@ -39,10 +39,9 @@ const ProgressBar = (props)=>{
     }
   }
 
-  const increment = ()=>{
-    let phase = props.phase + 1;
-    if(props.phase >= maxPhase())
-      phase = 0;
+  const increment = (nextPhase)=>{
+
+
     axios.defaults.headers.common["token"] = localStorage.getItem("token")
       ? localStorage.getItem("token")
       : null;
@@ -52,7 +51,7 @@ const ProgressBar = (props)=>{
       data: {
         email: localStorage.getItem("userEmail"),
         uid: props.uid,
-        phase: phase
+        phase: nextPhase
       }
     })
       .then(res => {
@@ -62,22 +61,29 @@ const ProgressBar = (props)=>{
         console.log(error);
       });
   };
+  const data = jwtDecode(localStorage.getItem("token"));
 
-  const incrementButton = ()=>{
-    const data = jwtDecode(localStorage.getItem("token"));
-
-    if (data.isAdmin)
-      return   <Button onClick={increment}>Next Phase</Button>;
-  }
   let list = [];
 
   for(var i = 0; i <= maxPhase(); i++){
     list.push(
+      <li key = {i} className={i > props.phase ? '' : 'active'}>
       <Popup
-        trigger={<li className={i > props.phase ? '' : 'active'} />}
+        trigger={
+            <Icon name={i > props.phase ? "circle outline" : "check circle outline"}
+                  size="big"
+                  link={data.isAdmin}
+                  id={i}
+                  onClick={e => {
+                      if(data.isAdmin)
+                       increment(e.target.id)
+                     }}/>
+
+        }
         content={phases()[i]}
         position="bottom center"
         />
+          </li>
     );
   }
 
@@ -94,7 +100,6 @@ const ProgressBar = (props)=>{
         </ul>
       </div>
       <h3>{"Current Phase: "+phases()[props.phase]} </h3>
-      {incrementButton()}
     </div>
   )
 
