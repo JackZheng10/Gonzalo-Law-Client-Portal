@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { Menu, Segment } from "semantic-ui-react";
 
-export default class NavBar extends Component {
+const NavBar = () => {
   //state = { activeItem: 'My Projects' }
-  handleLogout = () => {
+  const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userEmail");
     axios.defaults.headers.common["token"] = null;
@@ -15,13 +15,13 @@ export default class NavBar extends Component {
   };
 
   //handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-  handlePaymentClick() {
-    window.location.assign(
-      "https://www.gonzalolaw.com/client-resources/make-a-payment/"
-    );
+  const handlePaymentClick = async ()=> {
+
+    document.getElementById("payment").submit();
   }
 
-  render() {
+
+
     //const { activeItem } = this.state
 
     return (
@@ -42,13 +42,25 @@ export default class NavBar extends Component {
           />
           <Menu.Menu position="right">
             <Menu.Item
-              name="Make a Payment"
-              onClick={this.handlePaymentClick.bind(this)}
-            />
+              onClick={handlePaymentClick}
+            >
+              <form
+                action="https://Simplecheckout.authorize.net/payment/CatalogPayment.aspx"
+                method="post"
+                id="payment"
+              >
+                <input
+                  name="LinkId"
+                  type="hidden"
+                  value="ea28c130-eb6e-4e1a-a841-f179279b5b0f"
+                ></input>{"Make a Payment"}
+
+              </form>
+            </Menu.Item>
             <Menu.Item
               name="logout"
               //active={activeItem === 'logout'}
-              onClick={this.handleLogout}
+              onClick={handleLogout}
               href="/welcome"
             />
           </Menu.Menu>
@@ -56,7 +68,7 @@ export default class NavBar extends Component {
       </div>
     );
   }
-}
+
 
 //const handleLogout = () => {
 //   localStorage.removeItem("token");
@@ -93,4 +105,4 @@ export default class NavBar extends Component {
 //   );
 // };
 
-// export default NavBar;
+ export default NavBar;
