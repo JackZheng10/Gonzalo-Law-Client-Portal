@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import LogoHeader from "./logoHeader.js";
+import LogoHeader from "../logoHeader.js";
 import Search from "./search.js";
 import { Redirect } from "react-router-dom";
-import baseURL from "../baseURL.js";
-import checkToken from "./checkToken.js";
+import baseURL from "../../baseURL.js";
+import checkToken from "../checkToken.js";
 import jwtDecode from "jwt-decode";
 import NavBarAdmin from "./navBarAdmin";
 
@@ -24,7 +24,7 @@ export default class admin extends Component {
   };
 
   handleSearch = term => {
-    console.log("Search term: " + term);
+    //console.log("Search term: " + term);
     this.setState({ searchTerm: term });
   };
 
@@ -45,9 +45,9 @@ export default class admin extends Component {
         axios
           .get(baseURL + "getClients")
           .then(res => {
-            console.log(
-              "response array of clients: " + JSON.stringify(res.data)
-            );
+            //console.log(
+            //  "response array of clients: " + JSON.stringify(res.data)
+          //  );
             let clients = JSON.parse(JSON.stringify(res.data));
             this.setState({ clients: clients });
           })
@@ -61,12 +61,12 @@ export default class admin extends Component {
   }
 
   componentDidUpdate() {
-    console.log("Search term in state of dashboard: " + this.state.searchTerm);
-    console.log("Selected client in state: " + this.state.selectedClient);
+    //console.log("Search term in state of dashboard: " + this.state.searchTerm);
+    //console.log("Selected client in state: " + this.state.selectedClient);
   }
 
   handleSelected(email) {
-    console.log("Selected: " + email);
+    //console.log("Selected: " + email);
     this.setState({ selectedClient: email });
     this.setState({ hasSelected: true });
     localStorage.setItem("userEmail", email);
@@ -76,7 +76,7 @@ export default class admin extends Component {
     //todo: will have to be put in a scrolly view thing*
 
     return (
-      <div class="ui celled list">
+      <div className="ui celled list">
         {this.state.clients
           .filter(item => {
             if (this.state.searchTerm.trim() !== "") {
@@ -96,15 +96,14 @@ export default class admin extends Component {
           })
           .map(item => {
             return (
-              <div class="item">
-                <i class="big user icon"></i>
+              <div className="item" key={item.email}>
+                <i className="big user icon"></i>
                 <div
-                  class="content"
+                  className="content"
                   style={{ cursor: "pointer" }}
-                  key={item.email}
                   onClick={() => this.handleSelected(item.email)}
                 >
-                  <div class="header">{item.name}</div>
+                  <div className="header">{item.name}</div>
                   {item.email}
                 </div>
               </div>
@@ -127,7 +126,7 @@ export default class admin extends Component {
       //alert("what111");
       return (
         <Redirect
-          to={{
+          push to={{
             pathname: "/projects"
           }}
         />

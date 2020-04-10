@@ -7,7 +7,7 @@ import "./App.css";
 
 import Projects from "./components/Projects/Projects";
 import ProjectPage from "./components/ProjectPage/ProjectPage";
-import Admin from "./components/admin";
+import Admin from "./components/admin/admin.js";
 import Calendar from "./components/calendar";
 
 const App = ()=> {

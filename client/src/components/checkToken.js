@@ -12,9 +12,7 @@ const checkToken = async () => {
   await axios
     .get(baseURL + "checkToken", {})
     .then(res => {
-      //alert("2");
-      console.log(res.data.success);
-      //alert(res.data.success);
+
       success = res.data.success;
     })
     .catch(error => {

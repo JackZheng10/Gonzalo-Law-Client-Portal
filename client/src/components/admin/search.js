@@ -5,7 +5,7 @@ export default class Search extends React.Component {
 
   render() {
     return (
-      <div class="ui fluid action input">
+      <div className="ui fluid action input">
         <input
           value={this.state.searchTerm}
           onChange={event => {
@@ -15,8 +15,8 @@ export default class Search extends React.Component {
           type="text"
           placeholder="Type to search for a specific client by name"
         />
-        <button class="ui icon button">
-          <i class="search icon"></i>
+        <button className="ui icon button">
+          <i className="search icon"></i>
         </button>
       </div>
     );

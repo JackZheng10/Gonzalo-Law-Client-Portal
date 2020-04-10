@@ -71,11 +71,12 @@ const Projects = props => {
 
   return (
     <div>
-    <NavBar />
-      <h3>{sessionStorage.getItem("userEmail")}</h3>
-      {adminView()}
+      <NavBar />
+      <div>
+        <h1 style={{display: 'inline-block'}}> Current Projects</h1>
+        {adminView()}
+      </div>
       <div className="box-section">
-        <h1> Current Projects:</h1>
         <ProjectList data={data} />
       </div>
     </div>

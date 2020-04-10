@@ -23,20 +23,18 @@
 }
 
 .progressBar li .icon{
-    border-radius: 50%;
-    background-color: #ddd;
-    width: auto;
+    color: #ddd;
     opacity: 1 !important;
 }
 
 .progressBar li:after{
     content: '';
     position: absolute;
-    width: 100%;
+    width: calc(100% - 1.4em);
     height: 10px;
     background-color: #ddd;
     top: 25%;
-    left: -50%;
+    left: calc(-50% + 0.5em);
     z-index: -1;
 }
 
@@ -45,7 +43,7 @@
 }
 
 .progressBar .active .icon {
-    background-color: #ee8c3a;
+    color: #ee8c3a;
 
 }
 
