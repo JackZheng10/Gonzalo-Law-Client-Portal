@@ -70,7 +70,7 @@ const ProgressBar = (props)=>{
       <li key = {i} className={i > props.phase ? '' : 'active'}>
       <Popup
         trigger={
-            <Icon name={i > props.phase ? "circle outline" : "check circle outline"}
+            <Icon name={i > props.phase ? "circle" : "check circle"}
                   size="big"
                   link={data.isAdmin}
                   id={i}
