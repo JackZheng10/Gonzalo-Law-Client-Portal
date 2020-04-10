@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import projectType from "../../enums/projectType.js";
 import {Button, Header, Icon, Modal, Form } from 'semantic-ui-react';
+
+
 const NewProject= (props)=>{
 
   const [name, setName] = useState("");
@@ -36,7 +38,7 @@ const NewProject= (props)=>{
 
   return(
     <Modal
-      trigger={<Button onClick={()=>{setOpen(true)}}>New Project</Button>}
+      trigger={<Button color='orange' onClick={()=>{setOpen(true)}}>New Project</Button>}
       open={open}
       onClose={handleCancel}
       >

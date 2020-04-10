@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import logo from "./images/horizontalLogo1.png";
-import "./styles.css";
+import logo from "../images/horizontalLogo1.png";
+import "../styles.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Menu, Segment } from "semantic-ui-react";
