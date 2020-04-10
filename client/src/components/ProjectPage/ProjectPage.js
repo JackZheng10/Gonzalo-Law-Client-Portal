@@ -64,13 +64,13 @@ const ProjectPage = (props)=>{
 
   }, [props.match.params.uid]);
 
-  const adminView = () => {
-    const data = jwtDecode(localStorage.getItem("token"));
+  // const adminView = () => {
+  //   const data = jwtDecode(localStorage.getItem("token"));
 
-    if (data.isAdmin) {
-      return <FileInput name = {project.name}/>;
-    }
-  };
+  //   if (data.isAdmin) {
+  //     return <FileInput name = {project.name}/>;
+  //   }
+  // };
 
   return(
     <div>
@@ -82,8 +82,10 @@ const ProjectPage = (props)=>{
         type={project.type}
         uid={project._id}
         setProject={setProject} />
-    {adminView()}
-    <FileList email={localStorage.getItem("userEmail")} pname ={project.name}/>
+    <FileInput name = {project.name}/>
+    <div> 
+    <FileList email={localStorage.getItem("userEmail")} pname ={project.name} class = 'list'/>
+    </div> 
     </div>
 
   )

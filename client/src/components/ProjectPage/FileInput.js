@@ -4,6 +4,7 @@ import axios from 'axios'
 import "./FileInput.css";
 import baseURL from "../../baseURL";
 import "./FileList";
+import {Button} from 'semantic-ui-react';
 
 
 //Referenced from: https://reactjs.org/docs/uncontrolled-components.html#the-file-input-tag
@@ -47,17 +48,22 @@ class FileInput extends React.Component {
     //     });
 
     }
-
+/*
+    <form onSubmit={this.handleSubmit}>
+    <label className = "file-form">
+      Upload file:
+      <input type="file" ref={this.fileInput} />
+    </label>
+    <br />
+    <button type="submit" className = "submit">Submit</button>
+  </form>
+  */
     render() {
       return (
-        <form onSubmit={this.handleSubmit}>
-          <label className = "file-form">
-            Upload file:
-            <input type="file" ref={this.fileInput} />
-          </label>
-          <br />
-          <button type="submit" className = "submit">Submit</button>
-        </form>
+        <div>
+          <input type="file" class = 'inputFile'/>
+          <Button positive floated = 'right'><i class="ui upload icon"></i>  Upload File </Button>
+        </div>
       );
     }
   }

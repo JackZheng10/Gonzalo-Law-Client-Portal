@@ -100,6 +100,9 @@ const ProgressBar = (props)=>{
         </ul>
       </div>
       <h3>{"Current Phase: "+phases()[props.phase]} </h3>
+      {"\n"}
+      {"\n"}
+      {"\n"}
     </div>
   )
 

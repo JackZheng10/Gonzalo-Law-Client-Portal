@@ -7,7 +7,7 @@ import File from "./File"
 const FileList = (props => {
     const [fileView, setfileView] = useState([]);
 
-    useEffect(() => {
+   useEffect(() => {
         const viewFiles = async () => {
             axios.defaults.headers.common["token"] = localStorage.getItem("token")
             ? localStorage.getItem("token")
@@ -21,7 +21,7 @@ const FileList = (props => {
             setfileView(res.data);
         };
         viewFiles();
-    }, [props.pname]);
+    }, [props]);
 
 
     return (
