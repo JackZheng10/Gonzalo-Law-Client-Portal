@@ -1,19 +1,26 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect  } from "react-router-dom";
 import axios from "axios";
-import LogoHeader from "../logoHeader.js";
 import Search from "./search.js";
-import { Redirect } from "react-router-dom";
 import baseURL from "../../baseURL.js";
 import checkToken from "../checkToken.js";
 import jwtDecode from "jwt-decode";
 import NavBarAdmin from "./navBarAdmin";
+import DeleteClient from "./deleteClient";
 
 const escapeRegExp = string => {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 };
 
 export default class admin extends Component {
+
+  constructor(props) {
+
+    super(props);
+
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
   state = {
     selectedClient: "",
     searchTerm: "",
@@ -74,6 +81,7 @@ export default class admin extends Component {
     localStorage.setItem("userEmail", email);
   }
 
+
   async handleDelete(id) {
     await axios({
       method: "post",
@@ -91,6 +99,7 @@ export default class admin extends Component {
     this.setState({clients: newClients});
 
   }
+
 
   clientListRender() {
     //todo: will have to be put in a scrolly view thing*
@@ -116,14 +125,16 @@ export default class admin extends Component {
           })
           .map(item => {
             return (
-              <div className="item" key={item.email}>
-              <div className="right floated content" onClick={() => this.handleDelete(item._id)}>
-                <i className="trash icon"> </i>
-              </div>
+              <div className="item" key={item.email} style={{ cursor: "pointer" }}>
+                <div className="right floated content" >
+                  <DeleteClient
+                    handleDelete = {this.handleDelete}
+                    id={item._id} />
+                </div>
+
                 <i className="big user icon"></i>
                 <div
                   className="content"
-                  style={{ cursor: "pointer" }}
                   onClick={() => this.handleSelected(item.email)}
                 >
                   <div className="header">{item.name}</div>
