@@ -113,4 +113,20 @@ const updatePhase = async (req, res) => {
 
 };
 
-module.exports = { getClients, getUserProjects, getUserProject, addProject, updatePhase };
+const deleteUser = async (req, res) => {
+  const currUser = jwtDecode(req.headers.token);
+
+  if(currUser.isAdmin === true) {
+    try{
+      const user = await User.findByIdAndDelete(req.query.uid);
+      res.send(user);
+    }
+    catch(error){
+      res.send(error);
+    }
+  }
+  else{
+    res.status(400).send("unarthorized access");
+  }
+}
+module.exports = { getClients, getUserProjects, getUserProject, addProject, updatePhase, deleteUser };

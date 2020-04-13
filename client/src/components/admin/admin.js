@@ -60,9 +60,11 @@ export default class admin extends Component {
     }
   }
 
-  componentDidUpdate() {
+  async componentDidUpdate() {
     //console.log("Search term in state of dashboard: " + this.state.searchTerm);
     //console.log("Selected client in state: " + this.state.selectedClient);
+
+
   }
 
   handleSelected(email) {
@@ -70,6 +72,24 @@ export default class admin extends Component {
     this.setState({ selectedClient: email });
     this.setState({ hasSelected: true });
     localStorage.setItem("userEmail", email);
+  }
+
+  async handleDelete(id) {
+    await axios({
+      method: "post",
+      url: baseURL + "deleteUser",
+      params: {
+        uid: id
+      }
+    });
+
+    const newClients = this.state.clients.filter(
+      (item) =>{
+        return item._id !== id
+      });
+
+    this.setState({clients: newClients});
+
   }
 
   clientListRender() {
@@ -97,6 +117,9 @@ export default class admin extends Component {
           .map(item => {
             return (
               <div className="item" key={item.email}>
+              <div className="right floated content" onClick={() => this.handleDelete(item._id)}>
+                <i className="trash icon"> </i>
+              </div>
                 <i className="big user icon"></i>
                 <div
                   className="content"
@@ -106,6 +129,7 @@ export default class admin extends Component {
                   <div className="header">{item.name}</div>
                   {item.email}
                 </div>
+
               </div>
             );
           })}

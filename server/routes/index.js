@@ -11,7 +11,8 @@ const {
   getUserProjects,
   addProject,
   updatePhase,
-  getUserProject
+  getUserProject,
+  deleteUser
 } = require("../controllers/userController");
 const verifyToken = require("../authHelpers").verifyToken;
 
@@ -30,5 +31,6 @@ routes.post("/updatePhase", updatePhase);
 routes.put("/upload", uploadFile);
 //routes.get("/api/download", downloadFile);
 routes.get("/getFiles", getFiles);
+routes.post("/deleteUser", deleteUser);
 
 module.exports = routes;
