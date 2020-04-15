@@ -7,6 +7,7 @@ import checkToken from "../checkToken.js";
 import jwtDecode from "jwt-decode";
 import NavBarAdmin from "./navBarAdmin";
 import DeleteClient from "./deleteClient";
+import "./admin.css";
 
 const escapeRegExp = string => {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -105,7 +106,7 @@ export default class admin extends Component {
     //todo: will have to be put in a scrolly view thing*
 
     return (
-      <div className="ui celled list">
+      <div className="ui celled list padded segment">
         {this.state.clients
           .filter(item => {
             if (this.state.searchTerm.trim() !== "") {
@@ -125,7 +126,7 @@ export default class admin extends Component {
           })
           .map(item => {
             return (
-              <div className="item" key={item.email} style={{ cursor: "pointer" }}>
+              <div className="item" key={item.email}>
                 <div className="right floated content" >
                   <DeleteClient
                     handleDelete = {this.handleDelete}
@@ -137,7 +138,7 @@ export default class admin extends Component {
                   className="content"
                   onClick={() => this.handleSelected(item.email)}
                 >
-                  <div className="header">{item.name}</div>
+                  <div className="name">{item.name}</div>
                   {item.email}
                 </div>
 
@@ -171,19 +172,17 @@ export default class admin extends Component {
     return (
       <div>
         <NavBarAdmin />
-        <div className="col-md-6 m-auto">
-          <div className="card card-body">
-            <h1 className="text-center mb-3"> Dashboard</h1>
-            <br />
-            <h1 className="lead mb-3">
+            <h1 className="ui center aligned header">
               Welcome
               <strong> Admin</strong>
             </h1>
-            <h1>Client List</h1>
-            <Search handleSearch={this.handleSearch} />
-            {this.clientListRender()}
-          </div>
-        </div>
+
+
+            <div className="ui segments container">
+              <p className="ui block inverted medium header segment">Client List</p>
+              <Search className="ui segment" handleSearch={this.handleSearch} />
+              {this.clientListRender()}
+            </div>
       </div>
     );
   }
