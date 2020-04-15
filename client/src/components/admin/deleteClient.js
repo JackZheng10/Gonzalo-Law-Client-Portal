@@ -8,6 +8,7 @@ const DeleteClient = (props)=>{
 
   const handleConfirm = () => {
     props.handleDelete(props.id);
+    setOpen(false);
   }
 
   const handleClose = ()=>{
