@@ -7,7 +7,6 @@ function signToken(user) {
   const userData = user.toObject();
   delete userData.password;
   return jwt.sign(userData, jwt_secret); //formats it into the JWT encoded xx.xx.xx, to be served to frontend if needed
-  //essentially just an encrypted object, but not really that encrypted
 }
 
 // function to verify tokens
@@ -35,5 +34,5 @@ function verifyToken(req, res, next) {
 
 module.exports = {
   signToken,
-  verifyToken
+  verifyToken,
 };

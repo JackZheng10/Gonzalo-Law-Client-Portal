@@ -4,7 +4,7 @@ const { uploadFile, getFiles } = require("../controllers/fileController");
 const {
   login,
   register,
-  verify
+  verify,
 } = require("../controllers/loginRegisterController");
 const {
   getClients,
@@ -12,12 +12,15 @@ const {
   addProject,
   updatePhase,
   getUserProject,
-  deleteUser
+  deleteUser,
 } = require("../controllers/userController");
+const { recoveryEmail } = require("../controllers/pwdRecoveryController");
+
 const verifyToken = require("../authHelpers").verifyToken;
 
 routes.post("/register", register);
 routes.post("/login", login);
+routes.post("/recoveryEmail", recoveryEmail);
 
 //use for all requests that hit this
 routes.use(verifyToken);

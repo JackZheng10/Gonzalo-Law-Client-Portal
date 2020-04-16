@@ -13,8 +13,8 @@ import {
   Header,
   Message,
   Segment,
-  Image
-} from 'semantic-ui-react';
+  Image,
+} from "semantic-ui-react";
 
 export default class login extends Component {
   state = {
@@ -24,23 +24,23 @@ export default class login extends Component {
     persons: [],
     name: "",
     userData: {},
-    redirect: false
+    redirect: false,
   };
 
   componentDidMount() {
-    checkToken().then(response => {
+    checkToken().then((response) => {
       this.setState({ redirect: response });
     });
   }
 
-  onSubmit = event => {
+  onSubmit = (event) => {
     event.preventDefault();
     const email = this.refs.email.value;
     const password = this.refs.password.value;
 
     axios
       .post(baseURL + "login", { email, password })
-      .then(async res => {
+      .then(async (res) => {
         if (res.data.success) {
           const token = res.data.token;
           localStorage.setItem("token", token);
@@ -51,17 +51,16 @@ export default class login extends Component {
 
           this.setState({
             isLoggedin: true,
-            userData: data
+            userData: data,
           });
         }
         if (res.data.error || res.error) {
           alert(res.data.error, res.error);
         }
       })
-      .catch(error => {
-        alert(error.response);
+      .catch((error) => {
+        alert(error);
       });
-
   };
 
   render() {
@@ -85,46 +84,48 @@ export default class login extends Component {
     }
 
     return (
-
       <div className="background">
-          <Grid centered columns={3}>
-            <Grid.Column width = {10}>
-              <div className="auth-content">
-                <Segment>
-                  <Image src={logo} centered/>
-                  <Header as="h2" textAlign="center">Login</Header>
-                  <Form className="form-group" onSubmit={this.onSubmit}>
-                    <Form.Field>
-                      <label>Email</label>
-                      <input
-                      placeholder='Enter email'
+        <Grid centered columns={3}>
+          <Grid.Column width={10}>
+            <div className="auth-content">
+              <Segment>
+                <Image src={logo} centered />
+                <Header as="h2" textAlign="center">
+                  Login
+                </Header>
+                <Form className="form-group" onSubmit={this.onSubmit}>
+                  <Form.Field>
+                    <label>Email</label>
+                    <input
+                      placeholder="Enter email"
                       type="email"
                       ref="email"
                       required
                       color="white"
-                      />
-                    </Form.Field>
-                    <Form.Field>
-                      <label>Password</label>
-                      <input
-                      placeholder='Enter password'
+                    />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Password</label>
+                    <input
+                      placeholder="Enter password"
                       type="password"
                       id="password"
                       ref="password"
                       required
-                      />
-                    </Form.Field>
-                    <Button type='submit' color="orange" fluid >Login</Button>
-                  </Form>
-                </Segment>
-                <Message>
-                  Don't have an account? <a href="/register">Register</a>
-                </Message>
-              </div>
-            </Grid.Column>
-          </Grid>
+                    />
+                  </Form.Field>
+                  <Button type="submit" color="orange" fluid>
+                    Login
+                  </Button>
+                </Form>
+              </Segment>
+              <Message>
+                Don't have an account? <a href="/register">Register</a>
+              </Message>
+            </div>
+          </Grid.Column>
+        </Grid>
       </div>
-
     );
   }
 }

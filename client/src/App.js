@@ -9,6 +9,7 @@ import ProjectPage from "./components/ProjectPage/ProjectPage";
 import Admin from "./components/admin/admin.js";
 import Calendar from "./components/calendar";
 import ResetPassword from "./components/resetPassword";
+import PasswordRecovery from "./components/passwordRecovery";
 
 const App = () => {
   return (
@@ -31,6 +32,12 @@ const App = () => {
           path="/resetPassword"
           component={
             ResetPassword
+          } /*for testing, real one will have id in URL*/
+        />
+        <Route
+          path="/passwordRecovery"
+          component={
+            PasswordRecovery
           } /*for testing, real one will have id in URL*/
         />
       </Switch>

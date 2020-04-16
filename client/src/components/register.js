@@ -14,22 +14,22 @@ import {
   Segment,
   Message,
   Button,
-  Image
-} from 'semantic-ui-react';
+  Image,
+} from "semantic-ui-react";
 
 export default class Register extends Component {
   state = {
     isRegistered: false,
-    redirect: false
+    redirect: false,
   };
 
   componentDidMount() {
-    checkToken().then(response => {
+    checkToken().then((response) => {
       this.setState({ redirect: response });
     });
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     const email = this.refs.email.value;
@@ -38,7 +38,7 @@ export default class Register extends Component {
 
     axios
       .post(baseURL + "register", { email, password, name })
-      .then(res => {
+      .then((res) => {
         if (res.data.success) {
           //const token = res.data.token;
           //localStorage.setItem("token", token);
@@ -46,15 +46,15 @@ export default class Register extends Component {
           //const data = jwtDecode(token);
 
           this.setState({
-            isRegistered: true
+            isRegistered: true,
           });
         }
         if (res.data.error || res.error) {
           alert(res.data.error, res.error);
         }
       })
-      .catch(error => {
-        return error.response;
+      .catch((error) => {
+        return error;
       });
   };
 
@@ -69,54 +69,56 @@ export default class Register extends Component {
     } else {
       return (
         <div className="background">
+          <Grid columns={3} centered>
+            <Grid.Column width={10}>
+              <div className="auth-content">
+                <Segment>
+                  <Image src={logo} centered />
+                  <Header as="h2" textAlign="center">
+                    Register
+                  </Header>
+                  <Form className="form-group" onSubmit={this.handleSubmit}>
+                    <Form.Field>
+                      <label>Name</label>
+                      <input
+                        placeholder="Enter full name"
+                        id="name"
+                        ref="name"
+                        required
+                      />
+                    </Form.Field>
+                    <Form.Field>
+                      <label>Email</label>
+                      <input
+                        placeholder="Enter email"
+                        type="email"
+                        id="email"
+                        ref="email"
+                        required
+                      />
+                    </Form.Field>
+                    <Form.Field>
+                      <label>Create Password</label>
+                      <input
+                        type="password"
+                        id="password"
+                        ref="password"
+                        required
+                        placeholder="Enter password"
+                      />
+                    </Form.Field>
 
-
-        <Grid columns={3} centered>
-          <Grid.Column width={10}>
-          <div className="auth-content">
-            <Segment>
-              <Image src={logo} centered/>
-              <Header as="h2" textAlign="center">Register</Header>
-              <Form className="form-group" onSubmit={this.handleSubmit}>
-                <Form.Field>
-                  <label>Name</label>
-                  <input
-                    placeholder="Enter full name"
-                    id="name"
-                    ref="name"
-                    required
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <label>Email</label>
-                  <input
-                    placeholder='Enter email'
-                    type="email"
-                    id="email"
-                    ref="email"
-                    required
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <label>Create Password</label>
-                  <input
-                    type="password"
-                    id="password"
-                    ref="password"
-                    required
-                    placeholder="Enter password"
-                  />
-                </Form.Field>
-
-                <Button type="submit" color="orange" fluid>Register</Button>
-              </Form>
-            </Segment>
-            <Message>
-              Already have an account? <a href="/login">Login</a>
-            </Message>
-            </div>
-          </Grid.Column>
-        </Grid>
+                    <Button type="submit" color="orange" fluid>
+                      Register
+                    </Button>
+                  </Form>
+                </Segment>
+                <Message>
+                  Already have an account? <a href="/login">Login</a>
+                </Message>
+              </div>
+            </Grid.Column>
+          </Grid>
         </div>
       );
     }
