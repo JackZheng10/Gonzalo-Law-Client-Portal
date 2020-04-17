@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import projectType from "../../enums/projectType.js";
-import {Button, Header, Icon, Modal, Form } from 'semantic-ui-react';
+import {Button, Header, Icon, Modal, Form, Rail } from 'semantic-ui-react';
 
 
 const NewProject= (props)=>{
@@ -37,41 +37,42 @@ const NewProject= (props)=>{
   }
 
   return(
-    <Modal
-      trigger={<Button color='orange' onClick={()=>{setOpen(true)}}>New Project</Button>}
-      open={open}
-      onClose={handleCancel}
-      >
+    <Rail position='right' close dividing>
+      <Modal
+        trigger={<Button color='orange' onClick={()=>{setOpen(true)}}>New Project</Button>}
+        open={open}
+        onClose={handleCancel}
+        >
 
-    <Header content='New Project' />
-    <Modal.Content>
-      <Form error={false}>
-        <Form.Input
-          label='Name'
-          name="name"
-          placeholder="Enter a name"
-          onChange={handleChange}
-          value={name}
-          required/>
-        <Form.Select
-          label="Type"
-          name="type"
-          placeholder="Select a Project Type"
-          onChange={handleChange}
-          options={projectType}
-          required/>
-        </Form>
-    </Modal.Content>
-    <Modal.Actions>
-      <Button color='red' onClick={handleCancel}>
-        <Icon name='remove' /> Cancel
-      </Button>
-      <Button color='green' onClick={handleSubmit} disabled={!name || !type}>
-        <Icon name='checkmark' /> Save
-      </Button>
-    </Modal.Actions>
-  </Modal>
-
+      <Header content='New Project' />
+      <Modal.Content>
+        <Form error={false}>
+          <Form.Input
+            label='Name'
+            name="name"
+            placeholder="Enter a name"
+            onChange={handleChange}
+            value={name}
+            required/>
+          <Form.Select
+            label="Type"
+            name="type"
+            placeholder="Select a Project Type"
+            onChange={handleChange}
+            options={projectType}
+            required/>
+          </Form>
+      </Modal.Content>
+      <Modal.Actions>
+        <Button color='red' onClick={handleCancel}>
+          <Icon name='remove' /> Cancel
+        </Button>
+        <Button color='green' onClick={handleSubmit} disabled={!name || !type}>
+          <Icon name='checkmark' /> Save
+        </Button>
+      </Modal.Actions>
+    </Modal>
+  </Rail>
   )
 
 }

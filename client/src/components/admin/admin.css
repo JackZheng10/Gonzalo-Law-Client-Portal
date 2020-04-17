@@ -1,0 +1,25 @@
+.item {
+  cursor: pointer;
+
+}
+.item i.trash.icon {
+  padding-top: 30%;
+  display: none;
+}
+
+.item .right.floated{
+  height: 32px;
+}
+.item:hover {
+  background-color: #545454;
+  color: white;
+  border-radius: 5px;
+}
+
+.item:hover i.trash.icon{
+  display: block;
+}
+.name {
+  font-weight: bold;
+  font-size: 1.2em;
+}

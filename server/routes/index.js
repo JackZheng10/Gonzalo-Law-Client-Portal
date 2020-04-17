@@ -6,19 +6,27 @@ const {memoryStorage} = require("multer");
 const {
   login,
   register,
-  verify
+  verify,
 } = require("../controllers/loginRegisterController");
 const {
   getClients,
   getUserProjects,
   addProject,
   updatePhase,
-  getUserProject
+  getUserProject,
+  deleteUser,
 } = require("../controllers/userController");
+const {
+  pwdResetEmail,
+  resetPassword,
+} = require("../controllers/pwdRecoveryController");
+
 const verifyToken = require("../authHelpers").verifyToken;
 
 routes.post("/register", register);
 routes.post("/login", login);
+routes.post("/pwdResetEmail", pwdResetEmail);
+routes.post("/resetPassword", resetPassword);
 
 const m = multer({
   storage: memoryStorage(),
@@ -42,5 +50,6 @@ routes.put("/deleteFile", deleteFile);
 
 //routes.get("/api/download", downloadFile);
 routes.get("/getFiles", getFiles);
+routes.post("/deleteUser", deleteUser);
 
 module.exports = routes;

@@ -6,6 +6,7 @@ import checkToken from "./checkToken.js";
 import { Segment, Grid, Header, Button, Image } from "semantic-ui-react";
 import image from "./images/gainesville-downtown-street.jpg";
 import logo from "./images/horizontalLogo1.png";
+import jwtDecode from "jwt-decode";
 
 export default class welcome extends Component {
   /* make payment button
@@ -39,6 +40,10 @@ export default class welcome extends Component {
 
   render() {
     if (this.state.redirect) {
+      const user = jwtDecode(localStorage.getItem('token'));
+      if(user.isAdmin){
+        return <Redirect to="/admin" />;
+      }
       return <Redirect to="/projects" />;
     } else {
       return (
