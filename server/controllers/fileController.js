@@ -20,8 +20,10 @@ const uploadFile = (req, res, next) => {
     return;
   }
 
+  console.log(req.body);
   // Create a new blob in the bucket and upload the file data.
-  const blob = bucket.file(req.file.originalname);
+  
+  const blob = bucket.file(req.body.email + '/' + req.body.pname + '/' + req.file.originalname);
   const blobStream = blob.createWriteStream();
 
   blobStream.on('error', (err) => {
@@ -29,57 +31,11 @@ const uploadFile = (req, res, next) => {
   });
 
   blobStream.on('finish', () => {
-    // The public URL can be used to directly access the file via HTTP.
-    //const publicUrl = format(
-    //  `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-    //);
-    console.log(req);
     res.status(200).send("Success");
   });
+  
   blobStream.end(req.file.buffer);
 };
-
-
-
-
-
-/*
-const uploadFile = async (req, res) => {
-
-  //console.log(req.file);
-  //console.log(req.email)
-  console.log("Reached uploadFile")
-  res.send("I have reached upload")
-
-  const filePath = "../../../../dummyFiles/dummy_original.pdf"
-  //require("../../../../dummyFiles/dummy_original.pdf")
-/*  
-  // Uploads a local file to the bucket
-  //console.log(req);
-  const newName = req.query.email + '/' + req.query.filename;
-  const options = {
-      destination: newName,                                          //come up with a naming scheme for files
-      metadata: {
-          metadata: {
-              user: req.email
-          }
-      }
-  };
-  storage.bucket(bucketName).upload(req.query.path, options, function(err, file) { });
-*/
-
-/*
-  storage.bucket(bucketName).upload(filePath, {
-    gzip: true,
-    metadata: {
-      cacheControl: 'public, max-age=31536000',
-    },
-  })
-  .catch (error => {console.log(error)});
-
-//  console.log(`${req.query.filename} uploaded to ${bucketName}.`);
-}
-*/
 
 
 /*
@@ -109,7 +65,11 @@ res.send(fileName);
 // async function downloadFile(req, res) {
 //   const file = bucket(bucketName).file(req.query.filename);
 //   file.download({});
-
 // };
 
-module.exports = { uploadFile, getFiles};
+async function deleteFile(req, res) {
+  //console.log(req);
+  await storage.bucket(bucketName).file(req.body.params.fileName).delete();
+}
+
+module.exports = { uploadFile, getFiles, deleteFile};

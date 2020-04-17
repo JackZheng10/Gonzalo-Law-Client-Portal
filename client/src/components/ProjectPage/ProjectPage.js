@@ -30,29 +30,6 @@ const ProjectPage = (props)=>{
     };
 
     getProject();
-    //console.log(localStorage.getItem("userEmail"))
-
-    /*****************FILE UPLOADS****************/
-
-    //  const filePath = '../../dummyFiles/working.jpg'
-    //  const fileS = filePath.split('/');
-    //  const indx = fileS.length - 1;
-    //  const filename = fileS[indx];
-    //  axios.defaults.headers.common["token"] = localStorage.getItem("token")
-    //  ? localStorage.getItem("token")
-    //  : null;
-    // axios
-    // .get(baseURL + "upload", {
-    //   params: {
-    //     email: sessionStorage.getItem("userEmail"),
-    //     filename: filename,
-    //     path: filePath
-    //   }
-    // })
-    // .catch(error => {
-    //   alert(error);
-    // });
-
 
     /******************FILE DOWNLOADS****************/
     // axios
@@ -63,14 +40,6 @@ const ProjectPage = (props)=>{
     // })
 
   }, [props.match.params.uid]);
-
-  // const adminView = () => {
-  //   const data = jwtDecode(localStorage.getItem("token"));
-
-  //   if (data.isAdmin) {
-  //     return <FileInput name = {project.name}/>;
-  //   }
-  // };
 
   return(
     <div>

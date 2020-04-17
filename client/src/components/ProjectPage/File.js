@@ -9,7 +9,7 @@ const File = (props)=>{
   const files = [];
 
 
-
+    //change to props.data.foreach()
     console.log(props.data);
     for(let i = 0; i<props.data.length; i++){
           const path = props.data[i].split('/');
@@ -23,7 +23,7 @@ const File = (props)=>{
                         </a>
                         </List.Content>
                         <List.Content floated='right'>
-                           <Button> Delete </Button> 
+                           <Button id = {props.data[i]} onClick = { () => {props.setRemove(props.data[i])}}> Delete </Button> 
                         </List.Content>
                       </List.Item>);
     }
@@ -31,7 +31,7 @@ const File = (props)=>{
 //    <List divided verticalAlign = 'middle'>
   return(
     <div>            
-      <List divided>
+      <List divided verticalAlign = 'middle'>
         {files}
       </List>
     </div>

@@ -25,7 +25,7 @@ module.exports.init = () => {
   app.use(morgan("dev"));
 
   // bodyParser used for resolving the req and res body objects (urlEncoded and json formats)
-  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
 
   const connection = mongoose.connection;
