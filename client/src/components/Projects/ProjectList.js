@@ -17,7 +17,7 @@ const ProjectList = (props)=>{
 
   return(
 
-    <div>
+    <div className="ui cards">
       {cards}
     </div>
   )
