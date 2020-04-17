@@ -72,12 +72,14 @@ const Projects = props => {
   return (
     <div>
       <NavBar />
-      <div>
-        <h1 style={{display: 'inline-block'}}> Current Projects</h1>
-        {adminView()}
-      </div>
-      <div className="box-section">
-        <ProjectList data={data} />
+      <h2 className="ui center aligned header basic segment">Projects</h2>
+
+      <div class="ui grid center aligned">
+
+        <div class="ui ten wide column">
+          {adminView()}
+          <ProjectList data={data} />
+        </div>
       </div>
     </div>
   );
