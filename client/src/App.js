@@ -15,10 +15,7 @@ const App = () => {
   return (
     <React.Fragment>
       <Switch>
-        <Route exact path="/welcome" component={Welcome} />
-        <Route exact path="/">
-          <Redirect to="/welcome" />
-        </Route>
+        <Route path="/welcome" component={Welcome} />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
         <Route exact path="/projects" component={Projects} />
@@ -30,6 +27,9 @@ const App = () => {
         <Route path="/projects/:uid" component={ProjectPage} />
         <Route path="/resetPassword/:sessionid" component={ResetPassword} />
         <Route path="/passwordRecovery/" component={PasswordRecovery} />
+        <Route path="/" /*fallback route */>
+          <Redirect to="/welcome" />
+        </Route>
       </Switch>
       <br />
     </React.Fragment>
