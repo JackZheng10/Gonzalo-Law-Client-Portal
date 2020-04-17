@@ -11,24 +11,19 @@ export default class passwordReset extends Component {
     email: "",
   };
 
-  componentDidMount() {}
-
   onSubmit = (event) => {
     event.preventDefault();
 
     let email = this.state.email;
     axios
-      .post(baseURL + "recoveryEmail", { email })
+      .post(baseURL + "pwdResetEmail", { email })
       .then((res) => {
         if (res.data.success) {
           alert("A password recovery link has just been emailed to you.");
-          console.log("Message ID:" + res.data.message.id);
-          //console.log("Preview: " + res.data.message.preview);
         } else {
           alert(
             "There was an error with sending a password recovery link. Please enter a valid email and try again."
           );
-          console.log("Error: " + res.data.message);
         }
       })
       .catch((error) => {

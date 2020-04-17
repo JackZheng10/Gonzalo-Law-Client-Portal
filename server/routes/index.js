@@ -14,13 +14,17 @@ const {
   getUserProject,
   deleteUser,
 } = require("../controllers/userController");
-const { recoveryEmail } = require("../controllers/pwdRecoveryController");
+const {
+  pwdResetEmail,
+  resetPassword,
+} = require("../controllers/pwdRecoveryController");
 
 const verifyToken = require("../authHelpers").verifyToken;
 
 routes.post("/register", register);
 routes.post("/login", login);
-routes.post("/recoveryEmail", recoveryEmail);
+routes.post("/pwdResetEmail", pwdResetEmail);
+routes.post("/resetPassword", resetPassword);
 
 //use for all requests that hit this
 routes.use(verifyToken);

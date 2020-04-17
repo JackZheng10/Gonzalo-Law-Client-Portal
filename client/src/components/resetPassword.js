@@ -7,20 +7,51 @@ import logo from "./images/horizontalLogo1.png";
 import { Button, Form, Grid, Header, Segment, Image } from "semantic-ui-react";
 
 export default class passwordReset extends Component {
-  state = {
-    password: "",
-    confirmPassword: "",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      password: "",
+      confirmPassword: "",
+      redirect: false,
+    };
 
-  componentDidMount() {}
+    this.sessionID = this.props.match.params.sessionid;
+  }
 
   onSubmit = (event) => {
     event.preventDefault();
-    console.log("password: " + this.state.password);
-    console.log("repeat password: " + this.state.confirmPassword);
+
+    let sessionID = this.sessionID;
+    let password = this.state.password;
+    let confirmPassword = this.state.confirmPassword;
+
+    if (password !== confirmPassword) {
+      alert("Please make sure both fields match.");
+    } else {
+      axios
+        .post(baseURL + "resetPassword", {
+          sessionID,
+          password,
+          confirmPassword,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            alert("Password reset successfully."); //set the url to used, set an expiration for a url, check token on this pg and recovery pg for redirects too
+            this.setState({ redirect: true });
+          } else {
+            alert("Invalid password reset URL. Please request another.");
+          }
+        })
+        .catch((error) => {
+          alert("Error: " + error);
+        });
+    }
   };
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect push to="/login" />;
+    }
     return (
       <div className="background">
         <Grid centered columns={3}>

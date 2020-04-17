@@ -28,18 +28,8 @@ const App = () => {
           component={Admin} /*for testing/designing only */
         />
         <Route path="/projects/:uid" component={ProjectPage} />
-        <Route
-          path="/resetPassword"
-          component={
-            ResetPassword
-          } /*for testing, real one will have id in URL*/
-        />
-        <Route
-          path="/passwordRecovery"
-          component={
-            PasswordRecovery
-          } /*for testing, real one will have id in URL*/
-        />
+        <Route path="/resetPassword/:sessionid" component={ResetPassword} />
+        <Route path="/passwordRecovery/" component={PasswordRecovery} />
       </Switch>
       <br />
     </React.Fragment>
