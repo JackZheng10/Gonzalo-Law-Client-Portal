@@ -18,17 +18,20 @@ const File = (props)=>{
 
           files.push(<List.Item>
                         <List.Content>
+                        <a href={link} target = '_blank'>
                           {name}
+                        </a>
                         </List.Content>
                         <List.Content floated='right'>
-                          <a href={link} target = '_blank'> Link </a>
+                           <Button> Delete </Button> 
                         </List.Content>
                       </List.Item>);
     }
 
+//    <List divided verticalAlign = 'middle'>
   return(
     <div>            
-      <List divided verticalAlign = 'middle'>
+      <List divided>
         {files}
       </List>
     </div>

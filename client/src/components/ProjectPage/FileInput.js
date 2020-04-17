@@ -11,14 +11,61 @@ import {Button} from 'semantic-ui-react';
 class FileInput extends React.Component {
     constructor(props) {
       super(props);
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.fileInput = React.createRef();
-      this.files = null;
+      this.state = {file: null}
+      this.onFormSubmit = this.onFormSubmit.bind(this);
+      this.onChange = this.onChange.bind(this);
+      this.fileInput = this.fileInput.bind(this); //fileUpload
 
     }
-    handleSubmit(event) {
+
+    //onFormSubmit, console.log is for debug purposes
+    onFormSubmit(event) {
       event.preventDefault();
-      const data = this.fileInput.current.files[0];
+      this.fileInput(this.state.file);
+      //.then((response)=>{
+      //  console.log(response.data);
+      // })
+    }
+
+
+    onChange(event) {
+      this.setState({file:event.target.files[0]});
+    }
+
+    fileInput(file){
+      //const url = 'http://example.com/file-upload';
+      const formData = new FormData();
+      formData.append('file',file);
+      formData.append('pname', props.name);
+      // const config = {
+      //     headers: {
+      //         'content-type': 'multipart/form-data'
+      //     }
+      // }
+      //return  post(url, formData,config)
+
+//            axios.put(URL, data, config);
+
+      //axios.defaults.headers.common["token"] = localStorage.getItem("token")
+      //? localStorage.getItem("token")
+      //: null;
+      
+      axios
+      .put(baseURL+ "upload", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        params: {name: props.name, email: localStorage.getItem('userEmail')}
+      })
+      .then(res => {
+          console.log('tried upload file')
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+
+    }
     //   const size =  data.size;
     //   //console.log(this.fileInput.current.files[0].size)
     //   const URL = 'https://storage.googleapis.com/upload/storage/v1/b/gonzl-2/o';
@@ -27,27 +74,9 @@ class FileInput extends React.Component {
     //     }
     //   }
 
-    //   axios.put(URL, data, config);
 
-    //       axios.defaults.headers.common["token"] = localStorage.getItem("token")
-    //   ? localStorage.getItem("token")
-    //   : null;
-    //   axios
-    //   .put(baseURL+ "upload", {
-    //   params:
-    //      {
-    //       email:'anything'
-    //     },
-    //     file: this.fileInput.current.files[0]
-    //   })
-    //     .then(res => {
-    //         console.log('tried upload file')
-    //     })
-    //     .catch(error => {
-    //       console.log(error);
-    //     });
 
-    }
+
 /*
     <form onSubmit={this.handleSubmit}>
     <label className = "file-form">
@@ -58,14 +87,32 @@ class FileInput extends React.Component {
     <button type="submit" className = "submit">Submit</button>
   </form>
   */
+/* 
     render() {
       return (
         <div>
-          <input type="file" class = 'inputFile'/>
-          <Button positive floated = 'right'><i class="ui upload icon"></i>  Upload File </Button>
+          <input type="file" class = 'inputFile' id = 'embedFileInput'/>
+          <Button positive floated = 'right' role = 'embedFileInput'> <i class="ui upload icon"></i>  Upload File </Button>
         </div>
       );
     }
+*/
+
+    render() {
+      return (
+        <div>
+          <input type="file" class="inputFile" id="embedInput" onChange={this.onChange}/>
+            <label for="embedInput" class="ui huge green right floated button">
+              <i class="ui upload icon"></i> 
+                Choose File
+            </label>
+            <div class = 'upld'>
+            <button class="ui button" onClick = {this.onFormSubmit}> Upload </button>
+            </div>
+        </div>
+        );
+    }
+
   }
 
   ReactDOM.render(

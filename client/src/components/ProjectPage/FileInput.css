@@ -16,17 +16,16 @@
     padding: 10px;
   }
 
-.inputFile {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-  z-index: -1;
-}
 
 .list {
   position: absolute;
   top: 6000x;
   width: 1000px;
+}
+
+.upld {
+  position: absolute;
+  right: 0px;
+  top: 310px;
+  width: 300px;
 }

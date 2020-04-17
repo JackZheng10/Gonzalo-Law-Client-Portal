@@ -2,14 +2,48 @@ const {Storage} = require('@google-cloud/storage')
 
 
 //Keys expire after sprint2 and have to be regenerated
-//const projectId = 'polished-engine-272617'
-//const keyFilename = '../keys/keyFile'
+const projectId = 'polished-engine-272617'
+const keyFilename = 'server/keys/keyFile.json'
 
 const bucketName = 'gonzl-2'
 
 //create a client
-const storage = new Storage();
+const storage = new Storage({projectId, keyFilename});
+const bucket = storage.bucket(bucketName);
 
+const uploadFile = (req, res, next) => {
+
+  console.log("upload File () called");
+  if (!req.file) {
+    console.log(req);
+    res.status(400).send('No file uploaded.');
+    return;
+  }
+
+  // Create a new blob in the bucket and upload the file data.
+  const blob = bucket.file(req.file.originalname);
+  const blobStream = blob.createWriteStream();
+
+  blobStream.on('error', (err) => {
+    next(err);
+  });
+
+  blobStream.on('finish', () => {
+    // The public URL can be used to directly access the file via HTTP.
+    //const publicUrl = format(
+    //  `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+    //);
+    console.log(req);
+    res.status(200).send("Success");
+  });
+  blobStream.end(req.file.buffer);
+};
+
+
+
+
+
+/*
 const uploadFile = async (req, res) => {
 
   //console.log(req.file);
@@ -34,6 +68,7 @@ const uploadFile = async (req, res) => {
   storage.bucket(bucketName).upload(req.query.path, options, function(err, file) { });
 */
 
+/*
   storage.bucket(bucketName).upload(filePath, {
     gzip: true,
     metadata: {
@@ -44,6 +79,8 @@ const uploadFile = async (req, res) => {
 
 //  console.log(`${req.query.filename} uploaded to ${bucketName}.`);
 }
+*/
+
 
 /*
  * Calls 

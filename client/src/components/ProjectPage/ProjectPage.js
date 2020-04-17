@@ -82,10 +82,10 @@ const ProjectPage = (props)=>{
         type={project.type}
         uid={project._id}
         setProject={setProject} />
-    <FileInput name = {project.name}/>
     <div> 
     <FileList email={localStorage.getItem("userEmail")} pname ={project.name} class = 'list'/>
     </div> 
+    <FileInput name = {project.name}/>
     </div>
 
   )
