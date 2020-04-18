@@ -11,7 +11,6 @@ export default class NavBarAdmin extends Component {
     localStorage.removeItem("token");
     localStorage.removeItem("userEmail");
     axios.defaults.headers.common["token"] = null;
-    alert("Logged out successfully.");
   };
 
   //handleItemClick = (e, { name }) => this.setState({ activeItem: name })

@@ -69,7 +69,6 @@ export default class login extends Component {
     }
 
     if (this.state.isLoggedin) {
-      alert("Successfully logged in.");
 
       //for redirect to admin dashboard when admin logs in
       if (this.state.userData.isAdmin) {
