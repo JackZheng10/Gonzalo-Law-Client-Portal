@@ -1,4 +1,5 @@
-const {Storage} = require('@google-cloud/storage')
+const { Storage } = require('@google-cloud/storage')
+const jwtDecode = require("jwt-decode");
 
 
 //Keys expire after sprint2 and have to be regenerated
@@ -8,33 +9,37 @@ const keyFilename = 'server/keys/keyFile.json'
 const bucketName = 'gonzl-2'
 
 //create a client
-const storage = new Storage({projectId, keyFilename});
+const storage = new Storage({ projectId, keyFilename });
 const bucket = storage.bucket(bucketName);
 
 const uploadFile = (req, res, next) => {
+  const currUser = jwtDecode(req.headers.token);
 
-  console.log("upload File () called");
-  if (!req.file) {
-    console.log(req);
-    res.status(400).send('No file uploaded.');
-    return;
+  if (currUser.isAdmin === true || currUser.email === req.query.email) {
+    if (!req.file) {
+      console.log(req);
+      res.status(400).send('No file uploaded.');
+      return;
+    }
+
+    console.log(req.body);
+    // Create a new blob in the bucket and upload the file data.
+
+    const blob = bucket.file(req.body.email + '/' + req.body.pname + '/' + req.file.originalname);
+    const blobStream = blob.createWriteStream();
+
+    blobStream.on('error', (err) => {
+      next(err);
+    });
+
+    blobStream.on('finish', () => {
+      res.status(200).send("Success");
+    });
+
+    blobStream.end(req.file.buffer);
+  } else {
+    res.status(400).send("unarthorized access");
   }
-
-  console.log(req.body);
-  // Create a new blob in the bucket and upload the file data.
-  
-  const blob = bucket.file(req.body.email + '/' + req.body.pname + '/' + req.file.originalname);
-  const blobStream = blob.createWriteStream();
-
-  blobStream.on('error', (err) => {
-    next(err);
-  });
-
-  blobStream.on('finish', () => {
-    res.status(200).send("Success");
-  });
-  
-  blobStream.end(req.file.buffer);
 };
 
 
@@ -42,23 +47,29 @@ const uploadFile = (req, res, next) => {
  * Calls 
  */
 async function getFiles(req, res) {
-  const pref = req.query.email +'/' + req.query.pname;
-  const options = {
-    prefix: pref,
-  };
+  const currUser = jwtDecode(req.headers.token);
 
-  const files =  await storage.bucket(bucketName).getFiles(options);
+  if (currUser.isAdmin === true || currUser.email === req.query.email) {
+    const pref = req.query.email + '/' + req.query.pname;
+    const options = {
+      prefix: pref,
+    };
 
-  var fileName = []
-  files.forEach(element => {
-    //console.log(element);
-    element.forEach(el => {
-      console.log(el.name);
-      fileName.push(el.name);
+    const files = await storage.bucket(bucketName).getFiles(options);
+
+    var fileName = []
+    files.forEach(element => {
+      //console.log(element);
+      element.forEach(el => {
+        console.log(el.name);
+        fileName.push(el.name);
+      })
     })
-  })
 
-res.send(fileName);
+    res.send(fileName);
+  } else {
+    res.status(400).send("unarthorized access");
+  }
 
 };
 
@@ -69,7 +80,14 @@ res.send(fileName);
 
 async function deleteFile(req, res) {
   //console.log(req);
-  await storage.bucket(bucketName).file(req.body.params.fileName).delete();
+  const currUser = jwtDecode(req.headers.token);
+
+  if (currUser.isAdmin === true || currUser.email === req.query.email) {
+
+    await storage.bucket(bucketName).file(req.body.params.fileName).delete();
+  } else {
+    res.status(400).send("unarthorized access");
+  }
 }
 
-module.exports = { uploadFile, getFiles, deleteFile};
+module.exports = { uploadFile, getFiles, deleteFile };
