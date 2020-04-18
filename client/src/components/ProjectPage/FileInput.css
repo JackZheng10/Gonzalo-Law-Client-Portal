@@ -16,7 +16,8 @@
     padding: 10px;
   }
 
-  .inputFile {
+  .inputFile
+  {
     width: 0.1px;
     height: 0.1px;
     opacity: 0;
@@ -32,9 +33,23 @@
   width: 1000px;
 }
 
+.chooseFile {
+  position: absolute;
+  right: 200px;
+  top: 310px;
+  width: 300px;  
+}
+
 .upld {
   position: absolute;
   right: 0px;
   top: 310px;
+  width: 300px;
+}
+
+.fle {
+  position: absolute;
+  right: 200px;
+  top: 370px;
   width: 300px;
 }

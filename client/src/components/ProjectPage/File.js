@@ -23,7 +23,7 @@ const File = (props)=>{
                         </a>
                         </List.Content>
                         <List.Content floated='right'>
-                           <Button id = {props.data[i]} onClick = { () => {props.setRemove(props.data[i])}}> Delete </Button> 
+                           <Button key = {props.data[i]} onClick = { () => {props.setRemove(props.data[i])}}> Delete </Button> 
                         </List.Content>
                       </List.Item>);
     }

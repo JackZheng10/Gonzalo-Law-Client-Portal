@@ -11,7 +11,7 @@ import {Button} from 'semantic-ui-react';
 class FileInput extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {file: null}
+      this.state = {file: null, fileName: ''}
       this.onFormSubmit = this.onFormSubmit.bind(this);
       this.onChange = this.onChange.bind(this);
       this.fileInput = this.fileInput.bind(this); 
@@ -28,6 +28,8 @@ class FileInput extends React.Component {
 
     onChange(event) {
       this.setState({file:event.target.files[0]});
+      this.setState({ fileName: event.target.files[0].name});
+
     }
 
     fileInput(file){
@@ -69,15 +71,27 @@ class FileInput extends React.Component {
 */
 
     render() {
+      const { fileName} = this.state;
+      let file = null;
+      file = fileName 
+      ? ( <span>File Selected - {fileName}</span>) 
+      : ( <span>Choose a file...</span> );
+
       return (
         <div>
+          <div class = 'chooseFile'>
           <input type="file" class="inputFile" id="embedInput" onChange={this.onChange}/>
-            <label for="embedInput" class="ui huge green right floated button">
+            <label for="embedInput" class="ui huge green button">
             <i class="ui upload icon"></i> 
                 Choose File
             </label>
+          </div>
+
             <div class = 'upld'>
-            <button class="ui button" onClick = {this.onFormSubmit}> Upload </button>
+              <button class="ui button" onClick = {this.onFormSubmit}> Upload </button>
+            </div>
+            <div class = 'fle'>
+              <label htmlFor="file">{file}</label>
             </div>
         </div>
         );
