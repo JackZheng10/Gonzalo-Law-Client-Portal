@@ -24,7 +24,7 @@ export default class NavBarAdmin extends Component {
         <Menu pointing secondary>
           <img src={logo} className="logo" />
           <Menu.Item
-            name="Projects"
+            name="Client List"
             //active={activeItem === 'My Projects'}
             //onClick={this.handleItemClick}
             href="/admin"

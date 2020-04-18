@@ -10,7 +10,6 @@
     "array.prototype.flat": "^1.2.3",
     "autoprefixer": "^9.7.4",
     "axios": "^0.19.1",
-    
     "moment": "^2.24.0",
     "react": "^16.12.0",
     "react-big-calendar": "^0.20.4",
