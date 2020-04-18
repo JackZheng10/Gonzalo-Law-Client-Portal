@@ -9,6 +9,7 @@ const mailjetPassword =
   require("../config/config.js").mailjet.password;
 const cryptoRandomString = require("crypto-random-string");
 const bcrypt = require("bcrypt-nodejs");
+const moment = require("moment");
 
 const pwdResetEmail = async (req, res) => {
   User.findOne({ email: req.body.email })
@@ -58,12 +59,13 @@ const pwdResetEmail = async (req, res) => {
         //note: for mailjet, the from field must be from a validated address which you can configure on your mailjet dashboard
         let info = await transporter
           .sendMail({
-            from: "gonzalolaw.com", // sender address
+            from: "email@yourdomain.com", // sender address
             to: req.body.email, // list of receivers
             subject: "Gonzalo Law - Password Reset Link", // Subject line
             text:
-              "Go to the following link to reset your password: http://localhost:3000/resetpassword/" +
-              sessionID, // plain text body
+              "Please visit the following link to reset your password: http://localhost:3000/resetpassword/" +
+              sessionID +
+              ". This link will expire in 1 hour from the time you received this message.", // plain text body
           })
           .catch((error) => {
             return res.json({
@@ -99,9 +101,31 @@ const resetPassword = async (req, res) => {
   let userEmail = "";
 
   await PasswordReset.findOne({ sessionID: req.body.sessionID })
-    .then((passwordReset) => {
+    .then(async (passwordReset) => {
+      let hourLater = moment(passwordReset.created).add(1, "hours");
+      let now = moment();
+
       if (passwordReset) {
-        userEmail = passwordReset.email;
+        if (passwordReset.used === true || now.isAfter(hourLater)) {
+          return res.json({
+            success: false,
+            message: "Session was used or is expired",
+          });
+        } else {
+          await PasswordReset.findOneAndUpdate(
+            { sessionID: passwordReset.sessionID },
+            { used: true }
+          )
+            .then((passwordReset) => {
+              userEmail = passwordReset.email;
+            })
+            .catch((error) => {
+              return res.json({
+                success: false,
+                message: "Error while setting session to used",
+              });
+            });
+        }
       } else {
         return res.json({
           success: false,

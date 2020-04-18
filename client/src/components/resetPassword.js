@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import baseURL from "../baseURL";
-import image from "./images/gainesville-downtown-street.jpg";
 import logo from "./images/horizontalLogo1.png";
 import { Button, Form, Grid, Header, Segment, Image } from "semantic-ui-react";
 

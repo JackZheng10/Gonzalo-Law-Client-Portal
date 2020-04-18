@@ -122,6 +122,9 @@ export default class login extends Component {
               <Message>
                 Don't have an account? <a href="/register">Register</a>
               </Message>
+              <Message>
+                Forgot your password? <a href="/passwordrecovery">Click here</a>
+              </Message>
             </div>
           </Grid.Column>
         </Grid>
