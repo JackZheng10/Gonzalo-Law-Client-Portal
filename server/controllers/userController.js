@@ -77,39 +77,50 @@ const getUserProject = (req, res) => {
 };
 
 const deleteUserProject = async (req, res) => {
-  let projectID = req.body.projectID;
-  let userEmail = req.body.userEmail;
-  let currentProjects = [];
+  const currUser = jwtDecode(req.headers.token);
+  if (currUser.isAdmin) {
+    let projectID = req.body.projectID;
+    let userEmail = req.body.userEmail;
+    let currentProjects = [];
 
-  await User.findOne({ email: userEmail })
-    .then((user) => {
-      if (user) {
-        currentProjects = user.projects;
-      } else {
-        return res.json({ success: false, message: "User could not be found" });
-      }
-    })
-    .catch((error) => {
-      return res.json({ success: false, message: error });
+    await User.findOne({ email: userEmail })
+      .then((user) => {
+        if (user) {
+          currentProjects = user.projects;
+        } else {
+          return res.json({
+            success: false,
+            message: "User could not be found",
+          });
+        }
+      })
+      .catch((error) => {
+        return res.json({ success: false, message: error });
+      });
+
+    let updatedProjects = currentProjects.filter((value, index, arr) => {
+      return value._id != projectID;
     });
 
-  let updatedProjects = currentProjects.filter((value, index, arr) => {
-    return value._id != projectID;
-  });
-
-  User.findOneAndUpdate({ email: userEmail }, { projects: updatedProjects })
-    .then((user) => {
-      if (user) {
-        return res.json({
-          success: true,
-          message: "Project deleted successfully",
-        });
-      } else {
-      }
-    })
-    .catch((error) => {
-      return res.json({ success: false, message: error });
+    User.findOneAndUpdate({ email: userEmail }, { projects: updatedProjects })
+      .then((user) => {
+        if (user) {
+          return res.json({
+            success: true,
+            message: "Project deleted successfully",
+          });
+        } else {
+        }
+      })
+      .catch((error) => {
+        return res.json({ success: false, message: error });
+      });
+  } else {
+    return res.json({
+      success: false,
+      message: "Not authorized to make this request",
     });
+  }
 };
 
 const updatePhase = async (req, res) => {

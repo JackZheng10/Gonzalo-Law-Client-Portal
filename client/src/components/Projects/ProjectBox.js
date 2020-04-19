@@ -31,6 +31,10 @@ const ProjectBox = (props) => {
   const handleDeleteProject = (projectID, userEmail) => {
     console.log("id: " + projectID);
     console.log("user email: " + userEmail);
+    axios.defaults.headers.common["token"] = localStorage.getItem("token")
+      ? localStorage.getItem("token")
+      : null;
+
     axios
       .post(baseURL + "deleteUserProject", { projectID, userEmail })
       .then((res) => {
