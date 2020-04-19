@@ -5,7 +5,7 @@ const DeleteProject = (props) => {
   const [open, setOpen] = useState(false);
 
   const handleConfirm = () => {
-    props.handleDelete(props.projectName, props.userEmail);
+    props.handleDelete(props.projectID, props.userEmail);
     setOpen(false);
   };
 

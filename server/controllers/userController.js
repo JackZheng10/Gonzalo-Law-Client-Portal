@@ -77,7 +77,7 @@ const getUserProject = (req, res) => {
 };
 
 const deleteUserProject = async (req, res) => {
-  let projectName = req.body.projectName;
+  let projectID = req.body.projectID;
   let userEmail = req.body.userEmail;
   let currentProjects = [];
 
@@ -94,7 +94,7 @@ const deleteUserProject = async (req, res) => {
     });
 
   let updatedProjects = currentProjects.filter((value, index, arr) => {
-    return value.name != projectName;
+    return value._id != projectID;
   });
 
   User.findOneAndUpdate({ email: userEmail }, { projects: updatedProjects })
