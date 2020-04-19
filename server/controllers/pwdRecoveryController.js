@@ -65,7 +65,7 @@ const pwdResetEmail = async (req, res) => {
             text:
               "Please visit the following link to reset your password: http://localhost:3000/resetpassword/" +
               sessionID +
-              ". This link will expire in 1 hour from the time you received this message.", // plain text body
+              " (This link will expire in 1 hour from the time you received this message.)", // plain text body
           })
           .catch((error) => {
             return res.json({

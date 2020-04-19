@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Button, Header, Icon, Modal } from "semantic-ui-react";
 
-const DeleteClient = (props) => {
+const DeleteProject = (props) => {
   const [open, setOpen] = useState(false);
 
   const handleConfirm = () => {
-    props.handleDelete(props.id);
+    props.handleDelete(props.projectName, props.userEmail);
     setOpen(false);
   };
 
@@ -30,11 +30,11 @@ const DeleteClient = (props) => {
       <Header
         icon="exclamation circle"
         color="orange"
-        content="Deleting Client"
+        content="Deleting Client Project"
       />
       <Modal.Content>
         <p>
-          Are you sure you want to delete this client? This will be permanent.
+          Are you sure you want to delete this project? This will be permanent.
           Once deleted, there won't be any records left.
         </p>
       </Modal.Content>
@@ -50,4 +50,4 @@ const DeleteClient = (props) => {
   );
 };
 
-export default DeleteClient;
+export default DeleteProject;

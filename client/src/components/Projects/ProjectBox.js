@@ -1,44 +1,88 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import CDPhases from "../../enums/CDPhases.js";
 import DNPhases from "../../enums/DNPhases.js";
 import IPPhases from "../../enums/IPPhases.js";
 import { Redirect, useLocation } from "react-router-dom";
+import { Button, Header, Icon, Modal } from "semantic-ui-react";
+import DeleteProject from "./deleteProject";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
+import baseURL from "../../baseURL";
 import "./Projects.css";
 
 const ProjectBox = (props) => {
+  const [goToProject, setProject] = useState(false);
+  const location = useLocation();
+  const [open, setOpen] = useState(false);
 
-const [goToProject, setProject] = useState(false);
-const location = useLocation();
+  const renderDelete = () => {
+    const data = jwtDecode(localStorage.getItem("token"));
 
-const maxPhase = ()=>{
-  switch(props.project.type){
+    if (data.isAdmin) {
+      return (
+        <DeleteProject
+          projectName={props.project.name}
+          userEmail={props.userEmail}
+          handleDelete={handleDeleteProject}
+        />
+      );
+    }
+  };
 
-    case 'Intellectual Property':
-      return IPPhases.size;
-    case 'Contract Drafting':
-      return CDPhases.size;
-    case 'Deal Negotiation':
-      return DNPhases.size;
-    default:
-      return 0;
-  }
+  const handleDeleteProject = (projectName, userEmail) => {
+    console.log("name: " + projectName);
+    console.log("user email: " + userEmail);
+    axios
+      .post(baseURL + "deleteUserProject", { projectName, userEmail })
+      .then((res) => {
+        if (res.data.success) {
+          console.log("Project deleted successfully.");
+          props.handleRerender();
+        } else {
+          console.log("Project could not be deleted.");
+          console.log("Error: " + res.data.message);
+        }
+      })
+      .catch((error) => {
+        alert("Error: " + error);
+      });
+  };
 
-}
+  const maxPhase = () => {
+    switch (props.project.type) {
+      case "Intellectual Property":
+        return IPPhases.size;
+      case "Contract Drafting":
+        return CDPhases.size;
+      case "Deal Negotiation":
+        return DNPhases.size;
+      default:
+        return 0;
+    }
+  };
 
-const redirect = () =>{
-  setProject(true);
-}
-  if(goToProject){
-    return(
-      <Redirect push to={{
-        pathname: location.pathname + '/' + props.project._id,
-      }}  />
-    )
-  }
-  else{
+  const redirect = () => {
+    setProject(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  if (goToProject) {
     return (
-      <div className="ui blue link card" onClick={redirect}>
-        <div class="content">
+      <Redirect
+        push
+        to={{
+          pathname: location.pathname + "/" + props.project._id,
+        }}
+      />
+    );
+  } else {
+    return (
+      <div className="ui blue link card">
+        <div class="content" onClick={redirect}>
+          <div class="header" style={{ textAlign: "right" }}></div>
           <div class="header">{props.project.name}</div>
           <div class="meta">
             <p>{props.project.type}</p>
@@ -47,13 +91,13 @@ const redirect = () =>{
         <div class="extra content">
           <span>
             <i class="check circle outline icon"></i>
-            {"Step "+props.project.phase+"/"+maxPhase()}
+            {"Step " + props.project.phase + "/" + maxPhase()}
           </span>
+          <div className="right floated content">{renderDelete()}</div>
         </div>
       </div>
-    )
+    );
   }
-
 };
 
 export default ProjectBox;
