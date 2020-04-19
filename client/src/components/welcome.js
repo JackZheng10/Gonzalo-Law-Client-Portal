@@ -30,7 +30,7 @@ export default class welcome extends Component {
   state = { redirect: false };
 
   componentDidMount() {
-    checkToken().then(response => {
+    checkToken().then((response) => {
       //alert(response);
       this.setState({ redirect: response });
     });
@@ -40,8 +40,8 @@ export default class welcome extends Component {
 
   render() {
     if (this.state.redirect) {
-      const user = jwtDecode(localStorage.getItem('token'));
-      if(user.isAdmin){
+      const user = jwtDecode(localStorage.getItem("token"));
+      if (user.isAdmin) {
         return <Redirect to="/admin" />;
       }
       return <Redirect to="/projects" />;
@@ -53,18 +53,23 @@ export default class welcome extends Component {
               <div className="auth-content">
                 <Segment>
                   <Image src={logo} centered />
-                  <Header as="h4" textAlign="center" color="#5c110b">Welcome! Please login or register for an account.</Header>
+                  <Header as="h4" textAlign="center" color="#5c110b">
+                    Welcome! Please login or register for an account.
+                  </Header>
                   <Button.Group centered fluid>
-                    <Button basic color="red" href="/login">Login</Button>
+                    <Button basic color="red" href="/login">
+                      Login
+                    </Button>
                     <Button.Or />
-                    <Button basic color="orange" href="/register">Register</Button>
+                    <Button basic color="orange" href="/register">
+                      Register
+                    </Button>
                   </Button.Group>
                 </Segment>
               </div>
             </Grid.Column>
           </Grid>
         </div>
-
       );
     }
   }
