@@ -75,7 +75,7 @@ export default class login extends Component {
         return <Redirect to="/admin" />;
       } else {
         localStorage.setItem("userEmail", this.state.userData.email);
-
+        localStorage.setItem("username", this.state.userData.name);
         return <Redirect to="/projects" />;
       }
 
