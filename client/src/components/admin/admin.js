@@ -170,7 +170,7 @@ export default class admin extends Component {
     }
 
     return (
-      <div>
+      <div id="admin">
         <NavBarAdmin />
             <h1 className="ui center aligned header">
               Welcome

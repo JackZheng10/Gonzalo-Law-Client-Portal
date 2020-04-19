@@ -1,37 +1,37 @@
 import React, {useState, useEffect} from 'react';
-// import {
-//   Linking
-// } from 'react-native';
-
-import {List, Button } from 'semantic-ui-react'
+import DeleteFile from './deleteFile.js';
+import {List, Button } from 'semantic-ui-react';
+import {Redirect} from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
 const File = (props)=>{
+
+  const data = jwtDecode(localStorage.getItem("token"));
   const files = [];
 
-
-    //change to props.data.foreach()
-    console.log(props.data);
     for(let i = 0; i<props.data.length; i++){
           const path = props.data[i].split('/');
           const name = path[path.length - 1];
           const link = 'https://storage.googleapis.com/gonzl-2/' + props.data[i].toString();
 
-          files.push(<List.Item>
-                        <List.Content>
-                        <a href={link} target = '_blank'>
-                          {name}
-                        </a>
-                        </List.Content>
+          files.push(<List.Item key={props.data[i].toString()}>
                         <List.Content floated='right'>
-                           <Button key = {props.data[i]} onClick = { () => {props.setRemove(props.data[i])}}> Delete </Button> 
+                           {(data.isAdmin) ?(<DeleteFile setRemove={props.setRemove} file = {props.data[i]} />):'' }
                         </List.Content>
+                        <List.Content onClick = {() =>{window.location.href =link}}>
+                          <List.Header>
+                          {name}
+                          </List.Header>
+                        </List.Content>
+      
                       </List.Item>);
     }
 
 //    <List divided verticalAlign = 'middle'>
+
   return(
-    <div>            
-      <List divided verticalAlign = 'middle'>
+    <div>
+      <List selection divided verticalAlign = 'middle'>
         {files}
       </List>
     </div>

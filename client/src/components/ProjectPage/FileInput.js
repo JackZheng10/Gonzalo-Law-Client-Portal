@@ -1,107 +1,52 @@
-import React, { useState, useEffect, Component, useRef } from "react";
+import React, { useState, useEffect} from "react";
 import ReactDOM from 'react-dom';
 import axios from 'axios'
-import "./FileInput.css";
 import baseURL from "../../baseURL";
 import "./FileList";
-import {Button} from 'semantic-ui-react';
+import {Button, Rail, Icon} from 'semantic-ui-react';
 
+const FileInput = (props) => {
 
+    const [done, setDone] = useState(true);
 
-class FileInput extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {file: null, fileName: ''}
-      this.onFormSubmit = this.onFormSubmit.bind(this);
-      this.onChange = this.onChange.bind(this);
-      this.fileInput = this.fileInput.bind(this); 
-    }
+    const handleClick = ()=>{
+      document.getElementById('upload-file').click();
+    };
 
-    //onFormSubmit, console.log is for debug purposes
-    onFormSubmit(event) {
-      event.preventDefault();
-      this.fileInput(this.state.file);
-      window.location.reload(false);
- 
-    }
-
-
-    onChange(event) {
-      this.setState({file:event.target.files[0]});
-      this.setState({ fileName: event.target.files[0].name});
-
-    }
-
-    fileInput(file){
+    const handleSubmit = async (event) => {
       //const url = 'http://example.com/file-upload';
+      setDone(false);
       const formData = new FormData();
-      formData.append('file',file);
-      formData.append('pname', this.props.name);
+      formData.append('file',event.target.files[0]);
+      formData.append('pname', props.name);
       formData.append('email', localStorage.getItem('userEmail'));
- 
-      axios.defaults.headers.common["token"] = localStorage.getItem("token")
-      ? localStorage.getItem("token")
-      : null;
-      
-      axios
-      .put(baseURL+ "upload", formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-      })
-      .then(res => {
-          console.log('tried upload file')
-      })
-      .catch(error => {
+
+      try{
+        await props.uploadFile(formData);
+        setDone(true);
+      }
+      catch(error){
         console.log(error);
-      });
+      }
 
+    };
 
-    }
-  
-/* 
-    render() {
-      return (
-        <div>
-          <input type="file" class = 'inputFile' id = 'embedFileInput'/>
-          <Button positive floated = 'right' role = 'embedFileInput'> <i class="ui upload icon"></i>  Upload File </Button>
-        </div>
-      );
-    }
-*/
+  return (
+    <Rail position='right' close dividing>
+    <input id="upload-file" hidden type="file" onChange={handleSubmit} />
 
-    render() {
-      const { fileName} = this.state;
-      let file = null;
-      file = fileName 
-      ? ( <span>File Selected - {fileName}</span>) 
-      : ( <span>Choose a file...</span> );
+    <Button
+      color="green"
+      onClick={handleClick}>
+      <Icon
+      loading={!done}
 
-      return (
-        <div>
-          <div class = 'chooseFile'>
-          <input type="file" class="inputFile" id="embedInput" onChange={this.onChange}/>
-            <label for="embedInput" class="ui huge green button">
-            <i class="ui upload icon"></i> 
-                Choose File
-            </label>
-          </div>
+      name={done ? "upload" : "circle notch"} />
+      Upload</Button>
 
-            <div class = 'upld'>
-              <button class="ui button" onClick = {this.onFormSubmit}> Upload </button>
-            </div>
-            <div class = 'fle'>
-              <label htmlFor="file">{file}</label>
-            </div>
-        </div>
-        );
-    }
+    </Rail>
+    );
 
-  }
-
-  ReactDOM.render(
-    <FileInput />,
-    document.getElementById('root')
-  );
+}
 
   export default FileInput;

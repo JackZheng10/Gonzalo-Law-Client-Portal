@@ -2,12 +2,15 @@
   --pbwidth: 0%;
 }
 
-.progressContainer {
+#progressContainer {
     width: 90%;
     margin: 20px auto;
 
 }
 
+#progressContainer .meta {
+  text-align: center;
+}
 .progressBar {
 
   text-align: center;

@@ -1,22 +1,22 @@
-.item {
+#admin .item {
   cursor: pointer;
 
 }
-.item i.trash.icon {
+#admin .item i.trash.icon {
   padding-top: 30%;
   display: none;
 }
 
-.item .right.floated{
+#admin .item .right.floated{
   height: 32px;
 }
-.item:hover {
+#admin .item:hover {
   background-color: #545454;
   color: white;
   border-radius: 5px;
 }
 
-.item:hover i.trash.icon{
+#admin .item:hover i.trash.icon{
   display: block;
 }
 .name {

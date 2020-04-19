@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Component } from "react";
 import ProgressBar from "./ProgressBar";
-import FileInput from "./FileInput";
 import FileList from "./FileList";
 import NavBar from "../navBar";
 import axios from "axios";
@@ -42,19 +41,28 @@ const ProjectPage = (props)=>{
   }, [props.match.params.uid]);
 
   return(
-    <div>
-    <NavBar />
-    <h2>{project.name}</h2>
-    <h3>{project.type}</h3>
-    <ProgressBar
-        phase={project.phase}
-        type={project.type}
-        uid={project._id}
-        setProject={setProject} />
-    <div> 
-    <FileList email={localStorage.getItem("userEmail")} pname ={project.name} class = 'list'/>
-    </div> 
-    <FileInput name = {project.name}/>
+    <div >
+      <NavBar />
+      <div className="ui padded grid">
+        <div className="five wide centered column">
+          <h2 className="ui center aligned dividing header">
+            <div className="content">{project.name}
+              <div class="sub header">{project.type}</div>
+            </div>
+          </h2>
+        </div>
+        <div className="fourteen wide centered column">
+        <ProgressBar
+            phase={project.phase}
+            type={project.type}
+            uid={project._id}
+            setProject={setProject} />
+        </div>
+        <div className ="ten wide centered column">
+        <h3 className="ui header"> Files </h3>
+        <FileList email={localStorage.getItem("userEmail")} pname ={project.name} class = 'list'/>
+        </div>
+      </div>
     </div>
 
   )

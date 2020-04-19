@@ -93,8 +93,8 @@ const Projects = (props) => {
       <NavBar />
       <h2 className="ui center aligned header basic segment">Projects</h2>
 
-      <div class="ui grid center aligned">
-        <div class="ui ten wide column">
+      <div class="ui grid">
+        <div class="ui ten wide centered column">
           {adminView()}
           <ProjectList
             data={data}
