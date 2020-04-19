@@ -10,6 +10,7 @@ export default class NavBarAdmin extends Component {
   handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userEmail");
+    localStorage.removeItem("username");
     axios.defaults.headers.common["token"] = null;
   };
 

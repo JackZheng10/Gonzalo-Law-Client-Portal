@@ -24,6 +24,7 @@ export default class admin extends Component {
 
   state = {
     selectedClient: "",
+    selectedEmail: "",
     searchTerm: "",
     hasSelected: false,
     clients: [],
@@ -38,7 +39,7 @@ export default class admin extends Component {
 
   async componentDidMount() {
     localStorage.removeItem("userEmail");
-
+    localStorage.removeItem("username");
     axios.defaults.headers.common["token"] = localStorage.getItem("token")
       ? localStorage.getItem("token")
       : null;
@@ -75,11 +76,14 @@ export default class admin extends Component {
 
   }
 
-  handleSelected(email) {
+  handleSelected(name, email) {
     //console.log("Selected: " + email);
-    this.setState({ selectedClient: email });
+    this.setState({ selectedClient: name });
+    this.setState({ selectedEmail: email});
     this.setState({ hasSelected: true });
     localStorage.setItem("userEmail", email);
+    localStorage.setItem("username", name);
+
   }
 
 
@@ -136,7 +140,7 @@ export default class admin extends Component {
                 <i className="big user icon"></i>
                 <div
                   className="content"
-                  onClick={() => this.handleSelected(item.email)}
+                  onClick={() => this.handleSelected(item.name, item.email)}
                 >
                   <div className="name">{item.name}</div>
                   {item.email}
@@ -170,8 +174,9 @@ export default class admin extends Component {
     }
 
     return (
-      <div id="admin">
+      <div>
         <NavBarAdmin />
+        <div id="admin">
             <h1 className="ui center aligned header">
               Welcome
               <strong> Admin</strong>
@@ -183,6 +188,7 @@ export default class admin extends Component {
               <Search className="ui segment" handleSearch={this.handleSearch} />
               {this.clientListRender()}
             </div>
+          </div>
       </div>
     );
   }

@@ -89,7 +89,7 @@ const ProjectBox = (props) => {
         <div class="extra content">
           <span>
             <i class="check circle outline icon"></i>
-            {"Step " + props.project.phase + "/" + maxPhase()}
+            {"Phase " + props.project.phase + "/" + maxPhase()}
           </span>
           <div className="right floated content">{renderDelete()}</div>
         </div>

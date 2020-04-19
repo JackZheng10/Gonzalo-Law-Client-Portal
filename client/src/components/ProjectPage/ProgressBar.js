@@ -98,7 +98,7 @@ const ProgressBar = (props)=>{
         <div className="ui items">
           <div className="item">
             <div className="content">
-              <div className="meta">{data.isAdmin ? "Click on a phase to update the project to the corresponding phase." : "Hover over a phase to get the detail for it."}</div>
+              <div className="meta">{data.isAdmin ? "Click on a phase to update the project to the corresponding phase." : "Hover over a phase to see the detail."}</div>
               <ul id="pb" className="progressBar">
                 {list}
               </ul>
