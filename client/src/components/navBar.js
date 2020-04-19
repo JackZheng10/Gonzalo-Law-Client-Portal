@@ -32,7 +32,7 @@ const NavBar = () => {
         <Menu.Menu position="right" >
           <Dropdown item text='Admin'>
             <Dropdown.Menu>
-              <Dropdown.Item>{"Current Selected Client: "+name} </Dropdown.Item>
+              <Dropdown.Header>{"Current Selected Client: "+name} </Dropdown.Header>
               <Dropdown.Item href="/admin"> Return To Client List </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -45,7 +45,7 @@ const NavBar = () => {
         <Menu.Menu position="right">
           <Dropdown item text={name}>
           <Dropdown.Menu>
-            <Dropdown.Item>{"Email: "+email} </Dropdown.Item>
+            <Dropdown.Header>{"Email: "+email} </Dropdown.Header>
             <Dropdown.Item onClick={handlePaymentClick}>
               <form
                 action="https://Simplecheckout.authorize.net/payment/CatalogPayment.aspx"
@@ -59,9 +59,9 @@ const NavBar = () => {
                 ></input>{"Make a Payment"}
 
               </form></Dropdown.Item>
-            <Dropdown.Item onClick={handleLogout} href="/welcome"> logout </Dropdown.Item>
+            <Dropdown.Item onClick={handleLogout} href="/welcome">Logout</Dropdown.Item>
           </Dropdown.Menu>
-        </Dropdown>    
+        </Dropdown>
       </Menu.Menu>
 
       )
