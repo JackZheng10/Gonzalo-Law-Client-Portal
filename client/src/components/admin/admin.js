@@ -170,8 +170,9 @@ export default class admin extends Component {
     }
 
     return (
-      <div id="admin">
+      <div>
         <NavBarAdmin />
+        <div id="admin">
             <h1 className="ui center aligned header">
               Welcome
               <strong> Admin</strong>
@@ -183,6 +184,7 @@ export default class admin extends Component {
               <Search className="ui segment" handleSearch={this.handleSearch} />
               {this.clientListRender()}
             </div>
+          </div>
       </div>
     );
   }
