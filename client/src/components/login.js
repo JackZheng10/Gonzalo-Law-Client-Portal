@@ -69,7 +69,6 @@ export default class login extends Component {
     }
 
     if (this.state.isLoggedin) {
-      alert("Successfully logged in.");
 
       //for redirect to admin dashboard when admin logs in
       if (this.state.userData.isAdmin) {
@@ -119,8 +118,11 @@ export default class login extends Component {
                   </Button>
                 </Form>
               </Segment>
-              <Message>
+              <Message attached>
                 Don't have an account? <a href="/register">Register</a>
+              </Message>
+              <Message attached >
+                Forgot your password? <a href="/passwordrecovery">Click here</a>
               </Message>
             </div>
           </Grid.Column>

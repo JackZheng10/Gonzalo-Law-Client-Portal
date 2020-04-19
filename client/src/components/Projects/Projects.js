@@ -8,9 +8,10 @@ import jwtDecode from "jwt-decode";
 import checkToken from "../checkToken.js";
 import { Redirect } from "react-router-dom";
 
-const Projects = props => {
+const Projects = (props) => {
   const [data, setdata] = useState([]);
   const [redirect, setredirect] = useState(true);
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     /*
@@ -30,10 +31,11 @@ const Projects = props => {
           : null;
         var res = await axios.get(baseURL + "getUserProjects", {
           params: {
-            email: localStorage.getItem("userEmail")
-          }
+            email: localStorage.getItem("userEmail"),
+          },
         });
         setdata(res.data);
+        setEmail(localStorage.getItem("userEmail"));
       } catch (error) {
         console.log(error);
       }
@@ -49,14 +51,14 @@ const Projects = props => {
       method: "post",
       url: baseURL + "addProject",
       data: {
-        email:localStorage.getItem("userEmail"),
-        project: newData
-      }
+        email: localStorage.getItem("userEmail"),
+        project: newData,
+      },
     })
-      .then(res => {
+      .then((res) => {
         setdata(res.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -69,16 +71,36 @@ const Projects = props => {
     }
   };
 
+  const handleRerender = async () => {
+    try {
+      axios.defaults.headers.common["token"] = localStorage.getItem("token")
+        ? localStorage.getItem("token")
+        : null;
+      var res = await axios.get(baseURL + "getUserProjects", {
+        params: {
+          email: localStorage.getItem("userEmail"),
+        },
+      });
+      setdata(res.data);
+      setEmail(localStorage.getItem("userEmail"));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <NavBar />
       <h2 className="ui center aligned header basic segment">Projects</h2>
 
       <div class="ui grid center aligned">
-
         <div class="ui ten wide column">
           {adminView()}
-          <ProjectList data={data} />
+          <ProjectList
+            data={data}
+            userEmail={email}
+            handleRerender={handleRerender}
+          />
         </div>
       </div>
     </div>

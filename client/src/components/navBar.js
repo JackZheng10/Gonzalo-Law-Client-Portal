@@ -3,6 +3,7 @@ import logo from "./images/horizontalLogo1.png";
 import "./styles.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 import { Menu, Segment } from "semantic-ui-react";
 
 const NavBar = () => {
@@ -20,7 +21,50 @@ const NavBar = () => {
     document.getElementById("payment").submit();
   }
 
+  const user = jwtDecode(localStorage.getItem('token'));
 
+  const userMenu = ()=>{
+    if(user.isAdmin === true) {
+      return(
+        <Menu.Menu position="right">
+
+          <Menu.Item
+            name=" Return To Client List"
+            href="/admin"
+          />
+        </Menu.Menu>
+
+      )
+    }
+    else{
+      return(
+        <Menu.Menu position="right">
+          <Menu.Item
+            onClick={handlePaymentClick}
+          >
+            <form
+              action="https://Simplecheckout.authorize.net/payment/CatalogPayment.aspx"
+              method="post"
+              id="payment"
+            >
+              <input
+                name="LinkId"
+                type="hidden"
+                value="ea28c130-eb6e-4e1a-a841-f179279b5b0f"
+              ></input>{"Make a Payment"}
+
+            </form>
+          </Menu.Item>
+          <Menu.Item
+            name="logout"
+            onClick={handleLogout}
+            href="/welcome"
+          />
+        </Menu.Menu>
+
+      )
+    }
+  }
 
     //const { activeItem } = this.state
 
@@ -40,30 +84,7 @@ const NavBar = () => {
             //onClick={this.handleItemClick}
             href="/calendar"
           />
-          <Menu.Menu position="right">
-            <Menu.Item
-              onClick={handlePaymentClick}
-            >
-              <form
-                action="https://Simplecheckout.authorize.net/payment/CatalogPayment.aspx"
-                method="post"
-                id="payment"
-              >
-                <input
-                  name="LinkId"
-                  type="hidden"
-                  value="ea28c130-eb6e-4e1a-a841-f179279b5b0f"
-                ></input>{"Make a Payment"}
-
-              </form>
-            </Menu.Item>
-            <Menu.Item
-              name="logout"
-              //active={activeItem === 'logout'}
-              onClick={handleLogout}
-              href="/welcome"
-            />
-          </Menu.Menu>
+          {userMenu()}
         </Menu>
       </div>
     );
