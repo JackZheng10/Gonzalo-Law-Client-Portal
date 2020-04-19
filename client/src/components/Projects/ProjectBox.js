@@ -20,7 +20,7 @@ const ProjectBox = (props) => {
     if (data.isAdmin) {
       return (
         <DeleteProject
-          projectName={props.project.name}
+          projectID={props.project._id}
           userEmail={props.userEmail}
           handleDelete={handleDeleteProject}
         />
@@ -28,11 +28,15 @@ const ProjectBox = (props) => {
     }
   };
 
-  const handleDeleteProject = (projectName, userEmail) => {
-    console.log("name: " + projectName);
+  const handleDeleteProject = (projectID, userEmail) => {
+    console.log("id: " + projectID);
     console.log("user email: " + userEmail);
+    axios.defaults.headers.common["token"] = localStorage.getItem("token")
+      ? localStorage.getItem("token")
+      : null;
+
     axios
-      .post(baseURL + "deleteUserProject", { projectName, userEmail })
+      .post(baseURL + "deleteUserProject", { projectID, userEmail })
       .then((res) => {
         if (res.data.success) {
           console.log("Project deleted successfully.");
