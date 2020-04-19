@@ -13,7 +13,6 @@ import "./Projects.css";
 const ProjectBox = (props) => {
   const [goToProject, setProject] = useState(false);
   const location = useLocation();
-  const [open, setOpen] = useState(false);
 
   const renderDelete = () => {
     const data = jwtDecode(localStorage.getItem("token"));
@@ -65,10 +64,6 @@ const ProjectBox = (props) => {
     setProject(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   if (goToProject) {
     return (
       <Redirect
@@ -82,7 +77,6 @@ const ProjectBox = (props) => {
     return (
       <div className="ui blue link card">
         <div class="content" onClick={redirect}>
-          <div class="header" style={{ textAlign: "right" }}></div>
           <div class="header">{props.project.name}</div>
           <div class="meta">
             <p>{props.project.type}</p>
