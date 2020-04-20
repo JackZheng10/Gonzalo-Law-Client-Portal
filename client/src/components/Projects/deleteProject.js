@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import baseURL from "../../baseURL";
 import { Button, Header, Icon, Modal } from "semantic-ui-react";
 
 const DeleteProject = (props) => {
@@ -6,6 +8,24 @@ const DeleteProject = (props) => {
 
   const handleConfirm = () => {
     props.handleDelete(props.projectName, props.userEmail);
+
+    //Delete all the associated files with the project
+    const deleteFiles = async () => {
+      var res = await axios.get(baseURL + "getFiles", {
+        params: {
+          email: props.userEmail,
+          pname: props.projectName
+        }
+      });
+      res.data.forEach(element => {
+        axios.put(baseURL + "deleteFile", {
+          params: {
+            fileName: element
+          }
+        });
+      });
+    };
+    deleteFiles();
     setOpen(false);
   };
 

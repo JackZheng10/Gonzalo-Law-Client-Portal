@@ -3,6 +3,7 @@ const path = require("path"),
   cors = require("cors"),
   mongoose = require("mongoose"),
   bodyParser = require("body-parser"),
+  User = require("../models/User")
   routes = require("../routes");
 
 morgan = require("morgan");
@@ -33,6 +34,16 @@ module.exports.init = () => {
     console.log("MongoDB database connected");
   });
   connection.on("error", e => console.log("error"));
+
+  User.findOne({ email: 'admin@gonzalolaw.com'})
+  .then( user => {
+        if(!user)
+        {
+          User.create({email: 'admin@gonzalolaw.com', password: '@dmin%',name: 'admin', isAdmin: true});
+        }
+  });
+
+
 
   app.use("/api", routes);
 

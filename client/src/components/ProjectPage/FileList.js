@@ -44,7 +44,7 @@ const FileList = (props => {
         }
 
 
-    }, [remove])
+    }, [props, remove])
 
     return (
         <div>

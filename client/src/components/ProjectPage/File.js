@@ -1,37 +1,41 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 // import {
 //   Linking
 // } from 'react-native';
 
-import {List, Button } from 'semantic-ui-react'
+import { List, Button } from 'semantic-ui-react'
 
-const File = (props)=>{
-  const files = [];
+const File = (props) => {
+  const [files, setFiles] = useState([]);
 
+  useEffect(() => {
+    const getFiles = async () => {
+      const files = [];
+      props.data.forEach(element => {
+        const path = element.split('/');
+        const name = path[path.length - 1];
+        const link = 'https://storage.googleapis.com/gonzl-2/' + element.toString();
 
-    //change to props.data.foreach()
-    console.log(props.data);
-    for(let i = 0; i<props.data.length; i++){
-          const path = props.data[i].split('/');
-          const name = path[path.length - 1];
-          const link = 'https://storage.googleapis.com/gonzl-2/' + props.data[i].toString();
-
-          files.push(<List.Item>
-                        <List.Content>
-                        <a href={link} target = '_blank'>
-                          {name}
-                        </a>
-                        </List.Content>
-                        <List.Content floated='right'>
-                           <Button key = {props.data[i]} onClick = { () => {props.setRemove(props.data[i])}}> Delete </Button> 
-                        </List.Content>
-                      </List.Item>);
+        files.push(<List.Item>
+          <List.Content>
+            <a href={link} target='_blank'>
+              {name}
+            </a>
+          </List.Content>
+          <List.Content floated='right'>
+            <Button key={element} onClick={() => { props.setRemove(element) }}> Delete </Button>
+          </List.Content>
+        </List.Item>);
+      });
+      setFiles(files);
     }
+    getFiles();
+  }, [props]);
 
-//    <List divided verticalAlign = 'middle'>
-  return(
-    <div>            
-      <List divided verticalAlign = 'middle'>
+  //    <List divided verticalAlign = 'middle'>
+  return (
+    <div>
+      <List divided verticalAlign='middle'>
         {files}
       </List>
     </div>

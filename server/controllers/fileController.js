@@ -12,6 +12,7 @@ const bucketName = 'gonzl-2'
 const storage = new Storage({ projectId, keyFilename });
 const bucket = storage.bucket(bucketName);
 
+//Sources: google cloud documentation
 const uploadFile = (req, res, next) => {
   const currUser = jwtDecode(req.headers.token);
 
@@ -22,7 +23,7 @@ const uploadFile = (req, res, next) => {
       return;
     }
 
-    console.log(req.body);
+    //console.log(req.body);
     // Create a new blob in the bucket and upload the file data.
 
     const blob = bucket.file(req.body.email + '/' + req.body.pname + '/' + req.file.originalname);
@@ -38,7 +39,7 @@ const uploadFile = (req, res, next) => {
 
     blobStream.end(req.file.buffer);
   } else {
-    res.status(400).send("unarthorized access");
+    res.status(400).send("unauthorized access");
   }
 };
 
@@ -61,14 +62,14 @@ async function getFiles(req, res) {
     files.forEach(element => {
       //console.log(element);
       element.forEach(el => {
-        console.log(el.name);
+        //console.log(el.name);
         fileName.push(el.name);
       })
     })
 
     res.send(fileName);
   } else {
-    res.status(400).send("unarthorized access");
+    res.status(400).send("unauthorized access");
   }
 
 };
@@ -86,7 +87,7 @@ async function deleteFile(req, res) {
 
     await storage.bucket(bucketName).file(req.body.params.fileName).delete();
   } else {
-    res.status(400).send("unarthorized access");
+    res.status(400).send("unauthorized access");
   }
 }
 

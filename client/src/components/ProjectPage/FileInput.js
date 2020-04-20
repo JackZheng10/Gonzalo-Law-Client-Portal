@@ -33,7 +33,6 @@ class FileInput extends React.Component {
     }
 
     fileInput(file){
-      //const url = 'http://example.com/file-upload';
       const formData = new FormData();
       formData.append('file',file);
       formData.append('pname', this.props.name);
@@ -81,7 +80,7 @@ class FileInput extends React.Component {
         <div>
           <div class = 'chooseFile'>
           <input type="file" class="inputFile" id="embedInput" onChange={this.onChange}/>
-            <label for="embedInput" class="ui huge green button">
+            <label htmlFor="embedInput" class="ui huge green button">
             <i class="ui upload icon"></i> 
                 Choose File
             </label>
