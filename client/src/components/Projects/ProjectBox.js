@@ -3,7 +3,6 @@ import CDPhases from "../../enums/CDPhases.js";
 import DNPhases from "../../enums/DNPhases.js";
 import IPPhases from "../../enums/IPPhases.js";
 import { Redirect, useLocation } from "react-router-dom";
-import { Button, Header, Icon, Modal } from "semantic-ui-react";
 import DeleteProject from "./deleteProject";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
@@ -20,7 +19,8 @@ const ProjectBox = (props) => {
     if (data.isAdmin) {
       return (
         <DeleteProject
-          projectName={props.project.name}
+          projectID={props.project._id}
+          projectName = {props.project.name}
           userEmail={props.userEmail}
           handleDelete={handleDeleteProject}
         />
@@ -28,11 +28,15 @@ const ProjectBox = (props) => {
     }
   };
 
-  const handleDeleteProject = (projectName, userEmail) => {
-    console.log("name: " + projectName);
+  const handleDeleteProject = (projectID, userEmail) => {
+    console.log("id: " + projectID);
     console.log("user email: " + userEmail);
+    axios.defaults.headers.common["token"] = localStorage.getItem("token")
+      ? localStorage.getItem("token")
+      : null;
+
     axios
-      .post(baseURL + "deleteUserProject", { projectName, userEmail })
+      .post(baseURL + "deleteUserProject", { projectID, userEmail })
       .then((res) => {
         if (res.data.success) {
           console.log("Project deleted successfully.");
@@ -76,16 +80,16 @@ const ProjectBox = (props) => {
   } else {
     return (
       <div className="ui blue link card">
-        <div class="content" onClick={redirect}>
-          <div class="header">{props.project.name}</div>
-          <div class="meta">
+        <div className="content" onClick={redirect}>
+          <div className="header">{props.project.name}</div>
+          <div className="meta">
             <p>{props.project.type}</p>
           </div>
         </div>
-        <div class="extra content">
+        <div className="extra content">
           <span>
-            <i class="check circle outline icon"></i>
-            {"Step " + props.project.phase + "/" + maxPhase()}
+            <i className="check circle outline icon"></i>
+            {"Phase " + props.project.phase + "/" + maxPhase()}
           </span>
           <div className="right floated content">{renderDelete()}</div>
         </div>

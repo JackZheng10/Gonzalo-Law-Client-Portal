@@ -85,7 +85,7 @@ async function deleteFile(req, res) {
 
   if (currUser.isAdmin === true || currUser.email === req.query.email) {
 
-    await storage.bucket(bucketName).file(req.body.params.fileName).delete();
+    await storage.bucket(bucketName).file(req.body.params.fileName).delete().catch(err);
   } else {
     res.status(400).send("unauthorized access");
   }

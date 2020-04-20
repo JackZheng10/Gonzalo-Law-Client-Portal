@@ -69,13 +69,12 @@ export default class login extends Component {
     }
 
     if (this.state.isLoggedin) {
-
       //for redirect to admin dashboard when admin logs in
       if (this.state.userData.isAdmin) {
         return <Redirect to="/admin" />;
       } else {
         localStorage.setItem("userEmail", this.state.userData.email);
-
+        localStorage.setItem("username", this.state.userData.name);
         return <Redirect to="/projects" />;
       }
 
@@ -121,7 +120,7 @@ export default class login extends Component {
               <Message attached>
                 Don't have an account? <a href="/register">Register</a>
               </Message>
-              <Message attached >
+              <Message attached>
                 Forgot your password? <a href="/passwordrecovery">Click here</a>
               </Message>
             </div>

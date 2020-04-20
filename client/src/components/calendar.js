@@ -4,7 +4,7 @@ import moment from "moment";
 import NavBar from "./navBar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import googleAPI from "./utils/googleAPI";
-import { Button, Grid } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 //import Calendar from 'react_google_calendar';
 import "./styles.css";
 
@@ -89,8 +89,8 @@ export default class Calendar extends Component {
       .catch(err => { throw new Error(err) })
   }
 
-  
-  
+
+
 
 
   render = () => (
@@ -101,15 +101,15 @@ export default class Calendar extends Component {
       <div class="ui grid right aligned padded">
         <div class="ui twelve wide column">
           <div className = "ui right dividing close rail padded">
-           
-              <Button  fluid color="orange" 
-              href="https://calendar.google.com/calendar?cid=NWw1OHI4bm1jNGtucWRtZ3QyZTM3am0zNXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ" 
+
+              <Button  fluid color="orange"
+              href="https://calendar.google.com/calendar?cid=NWw1OHI4bm1jNGtucWRtZ3QyZTM3am0zNXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ"
               target="_blank"
               //onClick = {this.handleAuthClick}
               >
                 edit event
                 </Button>
-          
+
             </div>
           <BigCalendar
             localizer={localizer}
@@ -120,7 +120,7 @@ export default class Calendar extends Component {
       </div>
       </div>
     </div>
-   
+
   );
 }
 //edit events only possible for admin, but they have to do it through google

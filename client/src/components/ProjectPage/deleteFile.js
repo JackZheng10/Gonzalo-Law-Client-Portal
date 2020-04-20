@@ -1,32 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios";
-import baseURL from "../../baseURL";
 import { Button, Header, Icon, Modal } from "semantic-ui-react";
 
-const DeleteProject = (props) => {
+const DeleteClient = (props) => {
   const [open, setOpen] = useState(false);
 
   const handleConfirm = () => {
-    props.handleDelete(props.projectID, props.userEmail);
-
-    //Delete all the associated files with the project
-    const deleteFiles = async () => {
-      var res = await axios.get(baseURL + "getFiles", {
-        params: {
-          email: props.userEmail,
-          pname: props.projectName
-        }
-      });
-      res.data.forEach(element => {
-        axios.put(baseURL + "deleteFile", {
-          params: {
-            fileName: element
-          }
-        });
-      });
-    };
-
-    deleteFiles(); 
+    props.setRemove(props.file);
     setOpen(false);
   };
 
@@ -51,11 +30,11 @@ const DeleteProject = (props) => {
       <Header
         icon="exclamation circle"
         color="orange"
-        content="Deleting Client Project"
+        content="Deleting File"
       />
       <Modal.Content>
         <p>
-          Are you sure you want to delete this project? This will be permanent.
+          Are you sure you want to delete this file? This will be permanent.
           Once deleted, there won't be any records left.
         </p>
       </Modal.Content>
@@ -71,4 +50,4 @@ const DeleteProject = (props) => {
   );
 };
 
-export default DeleteProject;
+export default DeleteClient;

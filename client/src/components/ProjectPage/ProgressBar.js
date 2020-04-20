@@ -61,6 +61,7 @@ const ProgressBar = (props)=>{
         console.log(error);
       });
   };
+
   const data = jwtDecode(localStorage.getItem("token"));
 
   let list = [];
@@ -68,22 +69,22 @@ const ProgressBar = (props)=>{
   for(var i = 0; i <= maxPhase(); i++){
     list.push(
       <li key = {i} className={i > props.phase ? '' : 'active'}>
-      <Popup
-        trigger={
-            <Icon name={i > props.phase ? "circle" : "check circle"}
-                  size="big"
-                  link={data.isAdmin}
-                  id={i}
-                  onClick={e => {
-                      if(data.isAdmin)
-                       increment(e.target.id)
-                     }}/>
+        <Popup
+          trigger={
+              <Icon name={i > props.phase ? "circle" : "check circle"}
+                    size="big"
+                    link={data.isAdmin}
+                    id={i}
+                    onClick={e => {
+                        if(data.isAdmin)
+                         increment(e.target.id)
+                       }}/>
 
-        }
-        content={phases()[i]}
-        position="bottom center"
-        />
-          </li>
+          }
+          content={phases()[i]}
+          position="bottom center"
+          />
+        </li>
     );
   }
 
@@ -92,18 +93,20 @@ const ProgressBar = (props)=>{
 
 
   return(
-    <div>
 
-      <div className="progressContainer">
-        <ul id="pb" className="progressBar">
-          {list}
-        </ul>
+      <div id="progressContainer">
+        <div className="ui items">
+          <div className="item">
+            <div className="content">
+              <div className="meta">{data.isAdmin ? "Click on a phase to update the project to the corresponding phase." : "Hover over a phase to see the detail."}</div>
+              <ul id="pb" className="progressBar">
+                {list}
+              </ul>
+              <div className="meta">{"Current Phase: "+phases()[props.phase]}</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <h3>{"Current Phase: "+phases()[props.phase]} </h3>
-      {"\n"}
-      {"\n"}
-      {"\n"}
-    </div>
   )
 
 }

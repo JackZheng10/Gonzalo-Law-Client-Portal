@@ -15,7 +15,7 @@ const handleDaily = (calendar, recurrence, e) => {
     : moment(e.end.dateTime)
 
   // reformat reponse to get how many days between each recurrence
-  const wtfGoogle = (e.recurrence[0].split(";").pop().split("=").pop() != "DAILY")
+  const wtfGoogle = (e.recurrence[0].split(";").pop().split("=").pop() !== "DAILY")
     ? parseInt(e.recurrence[0].split(";").pop().split("=").pop())
     : 1
   const n = wtfGoogle
