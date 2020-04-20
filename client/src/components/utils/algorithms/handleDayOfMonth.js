@@ -51,7 +51,7 @@ const handleDayOfMonth = (calendar, recurrence, e) => {
     let nextEnd = new Date(end.year(), end.month() + recurrence, tempCounter, end.hour(), end.minutes())
 
     while (tempCounter < 31) {
-      let isEqual = nextStart.getDay() == start.day()
+      let isEqual = nextStart.getDay() === start.day()
 
       if (isEqual) {
         const reoccurringEvent = {

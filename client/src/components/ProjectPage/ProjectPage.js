@@ -47,7 +47,7 @@ const ProjectPage = (props)=>{
         <div className="five wide centered column">
           <h2 className="ui center aligned dividing header">
             <div className="content">{project.name}
-              <div class="sub header">{project.type}</div>
+              <div className="sub header">{project.type}</div>
             </div>
           </h2>
         </div>
@@ -60,7 +60,7 @@ const ProjectPage = (props)=>{
         </div>
         <div className ="ten wide centered column">
         <h3 className="ui header"> Files </h3>
-        <FileList email={localStorage.getItem("userEmail")} pname ={project.name} class = 'list'/>
+        <FileList email={localStorage.getItem("userEmail")} pname ={project.name}/>
         </div>
       </div>
     </div>

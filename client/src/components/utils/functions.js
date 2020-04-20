@@ -4,7 +4,7 @@
 
 // filterByOneProperty :: String -> [{}] -> [{}]
 const filterByOneProperty = (propterty, events) => events
-  .filter(event => event.r[0] == propterty)
+  .filter(event => event.r[0] === propterty)
 
 // filterIncludesString :: [] -> String -> Bool
 const filterIncludesString = (filters, str) => filters[filters.length - 1].includes(str)
@@ -42,7 +42,7 @@ const recurringByProperty = (events, fn, calendar, occurences) => [].concat.appl
   .map(event => fn(calendar, occurences, event))
 
 // removeCancelled :: [{}] -> [{}]
-const removeCancelled = events => events.filter(item => item.status != "cancelled")
+const removeCancelled = events => events.filter(item => item.status !== "cancelled")
 
 // removeRecurrenceProperty :: [{}] -> [{}]
 const removeRecurrenceProperty = events => events.map(event => event.e)

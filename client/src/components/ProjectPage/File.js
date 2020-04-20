@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import DeleteFile from './deleteFile.js';
-import {List, Button } from 'semantic-ui-react';
-import {Redirect} from "react-router-dom";
+import {List} from 'semantic-ui-react';
 import jwtDecode from "jwt-decode";
 
 const File = (props)=>{
@@ -23,7 +22,7 @@ const File = (props)=>{
                           {name}
                           </List.Header>
                         </List.Content>
-      
+
                       </List.Item>);
     }
 
