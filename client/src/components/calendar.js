@@ -7,7 +7,9 @@ import googleAPI from "./utils/googleAPI";
 import { Button } from "semantic-ui-react";
 //import Calendar from 'react_google_calendar';
 import "./styles.css";
-
+import NewEvent from "./newEvent.js";
+//import checkToken from "../checkToken.js";
+import jwtDecode from "jwt-decode";
 
 
 var event = {
@@ -58,6 +60,15 @@ const calendar_configuration = {
   ],
 };
 
+const adminView = () => {
+  const data = jwtDecode(localStorage.getItem("token"));
+
+  if (data.isAdmin) {
+    return <NewEvent/>;
+  }
+};
+
+
 
 
 
@@ -89,7 +100,7 @@ export default class Calendar extends Component {
       .catch(err => { throw new Error(err) })
   }
 
-
+  
 
 
 
@@ -100,17 +111,7 @@ export default class Calendar extends Component {
       <h2 className="ui centered header basic segment">Calendar</h2>
       <div class="ui grid right aligned padded">
         <div class="ui twelve wide column">
-          <div className = "ui right dividing close rail padded">
-
-              <Button  fluid color="orange"
-              href="https://calendar.google.com/calendar?cid=NWw1OHI4bm1jNGtucWRtZ3QyZTM3am0zNXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ"
-              target="_blank"
-              //onClick = {this.handleAuthClick}
-              >
-                edit event
-                </Button>
-
-            </div>
+        {adminView()}
           <BigCalendar
             localizer={localizer}
             events={this.state.events}
