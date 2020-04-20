@@ -100,8 +100,6 @@ export default class Calendar extends Component {
       .catch(err => { throw new Error(err) })
   }
 
-  
-
 
 
   render = () => (

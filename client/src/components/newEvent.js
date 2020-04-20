@@ -9,25 +9,27 @@ const NewEvent = (props) => {
 
 const [title, setTitle] = useState("");
 const [startDate, setStartDate] = useState(new Date);
+const [summary, setSummary] = useState("");
 const [open, setOpen] = useState(false);
 
 const handleSubmit = () => {
     setOpen(false);
     setStartDate(new Date);
     setTitle("");
+    setSummary("");
     //export event with startdate and title
 }
 const handleCancel = () => {
     setOpen(false);
     setStartDate(new Date);
     setTitle("");
+    setSummary("");
 }
 const handleChange = (e, date) => {
     if(e.target.name==="title") 
         setTitle(e.target.value);
-    // else {this.setState({
-    //   startDate: date
-    // });;}
+    if(e.target.name==='summary')
+      setSummary(e.target.value);
   };
 
     
@@ -45,6 +47,12 @@ const handleChange = (e, date) => {
                 placeholder="Enter a name for this event"
                 required
                 onChange={handleChange}
+            />
+            <Form.Input 
+            label = "Event summary"
+            name='summary'
+            placeholder="Describe this event"
+            onChange={handleChange}
             />
             <h5>Date</h5>
             <DatePicker 
