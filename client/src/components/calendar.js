@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import NavBar from "./navBar";
@@ -146,79 +146,82 @@ export default class Calendar extends Component {
     }
   };
 
-  render = () => (
-    <div>
-      <NavBar />
-      <Modal size="small" open={this.state.openAuthorization}>
-        <Header
-          icon="exclamation circle"
-          color="orange"
-          content="Authorization Required"
-        />
-        <Modal.Content>
-          <p>
-            Please visit this link to allow access to your Google calendar in
-            order to add and remove events:{" "}
-            <a href={this.state.authURL} target="_blank">
-              Click here
-            </a>
-          </p>
-          <p>
-            Once done, input the code you receive below. (insert pic with
-            instructions)
-          </p>
-          <Form.Input
-            placeholder="Enter code"
-            onChange={(event) => {
-              this.setState({ authCode: event.target.value });
-            }}
-            value={this.state.authCode}
-            required
-          />
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color="green" onClick={this.handleAuthSubmit}>
-            <Icon name="checkmark" /> Submit
-          </Button>
-        </Modal.Actions>
-      </Modal>
-      <Modal size="small" open={this.state.openPublicCalendar}>
-        <Header
-          icon="exclamation circle"
-          color="orange"
-          content="Public Calendar Required"
-        />
-        <Modal.Content>
-          <p>
-            Please visit{" "}
-            <a href="https://calendar.google.com/calendar/" target="_blank">
-              this
-            </a>{" "}
-            link, navigate to the calendar titled{" "}
-            {<strong>{localStorage.getItem("userEmail")}</strong>}, and in its
-            settings, make it public.
-          </p>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color="green" onClick={this.handlePublicCalClose}>
-            <Icon name="checkmark" /> Submit
-          </Button>
-        </Modal.Actions>
-      </Modal>
+  render() {
+    return (
       <div>
-        <h2 className="ui centered header basic segment">Calendar</h2>
-        <div class="ui grid right aligned padded">
-          <div class="ui twelve wide column">
-            {this.adminView()}
-            <BigCalendar
-              localizer={localizer}
-              events={this.state.events}
-              style={{ height: "100vh" }}
+        <NavBar />
+        <Modal size="small" open={this.state.openAuthorization}>
+          <Header
+            icon="exclamation circle"
+            color="orange"
+            content="Authorization Required"
+          />
+          <Modal.Content>
+            <p>
+              Please visit this link to allow access to your Google calendar in
+              order to add and remove events:{" "}
+              <a href={this.state.authURL} target="_blank">
+                Click here
+              </a>
+            </p>
+            <p>
+              Once done, input the code you receive below. (insert pic with
+              instructions)
+            </p>
+            <Form.Input
+              placeholder="Enter code"
+              onChange={(event) => {
+                this.setState({ authCode: event.target.value });
+              }}
+              value={this.state.authCode}
+              required
             />
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color="green" onClick={this.handleAuthSubmit}>
+              <Icon name="checkmark" /> Submit
+            </Button>
+          </Modal.Actions>
+        </Modal>
+        <Modal size="small" open={this.state.openPublicCalendar}>
+          <Header
+            icon="exclamation circle"
+            color="orange"
+            content="Public Calendar Required"
+          />
+          <Modal.Content>
+            <p>
+              Please visit{" "}
+              <a href="https://calendar.google.com/calendar/" target="_blank">
+                this
+              </a>{" "}
+              link, navigate to the calendar titled{" "}
+              {<strong>{localStorage.getItem("userEmail")}</strong>}, and in its
+              settings, make it public.
+            </p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color="green" onClick={this.handlePublicCalClose}>
+              <Icon name="checkmark" /> Submit
+            </Button>
+          </Modal.Actions>
+        </Modal>
+        <div>
+          <h2 className="ui centered header basic segment">Calendar</h2>
+          <div class="ui grid right aligned padded">
+            <div class="ui twelve wide column">
+              {this.adminView()}
+              <BigCalendar
+                localizer={localizer}
+                events={this.state.events}
+                style={{ height: "100vh" }}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
+
 //edit events only possible for admin, but they have to do it through google

@@ -75,6 +75,7 @@ const NewEvent = (props) => {
                 setTitle(event.target.value);
               }}
             />
+
             <h5>Date</h5>
             <DatePicker
               name="date"

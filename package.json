@@ -41,6 +41,7 @@
     "nodemon": "^1.18.10",
     "react-big-calendar": "^0.20.4",
     "react-datepicker": "^2.14.1",
+    "react-moment": "^0.9.7",
     "should": "^13.2.3",
     "supertest": "^4.0.2"
   },
