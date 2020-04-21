@@ -79,9 +79,7 @@ export default class Calendar extends Component {
     let calendarID = localStorage.getItem("userCalendarID");
     googleAPI
       .getAllCalendars({
-        api_key:
-          process.env.GOOGLE_CAL_APIKEY ||
-          require("../config.js").googleCalendarAPIKey,
+        api_key: "AIzaSyAEiXGTAHI7WqOWucmLAE0QzOco1UB8Zu8",
         calendars: [
           {
             name: "User Calendar",

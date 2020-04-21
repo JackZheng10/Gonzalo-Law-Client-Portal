@@ -1,4 +1,4 @@
-let baseURL = "http://localhost:8000/api/";
+let baseURL = "/api/";
 //heroku: baseURL = "/api/";
 //local: baseURL = "http://localhost:8000/api/";
 
