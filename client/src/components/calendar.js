@@ -4,7 +4,7 @@ import moment from "moment";
 import NavBar from "./navBar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import googleAPI from "./utils/googleAPI";
-import { Button, Modal, Header } from "semantic-ui-react";
+import { Button, Modal, Header, Rail } from "semantic-ui-react";
 //import Calendar from 'react_google_calendar';
 import "./styles.css";
 import NewEvent from "./newEvent.js";
@@ -14,6 +14,7 @@ import ViewEvent from './viewEvent';
 
 //all functionality is linked to this dummy data
 //this file needs to be chnages so that 'events' comes from the api and selected event is the default most recent
+//delete button is stored in viewEvent.js
 var events = [
 {
   'summary': 'Test Event 1',
@@ -106,19 +107,9 @@ var events = [
 // }
 
 
-
-
-
-
-
-
-
-
-
-
 const Calendar = (props) => {
   //const [events, setEvents] = useState(events);
-  const [selectedEvent, setSelectedEvent] = useState(events[1]);
+  const [selectedEvent, setSelectedEvent] = useState(events[0]);
   
 
 
@@ -132,6 +123,12 @@ const Calendar = (props) => {
       return (
         <NewEvent event={selectedEvent} />
       );
+    } else {
+      return (
+        <Rail position='right' close dividing>
+          <ViewEvent event={selectedEvent}/>
+        </Rail>
+      )
     }
   };
 

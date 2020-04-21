@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Button, Header, Modal, Form, Rail} from 'semantic-ui-react';
 import DatePicker from "react-datepicker";
 
+
 import "react-datepicker/dist/react-datepicker.css";
 import ViewEvent from './viewEvent';
 
