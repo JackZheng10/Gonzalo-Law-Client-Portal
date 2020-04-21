@@ -118,7 +118,9 @@ export default class Calendar extends Component {
             .catch((error) => {
               alert("Error: " + error);
             });
-          this.setState({ openAuthorization: false });
+          this.setState({ openAuthorization: false }, () => {
+            this.getGoogleCalendarEvents();
+          });
         } else {
           return alert(
             "There was an error with authentication. Please try again."
@@ -128,8 +130,6 @@ export default class Calendar extends Component {
       .catch((error) => {
         alert("Error: " + error);
       });
-
-    this.getGoogleCalendarEvents();
   };
 
   handlePublicCalClose = () => {
