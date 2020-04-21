@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Redirect  } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import Search from "./search.js";
 import baseURL from "../../baseURL.js";
@@ -9,14 +9,12 @@ import NavBarAdmin from "./navBarAdmin";
 import DeleteClient from "./deleteClient";
 import "./admin.css";
 
-const escapeRegExp = string => {
+const escapeRegExp = (string) => {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 };
 
 export default class admin extends Component {
-
   constructor(props) {
-
     super(props);
 
     this.handleDelete = this.handleDelete.bind(this);
@@ -29,10 +27,10 @@ export default class admin extends Component {
     hasSelected: false,
     clients: [],
     redirect: false,
-    error: false
+    error: false,
   };
 
-  handleSearch = term => {
+  handleSearch = (term) => {
     //console.log("Search term: " + term);
     this.setState({ searchTerm: term });
   };
@@ -40,10 +38,11 @@ export default class admin extends Component {
   async componentDidMount() {
     localStorage.removeItem("userEmail");
     localStorage.removeItem("username");
+    localStorage.removeItem("userCalendarID");
     axios.defaults.headers.common["token"] = localStorage.getItem("token")
       ? localStorage.getItem("token")
       : null;
-    await checkToken().then(response => {
+    await checkToken().then((response) => {
       this.setState({ redirect: !response });
     });
 
@@ -53,14 +52,14 @@ export default class admin extends Component {
       if (data.isAdmin) {
         axios
           .get(baseURL + "getClients")
-          .then(res => {
+          .then((res) => {
             //console.log(
             //  "response array of clients: " + JSON.stringify(res.data)
-          //  );
+            //  );
             let clients = JSON.parse(JSON.stringify(res.data));
             this.setState({ clients: clients });
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
           });
       } else {
@@ -72,39 +71,32 @@ export default class admin extends Component {
   async componentDidUpdate() {
     //console.log("Search term in state of dashboard: " + this.state.searchTerm);
     //console.log("Selected client in state: " + this.state.selectedClient);
-
-
   }
 
   handleSelected(name, email) {
     //console.log("Selected: " + email);
     this.setState({ selectedClient: name });
-    this.setState({ selectedEmail: email});
+    this.setState({ selectedEmail: email });
     this.setState({ hasSelected: true });
     localStorage.setItem("userEmail", email);
     localStorage.setItem("username", name);
-
   }
-
 
   async handleDelete(id) {
     await axios({
       method: "post",
       url: baseURL + "deleteUser",
       params: {
-        uid: id
-      }
+        uid: id,
+      },
     });
 
-    const newClients = this.state.clients.filter(
-      (item) =>{
-        return item._id !== id
-      });
+    const newClients = this.state.clients.filter((item) => {
+      return item._id !== id;
+    });
 
-    this.setState({clients: newClients});
-
+    this.setState({ clients: newClients });
   }
-
 
   clientListRender() {
     //todo: will have to be put in a scrolly view thing*
@@ -112,29 +104,27 @@ export default class admin extends Component {
     return (
       <div className="ui celled list padded segment">
         {this.state.clients
-          .filter(item => {
+          .filter((item) => {
             if (this.state.searchTerm.trim() !== "") {
               const regexp = new RegExp(
                 escapeRegExp(this.state.searchTerm.trim().toLowerCase())
               );
               if (item) {
-                const result = item.name
-                  .trim()
-                  .toLowerCase()
-                  .match(regexp);
+                const result = item.name.trim().toLowerCase().match(regexp);
                 return result && result.length > 0;
               }
               return false;
             }
             return true;
           })
-          .map(item => {
+          .map((item) => {
             return (
               <div className="item" key={item.email}>
-                <div className="right floated content" >
+                <div className="right floated content">
                   <DeleteClient
-                    handleDelete = {this.handleDelete}
-                    id={item._id} />
+                    handleDelete={this.handleDelete}
+                    id={item._id}
+                  />
                 </div>
 
                 <i className="big user icon"></i>
@@ -145,7 +135,6 @@ export default class admin extends Component {
                   <div className="name">{item.name}</div>
                   {item.email}
                 </div>
-
               </div>
             );
           })}
@@ -166,8 +155,9 @@ export default class admin extends Component {
       //alert("what111");
       return (
         <Redirect
-          push to={{
-            pathname: "/projects"
+          push
+          to={{
+            pathname: "/projects",
           }}
         />
       );
@@ -177,18 +167,19 @@ export default class admin extends Component {
       <div>
         <NavBarAdmin />
         <div id="admin">
-            <h1 className="ui center aligned header">
-              Welcome
-              <strong> Admin</strong>
-            </h1>
+          <h1 className="ui center aligned header">
+            Welcome
+            <strong> Admin</strong>
+          </h1>
 
-
-            <div className="ui segments container">
-              <p className="ui block inverted medium header segment">Client List</p>
-              <Search className="ui segment" handleSearch={this.handleSearch} />
-              {this.clientListRender()}
-            </div>
+          <div className="ui segments container">
+            <p className="ui block inverted medium header segment">
+              Client List
+            </p>
+            <Search className="ui segment" handleSearch={this.handleSearch} />
+            {this.clientListRender()}
           </div>
+        </div>
       </div>
     );
   }

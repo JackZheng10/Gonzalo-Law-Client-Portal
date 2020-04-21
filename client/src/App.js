@@ -31,7 +31,6 @@ const App = () => {
           <Redirect to="/welcome" />
         </Route>
       </Switch>
-      <br />
     </React.Fragment>
   );
 };

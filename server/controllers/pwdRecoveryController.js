@@ -80,7 +80,7 @@ const pwdResetEmail = async (req, res) => {
 
         return res.json({
           success: true,
-          message: "Password recovery link sent successfully",
+          message: nodemailer.getTestMessageUrl(info),
         });
       } else {
         return res.json({

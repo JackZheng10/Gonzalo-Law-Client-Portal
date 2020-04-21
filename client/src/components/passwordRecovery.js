@@ -19,7 +19,10 @@ export default class passwordReset extends Component {
       .post(baseURL + "pwdResetEmail", { email })
       .then((res) => {
         if (res.data.success) {
-          alert("A password recovery link has just been emailed to you.");
+          alert(
+            "A password recovery link has just been emailed to you: " +
+              res.data.message
+          );
           this.setState({ redirect: true });
         } else {
           alert(

@@ -25,6 +25,12 @@ const {
   pwdResetEmail,
   resetPassword,
 } = require("../controllers/pwdRecoveryController");
+const {
+  authorizeCalendar,
+  createCalendarToken,
+  addCalendarEvent,
+  getCalendarID,
+} = require("../controllers/calendarController");
 
 const verifyToken = require("../authHelpers").verifyToken;
 
@@ -52,6 +58,11 @@ routes.post("/addProject", addProject);
 routes.post("/updatePhase", updatePhase);
 routes.put("/upload", m.single("file"), uploadFile);
 routes.put("/deleteFile", deleteFile);
+routes.get("/authorizeCalendar", authorizeCalendar);
+routes.post("/createCalendarToken", createCalendarToken);
+routes.post("/addCalendarEvent", addCalendarEvent);
+routes.post("/getCalendarID", getCalendarID);
+//routes.post("/getCalendarEvents", getCalendarEvents);
 
 //routes.get("/api/download", downloadFile);
 routes.get("/getFiles", getFiles);

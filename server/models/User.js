@@ -9,57 +9,62 @@ const UserSchema = new mongoose.Schema(
       type: String,
       unique: true,
       uniqueCaseInsensitive: true,
-      required: true
+      required: true,
     },
     name: {
       type: String,
       unique: false,
-      required: true
+      required: true,
     },
     password: {
       type: String,
       required: true,
-      unique: false
+      unique: false,
     },
     isAdmin: {
       type: Boolean,
       required: true,
-      unique: false
+      unique: false,
     },
     projects: {
       type: [ProjectSchema],
       required: true,
-      unique: false
-    }
+      unique: false,
+    },
+    calendarID: {
+      type: String,
+      unique: false,
+      default: "",
+    },
   },
   { versionKey: false },
   {
     id: false,
     toObject: {
       virtuals: true,
-      getters: true
+      getters: true,
     },
     toJSON: {
       virtuals: true,
       getters: true,
-      setters: false
-    }
+      setters: false,
+    },
   }
 );
 
 // adds method to user to create hashed password
-UserSchema.methods.generateHash = function(password) {
+UserSchema.methods.generateHash = function (password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 };
 
 // adds method to user to check if password is correct
-UserSchema.methods.validPassword = function(password) {
+UserSchema.methods.validPassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
 // had to add this, checks if password was changed before saving
 // before user saved in db
-UserSchema.pre("save", function(next) {
+UserSchema.pre("save", function (next) {
   if (this.isModified("password")) {
     this.password = this.generateHash(this.password);
   }
@@ -68,7 +73,7 @@ UserSchema.pre("save", function(next) {
 
 UserSchema.plugin(uniqueValidator, {
   type: "mongoose-unique-validator",
-  message: "Error, expected {PATH} to be unique."
+  message: "Error, expected {PATH} to be unique.",
 });
 
 const User = mongoose.model("User", UserSchema);
