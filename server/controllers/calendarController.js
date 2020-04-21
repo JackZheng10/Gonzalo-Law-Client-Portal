@@ -21,7 +21,7 @@ const authorizeCalendar = async (req, res) => {
   if (currUser.isAdmin !== true) {
     return res.json({
       success: false,
-      message: "Not authorized to access this route",
+      message: "Not authorized to access this endpoint",
     });
   }
 
@@ -91,7 +91,7 @@ const createCalendarToken = (req, res) => {
   if (currUser.isAdmin !== true) {
     return res.json({
       success: false,
-      message: "Not authorized to access this route",
+      message: "Not authorized to access this endpoint",
     });
   }
 
@@ -186,7 +186,7 @@ const addCalendarEvent = async (req, res) => {
   if (currUser.isAdmin !== true) {
     return res.json({
       success: false,
-      message: "Not authorized to access this route",
+      message: "Not authorized to access this endpoint",
     });
   }
 
@@ -353,7 +353,7 @@ const getCalendarID = async (req, res) => {
   if (currUser.isAdmin !== true) {
     return res.json({
       success: false,
-      message: "Not authorized to access this route",
+      message: "Not authorized to access this endpoint",
     });
   }
 
