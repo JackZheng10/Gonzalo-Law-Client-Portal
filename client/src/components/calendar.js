@@ -156,15 +156,17 @@ export default class Calendar extends Component {
           />
           <Modal.Content>
             <p>
-              Please visit this link to allow access to your Google calendar in
-              order to add and remove events:{" "}
+              Please visit{" "}
               <a href={this.state.authURL} target="_blank">
-                Click here
-              </a>
+                this
+              </a>{" "}
+              link to allow access to your Google calendar in order to add and
+              remove events.{" "}
             </p>
             <p>
-              Once done, input the code you receive below. The code can be found
-              in the URL you're redirected to: https://www.google.com/?code=
+              Once done, please input the code you receive. The code can be
+              found in the URL you're redirected to:
+              https://www.google.com/?code=
               {<strong>CODE</strong>}
               &scope=https://www.googleapis.com/auth/calendar
             </p>
