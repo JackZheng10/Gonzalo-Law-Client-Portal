@@ -120,7 +120,9 @@ export default class Calendar extends Component {
             });
           this.setState({ openAuthorization: false });
         } else {
-          alert("There was an error with authentication. Please try again.");
+          return alert(
+            "There was an error with authentication. Please try again."
+          );
         }
       })
       .catch((error) => {
