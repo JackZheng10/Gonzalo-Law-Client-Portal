@@ -29,8 +29,7 @@ const ProjectBox = (props) => {
   };
 
   const handleDeleteProject = (projectID, userEmail) => {
-    console.log("id: " + projectID);
-    console.log("user email: " + userEmail);
+
     axios.defaults.headers.common["token"] = localStorage.getItem("token")
       ? localStorage.getItem("token")
       : null;
@@ -39,7 +38,6 @@ const ProjectBox = (props) => {
       .post(baseURL + "deleteUserProject", { projectID, userEmail })
       .then((res) => {
         if (res.data.success) {
-          console.log("Project deleted successfully.");
           props.handleRerender();
         } else {
           console.log("Project could not be deleted.");
