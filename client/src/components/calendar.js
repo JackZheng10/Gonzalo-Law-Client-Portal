@@ -37,20 +37,20 @@ export default class Calendar extends Component {
       : null;
 
     if (data.isAdmin) {
-      console.log("1");
+      //console.log("1");
       await axios
         .get(baseURL + "authorizeCalendar")
         .then(async (res) => {
           if (res.data.success) {
             //alert("Token already set");
             const selectedUser = localStorage.getItem("userEmail");
-            console.log("2");
+            //console.log("2");
             await axios
               .post(baseURL + "getCalendarID", { selectedUser })
               .then(async (res) => {
                 if (res.data.success) {
                   localStorage.setItem("userCalendarID", res.data.message);
-                  console.log("3");
+                  //console.log("3");
                   //alert("calendar ID: " + res.data.message);
                 } else {
                   alert("Error with fetching calendar ID: " + res.data.message);
@@ -59,7 +59,7 @@ export default class Calendar extends Component {
               .catch((error) => {
                 alert("Error: " + error);
               });
-            console.log("4");
+            //console.log("4");
             this.getGoogleCalendarEvents();
           } else {
             this.setState({
@@ -81,7 +81,13 @@ export default class Calendar extends Component {
             localStorage.setItem("userCalendarID", res.data.message);
             //alert("calendar ID: " + res.data.message);
           } else {
-            alert("Error with fetching calendar ID: " + res.data.message);
+            const data = jwtDecode(localStorage.getItem("token"));
+
+            if (data.isAdmin) {
+              alert("Error with fetching calendar ID: " + res.data.message);
+            } else {
+              this.setState({ openPublicCalendarUser: true });
+            }
           }
         })
         .catch((error) => {
@@ -93,7 +99,7 @@ export default class Calendar extends Component {
   };
 
   getGoogleCalendarEvents = () => {
-    console.log("5");
+    //console.log("5");
     let calendarID = localStorage.getItem("userCalendarID");
     googleAPI
       .getAllCalendars({
@@ -106,11 +112,17 @@ export default class Calendar extends Component {
         ],
       })
       .then((events) => {
-        console.log("6");
+        //console.log("6");
         this.setState({ events });
       })
       .catch((err) => {
-        this.setState({ openPublicCalendar: true });
+        const data = jwtDecode(localStorage.getItem("token"));
+
+        if (data.isAdmin) {
+          this.setState({ openPublicCalendar: true });
+        } else {
+          this.setState({ openPublicCalendarUser: true });
+        }
       });
   };
 
@@ -225,6 +237,29 @@ export default class Calendar extends Component {
           <Modal.Actions>
             <Button color="green" onClick={this.handlePublicCalClose}>
               <Icon name="checkmark" /> Submit
+            </Button>
+          </Modal.Actions>
+        </Modal>
+        <Modal size="small" open={this.state.openPublicCalendarUser}>
+          <Header
+            icon="exclamation circle"
+            color="orange"
+            content="Admin Authorization Required"
+          />
+          <Modal.Content>
+            <p>
+              Please wait until an admin authorizes your calendar and makes it
+              public. Until then, no events can be seen.
+            </p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button
+              color="green"
+              onClick={() => {
+                this.setState({ openPublicCalendarUser: false });
+              }}
+            >
+              <Icon name="checkmark" /> Okay
             </Button>
           </Modal.Actions>
         </Modal>
