@@ -163,8 +163,10 @@ export default class Calendar extends Component {
               </a>
             </p>
             <p>
-              Once done, input the code you receive below. (insert pic with
-              instructions)
+              Once done, input the code you receive below. The code can be found
+              in the URL you're redirected to: https://www.google.com/?code=
+              {<strong>CODE</strong>}
+              &scope=https://www.googleapis.com/auth/calendar
             </p>
             <Form.Input
               placeholder="Enter code"
