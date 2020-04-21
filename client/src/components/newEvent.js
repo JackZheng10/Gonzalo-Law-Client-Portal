@@ -3,14 +3,18 @@ import {Button, Header, Modal, Form, Rail} from 'semantic-ui-react';
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import ViewEvent from './viewEvent';
+
 
 
 const NewEvent = (props) => {
+
 
 const [title, setTitle] = useState("");
 const [startDate, setStartDate] = useState(new Date);
 const [summary, setSummary] = useState("");
 const [open, setOpen] = useState(false);
+
 
 const handleSubmit = () => {
     setOpen(false);
@@ -81,6 +85,7 @@ const handleChange = (e, date) => {
       <Button color = 'green' onClick={handleSubmit}>Save Event</Button>
       </Modal.Actions>
     </Modal>
+    <ViewEvent event={props.event}/>
   </Rail>
   )
 
