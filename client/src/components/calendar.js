@@ -72,6 +72,22 @@ export default class Calendar extends Component {
           alert("Error: " + error);
         });
     } else {
+      const data = jwtDecode(localStorage.getItem("token"));
+      let selectedUser = data.email;
+      await axios
+        .post(baseURL + "getCalendarID", { selectedUser })
+        .then(async (res) => {
+          if (res.data.success) {
+            localStorage.setItem("userCalendarID", res.data.message);
+            //alert("calendar ID: " + res.data.message);
+          } else {
+            alert("Error with fetching calendar ID: " + res.data.message);
+          }
+        })
+        .catch((error) => {
+          alert("Error: " + error);
+        });
+
       this.getGoogleCalendarEvents();
     }
   };
