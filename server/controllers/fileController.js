@@ -16,7 +16,7 @@ const bucket = storage.bucket(bucketName);
 const uploadFile = (req, res, next) => {
   const currUser = jwtDecode(req.headers.token);
 
-  if (currUser.isAdmin === true || currUser.email === req.query.email) {
+  if (currUser.isAdmin === true || currUser.email === req.body.email) {
     if (!req.file) {
       console.log(req);
       res.status(400).send('No file uploaded.');
@@ -45,7 +45,7 @@ const uploadFile = (req, res, next) => {
 
 
 /*
- * Calls 
+ * Calls
  */
 async function getFiles(req, res) {
   const currUser = jwtDecode(req.headers.token);
@@ -83,7 +83,7 @@ async function deleteFile(req, res) {
   //console.log(req);
   const currUser = jwtDecode(req.headers.token);
 
-  if (currUser.isAdmin === true || currUser.email === req.query.email) {
+  if (currUser.isAdmin === true) {
 
     await storage.bucket(bucketName).file(req.body.params.fileName).delete().catch(err => {});
   } else {
