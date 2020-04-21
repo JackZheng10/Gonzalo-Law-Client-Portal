@@ -16,6 +16,14 @@ const TOKEN_PATH = path.join(__dirname, "/token.json");
 const secretPath = path.join(__dirname, "/client_secret_test.json");
 
 const authorizeCalendar = async (req, res) => {
+  const currUser = jwtDecode(req.headers.token);
+  if (currUser.isAdmin !== true) {
+    return res.json({
+      success: false,
+      message: "Not authorized to access this route",
+    });
+  }
+
   if (process.env.NODE_ENV === "production") {
     let content = {
       installed: {
@@ -78,6 +86,14 @@ const authorizeCalendar = async (req, res) => {
 };
 
 const createCalendarToken = (req, res) => {
+  const currUser = jwtDecode(req.headers.token);
+  if (currUser.isAdmin !== true) {
+    return res.json({
+      success: false,
+      message: "Not authorized to access this route",
+    });
+  }
+
   if (process.env.NODE_ENV === "production") {
     // Authorize a client with credentials
     let content = {
@@ -165,6 +181,14 @@ const createCalendarToken = (req, res) => {
 };
 
 const addCalendarEvent = async (req, res) => {
+  const currUser = jwtDecode(req.headers.token);
+  if (currUser.isAdmin !== true) {
+    return res.json({
+      success: false,
+      message: "Not authorized to access this route",
+    });
+  }
+
   // Load client secrets from a local file.
   if (process.env.NODE_ENV === "production") {
     // Authorize a client with credentials
@@ -324,6 +348,14 @@ const addCalendarEvent = async (req, res) => {
 };
 
 const getCalendarID = async (req, res) => {
+  const currUser = jwtDecode(req.headers.token);
+  if (currUser.isAdmin !== true) {
+    return res.json({
+      success: false,
+      message: "Not authorized to access this route",
+    });
+  }
+
   let userEmail = req.body.selectedUser;
   let calendar = true;
   //console.log("1");
