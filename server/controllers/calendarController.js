@@ -349,14 +349,6 @@ const addCalendarEvent = async (req, res) => {
 };
 
 const getCalendarID = async (req, res) => {
-  const currUser = jwtDecode(req.headers.token);
-  if (currUser.isAdmin !== true) {
-    return res.json({
-      success: false,
-      message: "Not authorized to access this endpoint",
-    });
-  }
-
   let userEmail = req.body.selectedUser;
   let calendar = true;
   //console.log("1");

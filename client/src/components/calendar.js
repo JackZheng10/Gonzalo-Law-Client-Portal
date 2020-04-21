@@ -71,6 +71,8 @@ export default class Calendar extends Component {
         .catch((error) => {
           alert("Error: " + error);
         });
+    } else {
+      this.getGoogleCalendarEvents();
     }
   };
 
