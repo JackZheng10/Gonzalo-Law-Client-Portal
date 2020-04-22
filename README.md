@@ -21,9 +21,7 @@ The website is a client portal designed to host infromation for the clients and 
 
 ## How to run locally
 
-1. Follow the structure in example.config.js (client), example.config.js (server), and client_secret_test_example.json (server) to set up the configuration variables in each file.<br/>
-* Rename these files to config.js, config.js, and client_secret_test.json, respectively.
-
-3. Run `npm install` from the root and client directory. <br/>
-
-4. Finally, run `npm run dev` from the root directory, which will launch both the frontend and backend.<br/>
+* Follow the structure in example.config.js (client), example.config.js (server), and client_secret_test_example.json (server) to set up the configuration variables in each file.<br/>
+  * Rename these files to config.js, config.js, and client_secret_test.json, respectively.<br/>
+* Run `npm install` from the root and client directory. <br/>
+* Finally, run `npm run dev` from the root directory, which will launch both the frontend and backend.<br/>
