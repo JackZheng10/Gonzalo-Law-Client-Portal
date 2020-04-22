@@ -64,7 +64,7 @@ const pwdResetEmail = async (req, res) => {
             subject: "Gonzalo Law - Password Reset Link", // Subject line
             //heroku: http://gonzalo-law-portal.herokuapp.com/resetpassword/, local: http://localhost:8000/resetpassword/
             text:
-              "Please visit the following link to reset your password: http://localhost:8000/resetpassword/" +
+              "Please visit the following link to reset your password: http://gonzalo-law-portal.herokuapp.com/resetpassword/" +
               sessionID +
               " (This link will expire in 1 hour from the time you received this message.)", // plain text body
           })
