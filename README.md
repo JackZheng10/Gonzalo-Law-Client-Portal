@@ -19,6 +19,10 @@ The website is a client portal designed to host infromation for the clients and 
 ### Payment ###
 * Client able to navigate to payment system from menu
 
+## Links ##
+[Server] (https://github.com/JackZheng10/Gonzalo-Law-Client-Portal/blob/master/server/README.md)
+[Client] (https://github.com/JackZheng10/Gonzalo-Law-Client-Portal/blob/master/client/README.md)
+
 ## How to run locally
 
 * Follow the structure in example.config.js (client), example.config.js (server), and client_secret_test_example.json (server) to set up the configuration variables in each file.<br/>
