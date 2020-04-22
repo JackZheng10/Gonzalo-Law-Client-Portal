@@ -12,86 +12,90 @@ const NavBar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userEmail");
     localStorage.removeItem("username");
+    localStorage.removeItem("userCalendarID");
     axios.defaults.headers.common["token"] = null;
   };
 
   //handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-  const handlePaymentClick = async ()=> {
-
+  const handlePaymentClick = async () => {
     document.getElementById("payment").submit();
-  }
+  };
 
-  const user = jwtDecode(localStorage.getItem('token'));
+  const user = jwtDecode(localStorage.getItem("token"));
 
-  const name = localStorage.getItem('username');
-  const email = localStorage.getItem('userEmail');
+  const name = localStorage.getItem("username");
+  const email = localStorage.getItem("userEmail");
 
-  const userMenu = ()=>{
-    if(user.isAdmin === true) {
-      return(
-        <Menu.Menu position="right" >
-          <Dropdown item text='Admin'>
+  const userMenu = () => {
+    if (user.isAdmin === true) {
+      return (
+        <Menu.Menu position="right">
+          <Dropdown item text="Admin">
             <Dropdown.Menu>
-              <Dropdown.Header>{"Current Selected Client: "+name} </Dropdown.Header>
-              <Dropdown.Item href="/admin"> Return To Client List </Dropdown.Item>
+              <Dropdown.Header>
+                {"Current Selected Client: " + name}{" "}
+              </Dropdown.Header>
+              <Dropdown.Item href="/admin">
+                {" "}
+                Return To Client List{" "}
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Menu.Menu>
-
-      )
-    }
-    else{
-      return(
+      );
+    } else {
+      return (
         <Menu.Menu position="right">
           <Dropdown item text={name}>
-          <Dropdown.Menu>
-            <Dropdown.Header>{"Email: "+email} </Dropdown.Header>
-            <Dropdown.Item onClick={handlePaymentClick}>
-              <form
-                action="https://Simplecheckout.authorize.net/payment/CatalogPayment.aspx"
-                method="post"
-                id="payment"
-              >
-                <input
-                  name="LinkId"
-                  type="hidden"
-                  value="ea28c130-eb6e-4e1a-a841-f179279b5b0f"
-                ></input>{"Make a Payment"}
-
-              </form></Dropdown.Item>
-            <Dropdown.Item onClick={handleLogout} href="/welcome">Logout</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </Menu.Menu>
-
-      )
+            <Dropdown.Menu>
+              <Dropdown.Header>{"Email: " + email} </Dropdown.Header>
+              <Dropdown.Item onClick={handlePaymentClick}>
+                <form
+                  action="https://Simplecheckout.authorize.net/payment/CatalogPayment.aspx"
+                  method="post"
+                  id="payment"
+                >
+                  <input
+                    name="LinkId"
+                    type="hidden"
+                    value="ea28c130-eb6e-4e1a-a841-f179279b5b0f"
+                  ></input>
+                  {"Make a Payment"}
+                </form>
+              </Dropdown.Item>
+              <Dropdown.Item onClick={handleLogout} href="/welcome">
+                Logout
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Menu.Menu>
+      );
     }
-  }
+  };
 
-    //const { activeItem } = this.state
+  //const { activeItem } = this.state
 
-    return (
-      <div className="nav-bar">
-        <Menu pointing secondary>
-          <img src={logo} className="logo" />
-          <Menu.Item
-            name="My Projects"
-            //active={activeItem === 'My Projects'}
-            //onClick={this.handleItemClick}
-            href="/projects"
-          />
-          <Menu.Item
-            name="Calendar"
-            //active={activeItem === 'Calendar'}
-            //onClick={this.handleItemClick}
-            href="/calendar"
-          />
-          {userMenu()}
-        </Menu>
-      </div>
-    );
-  }
-
+  return (
+    <div className="nav-bar">
+      <Menu pointing secondary>
+        <img src={logo} className="logo" />
+        <Menu.Item
+          name="My Projects"
+          //active={activeItem === 'My Projects'}
+          //onClick={this.handleItemClick}
+          href="/projects"
+        />
+        <Menu.Item
+          name="Calendar"
+          //active={activeItem === 'Calendar'}
+          //onClick={this.handleItemClick}
+          href="/calendar"
+        />
+        {userMenu()}
+      </Menu>
+    </div>
+  );
+};
 
 //const handleLogout = () => {
 //   localStorage.removeItem("token");
@@ -128,4 +132,4 @@ const NavBar = () => {
 //   );
 // };
 
- export default NavBar;
+export default NavBar;

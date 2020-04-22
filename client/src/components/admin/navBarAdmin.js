@@ -11,6 +11,7 @@ export default class NavBarAdmin extends Component {
     localStorage.removeItem("token");
     localStorage.removeItem("userEmail");
     localStorage.removeItem("username");
+    localStorage.removeItem("userCalendarID");
     axios.defaults.headers.common["token"] = null;
   };
 
