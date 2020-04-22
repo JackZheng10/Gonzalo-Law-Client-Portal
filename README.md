@@ -1,5 +1,5 @@
 # Gonzalo Law Client Portal #
-The website is a client portal designed to host infromation for the clients and employees. The webiste has a user facing side designed for clients to recieve information and an administrative side controlled by the company that is used to transfer information to the client.
+The website is a client portal designed to host infromation for the clients and employees. The website has a user facing side designed for clients to recieve information and an administrative side controlled by the company that is used to transfer information to the client.
 
 ## Features ##
 
@@ -11,10 +11,11 @@ The website is a client portal designed to host infromation for the clients and 
 * Admin able to create new project for clients
 * Admin able to update the phase of a project
 * Admin able to remove projects from a client
-### File (google cloud storage) ###
+### File (Google Cloud Storage) ###
 * Able to upload files to specific projects
-* Able to download files.
-* Admin can delete files.Calendar (google calendar)
+* Able to download files
+* Admin can delete files
+### Calendar (Google Calendar API) ###
 * Admin able to add events 
 ### Payment ###
 * Client able to navigate to payment system from menu
