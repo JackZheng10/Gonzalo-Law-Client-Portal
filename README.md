@@ -21,11 +21,10 @@ The website is a client portal designed to host infromation for the clients and 
 * Client able to navigate to payment system from menu
 
 ## Links ##
-* [Server] (https://github.com/JackZheng10/Gonzalo-Law-Client-Portal/blob/master/server/README.md)
 * [Client] (https://github.com/JackZheng10/Gonzalo-Law-Client-Portal/blob/master/client/README.md)
+* [Server] (https://github.com/JackZheng10/Gonzalo-Law-Client-Portal/blob/master/server/README.md)
 
-## How to run locally
-
+## How to run locally ##
 * Follow the structure in example.config.js (client), example.config.js (server), and client_secret_test_example.json (server) to set up the configuration variables in each file.<br/>
   * Rename these files to config.js, config.js, and client_secret_test.json, respectively.<br/>
 * Run `npm install` from the root and client directory. <br/>
