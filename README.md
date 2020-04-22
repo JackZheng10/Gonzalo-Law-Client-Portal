@@ -21,8 +21,8 @@ The website is a client portal designed to host infromation for the clients and 
 * Client able to navigate to payment system from menu
 
 ## Links ##
-[Server] (https://github.com/JackZheng10/Gonzalo-Law-Client-Portal/blob/master/server/README.md)
-[Client] (https://github.com/JackZheng10/Gonzalo-Law-Client-Portal/blob/master/client/README.md)
+* [Server] (https://github.com/JackZheng10/Gonzalo-Law-Client-Portal/blob/master/server/README.md)
+* [Client] (https://github.com/JackZheng10/Gonzalo-Law-Client-Portal/blob/master/client/README.md)
 
 ## How to run locally
 
