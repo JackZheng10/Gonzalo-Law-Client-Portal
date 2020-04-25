@@ -25,7 +25,8 @@ The website is a client portal designed to host infromation for the clients and 
 * [Server] (https://github.com/JackZheng10/Gonzalo-Law-Client-Portal/blob/master/server/README.md)
 
 ## How to run locally ##
-* Follow the structure in example.config.js (client), example.config.js (server), and client_secret_test_example.json (server) to set up the configuration variables in each file.<br/>
-  * Rename these files to config.js, config.js, and client_secret_test.json, respectively.<br/>
+* Follow the structure and instructions in example.config.js (client), example.config.js (server), example.keyFile.json(server), and client_secret_test_example.json (server) to set up the configuration variables in each file.<br/>
+  * Rename these files to config.js, config.js, keyFile.json, and client_secret_test.json, respectively.<br/>
+* Based on your Google Cloud Storage bucket as specified in the instructions of example.keyFile.json, change the identifiers in lines 5 and 6 of fileController.js (server).
 * Run `npm install` from the root and client directory. <br/>
 * Finally, run `npm run dev` from the root directory, which will launch both the frontend and backend.<br/>
