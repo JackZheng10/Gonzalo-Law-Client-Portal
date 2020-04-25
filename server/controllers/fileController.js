@@ -4,12 +4,12 @@ const jwtDecode = require("jwt-decode");
 
 //Keys expire after sprint2 and have to be regenerated
 const projectId = 'polished-engine-272617'
-const keyFilename = 'server/keys/keyFile.json'
+//const keyFilename = 'server/keys/keyFile.json'
 
 const bucketName = 'gonzl-2'
 
 //create a client
-const storage = new Storage({ projectId, keyFilename });
+const storage = new Storage({projectId});
 const bucket = storage.bucket(bucketName);
 
 //Sources: google cloud documentation
