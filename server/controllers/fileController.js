@@ -13,18 +13,7 @@ let storage = null;
 //set the key file/credentials used
 if (process.env.NODE_ENV === "production") {
   //heroku deployment
-  const KEYFILE_PATH = path.join(__dirname, "/keyFile.json");
-  fs.writeFile(KEYFILE_PATH, process.env.GCS_KEYFILE, (err) => {
-    if (err) {
-      console.log(
-        "There was an error with generating a key file on Heroku: " + err
-      );
-    } else {
-      console.log("Key file generated successfully.");
-    }
-  });
-
-  let keyPath = "./keyFile.json";
+  let keyPath = path.join(__dirname, "/keyFile.json");
   storage = new Storage({ projectId, keyPath });
 } else {
   //local deployment
