@@ -13,7 +13,7 @@ let storage = null;
 //set the key file/credentials used
 if (process.env.NODE_ENV === "production") {
   //heroku deployment
-  let keyPath = path.join(__dirname, "/keyFile.json");
+  let keyPath = "/keyFile.json";
   storage = new Storage({ projectId, keyPath });
 } else {
   //local deployment
