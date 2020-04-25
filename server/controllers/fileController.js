@@ -14,7 +14,7 @@ let storage = null;
 if (process.env.NODE_ENV === "production") {
   //heroku deployment
   let keyPath = "keyFile.json";
-  storage = new Storage({ projectId, keyPath });
+  storage = new Storage({ projectId });
 } else {
   //local deployment
   storage = new Storage({ projectId, keyFilename });
