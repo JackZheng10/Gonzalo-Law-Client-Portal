@@ -57,14 +57,24 @@ const pwdResetEmail = async (req, res) => {
 
         //send mail with defined transport object
         //note: for mailjet, the from field must be from a validated address which you can configure on your mailjet dashboard
+
+        let resetURL = "";
+        if (process.env.NODE_ENV === "production") {
+          //heroku deployment
+          resetURL = "http://gonzalo-law-portal.herokuapp.com/resetpassword/";
+        } else {
+          //local deployment
+          resetURL = "http://localhost:8000/resetpassword/";
+        }
+
         let info = await transporter
           .sendMail({
             from: "email@yourdomain.com", // sender address
             to: req.body.email, // list of receivers
             subject: "Gonzalo Law - Password Reset Link", // Subject line
-            //heroku: http://gonzalo-law-portal.herokuapp.com/resetpassword/, local: http://localhost:8000/resetpassword/
             text:
-              "Please visit the following link to reset your password: http://localhost:8000/resetpassword/" +
+              "Please visit the following link to reset your password: " +
+              resetURL +
               sessionID +
               " (This link will expire in 1 hour from the time you received this message.)", // plain text body
           })

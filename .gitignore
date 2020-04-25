@@ -57,3 +57,5 @@ yarn-error.log*
 # User-specific stuff
 .idea/*
 server/controllers/token.json
+server/keys/keyFile.json
+
