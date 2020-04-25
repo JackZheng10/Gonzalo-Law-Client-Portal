@@ -1,5 +1,5 @@
 {
-  "type": "",
+  "type": "These are the credentials from your file storage bucket service account. First, go to Storage -> Browser and create a bucket. Then, create a service account by going to IAM and Admin -> Service Accounts. This should be within the same project as your Google Calendar API key.",
   "project_id": "",
   "private_key_id": "",
   "private_key": "",
