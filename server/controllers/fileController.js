@@ -1,6 +1,7 @@
 const { Storage } = require("@google-cloud/storage");
 const jwtDecode = require("jwt-decode");
 const path = require("path");
+const fs = require("fs");
 
 //file storage bucket details, replace as needed
 const projectId = "polished-engine-272617";
