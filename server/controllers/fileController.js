@@ -3,7 +3,7 @@ const jwtDecode = require("jwt-decode");
 const path = require("path");
 const fs = require("fs");
 
-//file storage bucket details, replace as needed
+//file storage bucket details, replace as needed as specified in example.keyFile.json
 const projectId = "polished-engine-272617";
 const bucketName = "gonzl-2";
 
@@ -12,7 +12,8 @@ let storage = null;
 
 //set the key file/credentials used
 if (process.env.NODE_ENV === "production") {
-  //heroku deployment
+  //heroku deployment, using the keyFile generated from the preinstall script
+  //!!!remember to point the GOOGLE_APPLICATION_CREDENTIALS config var to this file in addition to keyPath
   let keyPath = "../keyFile.json";
   storage = new Storage({ projectId, keyPath });
 } else {
